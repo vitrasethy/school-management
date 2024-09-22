@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Attributes\RegisterOperation;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -18,6 +19,7 @@ class RegisteredUserController extends Controller
      *
      * @throws ValidationException
      */
+    #[RegisterOperation]
     public function store(Request $request): JsonResponse
     {
         $request->validate([
