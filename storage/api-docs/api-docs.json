@@ -64,6 +64,21 @@
                 }
             }
         },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User logout",
+                "description": "Destroy a token from database.",
+                "operationId": "0ab4e3cf7bc4f7ec81b48f7928c7de7c",
+                "responses": {
+                    "204": {
+                        "description": "Successful logout"
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
