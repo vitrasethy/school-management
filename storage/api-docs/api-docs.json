@@ -152,13 +152,13 @@
         "/api/user": {
             "get": {
                 "tags": [
-                    "Authentication"
+                    "User"
                 ],
                 "summary": "Get current user",
                 "operationId": "fcc1681bb04213cfcdc39a0a0a4caabf",
                 "responses": {
                     "200": {
-                        "description": "Successful login",
+                        "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -187,7 +187,12 @@
                     "401": {
                         "description": "Unauthenticated"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },
@@ -195,6 +200,10 @@
         {
             "name": "Authentication",
             "description": "Authentication"
+        },
+        {
+            "name": "User",
+            "description": "User"
         }
     ],
     "components": {

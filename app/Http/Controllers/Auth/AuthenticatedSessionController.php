@@ -22,7 +22,10 @@ class AuthenticatedSessionController extends Controller
 
         $token = $request->user()->createToken($request->email)->plainTextToken;
 
-        return response()->json(["token" => $token]);
+        return response()->json([
+            "token" => $token,
+            'expires' => 24 * 60 * 60
+        ]);
     }
 
     /**

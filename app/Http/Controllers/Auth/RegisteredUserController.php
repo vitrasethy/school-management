@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -38,6 +39,9 @@ class RegisteredUserController extends Controller
 
         $token = $user->createToken($user->email)->plainTextToken;
 
-        return response()->json(["token" => $token]);
+        return response()->json([
+            "token" => $token,
+            'expires' => 24 * 60 * 60
+        ]);
     }
 }

@@ -16,7 +16,8 @@ class GetCurrentUserOperation extends OA\Get
         parent::__construct(
             path: '/api/user',
             summary: 'Get current user',
-            tags: ['Authentication'],
+            security: [['bearerAuth' => []]],
+            tags: ['User'],
             responses: [
                 new OAResponse(
                     response: 200,
