@@ -24,7 +24,7 @@ class AuthenticatedSessionController extends Controller
 
         return response()->json([
             "token" => $token,
-            'expires' => 24 * 60 * 60
+            'expires' => 24 * 60 * 60 * 1000
         ]);
     }
 
