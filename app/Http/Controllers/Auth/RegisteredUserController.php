@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Attributes\RegisterOperation;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -39,9 +40,12 @@ class RegisteredUserController extends Controller
 
         $token = $user->createToken($user->email)->plainTextToken;
 
+        $user_resource = new UserResource($request->user()->load('roles'));
+
         return response()->json([
-            "token" => $token,
-            'expires' => 24 * 60 * 60 * 1000
+            'token' => $token,
+            'expires' => 24 * 60 * 60 * 1000,
+            ...$user_resource->toArray($request),
         ]);
     }
 }
