@@ -7,16 +7,17 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('groups', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('department_id')->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->foreignId('category_type_id');
+            $table->string('school_year');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('groups');
     }
 };

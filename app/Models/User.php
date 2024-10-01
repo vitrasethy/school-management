@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_super_admin'
     ];
 
     /**
@@ -46,13 +47,5 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_super_admin' => 'boolean',
         ];
-    }
-
-    public function roles(): BelongsToMany
-    {
-        return $this
-            ->belongsToMany(Role::class, 'category_role_users')
-            ->withPivot('category_id')
-            ->withTimestamps();
     }
 }

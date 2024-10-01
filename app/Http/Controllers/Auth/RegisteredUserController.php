@@ -22,7 +22,7 @@ class RegisteredUserController extends Controller
      * @throws ValidationException
      */
     #[RegisterOperation]
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -33,6 +33,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'is_super_admin' => false,
             'password' => Hash::make($request->string('password')),
         ]);
 
@@ -40,7 +41,7 @@ class RegisteredUserController extends Controller
 
         $token = $user->createToken($user->email)->plainTextToken;
 
-        $user_resource = new UserResource($request->user()->load('roles'));
+        $user_resource = new UserResource($user->load('roles'));
 
         return response()->json([
             'token' => $token,
