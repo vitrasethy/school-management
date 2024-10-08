@@ -7,9 +7,11 @@
     "require": {
         "php": "^8.2",
         "darkaonline/l5-swagger": "^8.6",
+        "jeroennoten/laravel-adminlte": "^3.13",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "laravel/ui": "^4.5",
         "livewire/livewire": "^3.5",
         "zircote/swagger-php": "^4.10"
     },
