@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\Api\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\Api\RegisteredUserController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\UserController;
