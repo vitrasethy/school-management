@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use OpenApi\Attributes as OA;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
-#[OA\Info(
-    version: '1.0.0',
-    title: 'School Management System',
-    description: 'An API for manage school records.',
-)]
-abstract class Controller
+class Controller extends BaseController
 {
-    //
+    use AuthorizesRequests, ValidatesRequests;
 }
