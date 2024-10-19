@@ -10,6 +10,7 @@ class School extends Model
 {
     protected $fillable = [
         'name',
+        'khmer_name'
     ];
 
     public function departments(): HasMany
