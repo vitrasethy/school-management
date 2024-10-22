@@ -30,7 +30,7 @@
         @include('layouts.sidebar')
         {{-- Content Wrapper --}}
         <div class="content-wrapper">
-            <div class="p-4">
+            <div class="p-2 p-md-4">
                 {{ $slot }}
             </div>
         </div>

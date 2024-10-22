@@ -43,6 +43,29 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item" id="departments">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Department
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('department') }}" class="nav-link" id="departments-list">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Department List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('department.create') }}" class="nav-link" id="departments-create">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Create Department</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

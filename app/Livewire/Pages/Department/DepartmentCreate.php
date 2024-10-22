@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Department;
+namespace App\Livewire\Pages\Department;
 
 use App\Livewire\Forms\DepartmentForm;
 use App\Models\School;
@@ -10,20 +10,14 @@ class DepartmentCreate extends Component
 {
     public DepartmentForm $form;
 
-    public function mount(School $school)
-    {
-        $this->form->setSchoolId($school);
-    }
-
     public function save()
     {
         $this->form->create();
-        $this->form->name = "";
-        $this->dispatch('created-department');
+        return $this->redirect('/department');
     }
 
     public function render()
     {
-        return view('livewire.department.department-create');
+        return view('livewire.pages.department.department-create', ['schools' => School::get()]);
     }
 }

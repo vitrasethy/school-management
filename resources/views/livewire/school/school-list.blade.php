@@ -45,10 +45,7 @@
                         <td>{{ $school->created_at }}</td>
                         <td>{{ $school->updated_at }}</td>
                         <td>
-                            {{-- <div class="d-flex">
-                                <a href="{{ route('themes.edit', $theme->id) }}" class="btn btn-primary mr-2">Edit</a>
-                                <x-test :id='$theme->id'></x-test>
-                            </div> --}}
+                            <a href="{{ route('school.index', $school->id) }}" class="btn btn-primary">View</a>
                         </td>
                     </tr>
                 @endforeach
