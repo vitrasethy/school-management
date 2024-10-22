@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Actions\CreateSchool;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\SchoolRequest;
 use App\Http\Resources\SchoolResource;
 use App\Models\School;
@@ -32,9 +33,9 @@ class SchoolController extends Controller
     {
         $validated = $request->validated();
 
-        $new_school = $school->update($validated);
+        $school->update($validated);
 
-        return new SchoolResource($new_school);
+        return new SchoolResource($school);
     }
 
     public function destroy(School $school)

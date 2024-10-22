@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'role_assignments')->withPivot('school_id')->withTimestamps();
     }
+
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class);
+    }
 }
