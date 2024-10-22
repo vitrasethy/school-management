@@ -6,7 +6,7 @@ use App\Livewire\Forms\DepartmentForm;
 use App\Models\School;
 use Livewire\Component;
 
-class DepartmentCreate extends Component
+class Create extends Component
 {
     public DepartmentForm $form;
 
@@ -24,6 +24,6 @@ class DepartmentCreate extends Component
 
     public function render()
     {
-        return view('livewire.department.department-create');
+        return view('livewire.department.create');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\School;
+namespace App\Livewire\Pages\School;
 
 use App\Livewire\Forms\SchoolForm;
 use Livewire\Component;
@@ -17,6 +17,6 @@ class SchoolCreate extends Component
 
     public function render()
     {
-        return view('livewire.school.school-create');
+        return view('livewire.pages.school.school-create');
     }
 }

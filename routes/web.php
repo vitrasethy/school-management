@@ -10,15 +10,14 @@ use App\Livewire\Pages\Group\GroupEdit;
 use App\Livewire\Pages\Group\GroupIndex;
 use App\Livewire\Pages\Student\StudentEdit;
 use App\Livewire\Pages\Student\StudentIndex;
-use App\Livewire\School\SchoolCreate;
-use App\Livewire\School\SchoolIndex;
-use App\Livewire\School\SchoolList;
-use App\Livewire\School\SchoolUpdate;
+use App\Livewire\Pages\School\SchoolCreate;
+use App\Livewire\Pages\School\SchoolIndex;
+use App\Livewire\Pages\School\SchoolList;
+use App\Livewire\Pages\School\SchoolUpdate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [HomeController::class, 'index'])->middleware('auth')->name('home');
-Route::get("/profile", [ProfileController::class, 'index'])->middleware('auth')->name('profile');
 // School
 Route::get('/school', SchoolList::class)->middleware('auth')->name('school');
 Route::get('/school/create', SchoolCreate::class)->middleware('auth')->name('school.create');

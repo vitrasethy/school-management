@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\School;
+namespace App\Livewire\Pages\School;
 
 use App\Livewire\Forms\SchoolForm;
 use App\Models\School;
@@ -23,6 +23,6 @@ class SchoolUpdate extends Component
 
     public function render()
     {
-        return view('livewire.school.school-update');
+        return view('livewire.pages.school.school-update');
     }
 }

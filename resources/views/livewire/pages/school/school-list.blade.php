@@ -24,14 +24,17 @@
                     <th>
                         {{-- <x-sort-button :name="'id'" :displayName="'ID'" :sortBy="$sortBy"
                             :sortDir="$sortDir"></x-sort-button> --}}
+                        ID
                     </th>
                     <th>
                         {{-- <x-sort-button :name="'name'" :displayName="'Name'" :sortBy="$sortBy"
                             :sortDir="$sortDir"></x-sort-button> --}}
+                        Name
                     </th>
                     <th>
                         {{-- <x-sort-button :name="'created_at'" :displayName="'Created At'" :sortBy="$sortBy"
                             :sortDir="$sortDir"></x-sort-button> --}}
+                        Created At
                     </th>
                     <th>Updated At</th>
                     <th>Action</th>
@@ -45,7 +48,11 @@
                         <td>{{ $school->created_at }}</td>
                         <td>{{ $school->updated_at }}</td>
                         <td>
-                            <a href="{{ route('school.index', $school->id) }}" class="btn btn-primary">View</a>
+                            <div>
+                                <a href="{{ route('school.index', $school->id) }}" class="btn btn-primary">View</a>
+                                <button class="btn btn-danger"
+                                    wire:click="$dispatch('alert-delete', {id: {{ $school->id }}})">Delete</button>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
@@ -65,27 +72,27 @@
             $("#schools").addClass("menu-open");
             $("#schools-index").addClass("my-active");
         });
-        // window.addEventListener("alert-delete", (event) => {
-        //     Swal.fire({
-        //         title: "Are you sure?",
-        //         text: "You won't be able to revert this!",
-        //         icon: "warning",
-        //         showCancelButton: true,
-        //         confirmButtonColor: "#3085d6",
-        //         cancelButtonColor: "#d33",
-        //         confirmButtonText: "Yes, delete it!"
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             Livewire.dispatch('confirmed-delete', {
-        //                 themeId: event.detail.id
-        //             })
-        //             Swal.fire({
-        //                 title: "Deleted!",
-        //                 text: "Your theme has been deleted.",
-        //                 icon: "success"
-        //             });
-        //         }
-        //     });
-        // });
+        window.addEventListener("alert-delete", (event) => {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('confirmed-delete', {
+                        school_id: event.detail.id
+                    })
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "School has been deleted.",
+                        icon: "success"
+                    });
+                }
+            });
+        });
     </script>
 @endsection
