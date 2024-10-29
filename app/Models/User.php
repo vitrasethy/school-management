@@ -48,14 +48,4 @@ class User extends Authenticatable
             'is_super_admin' => 'boolean',
         ];
     }
-
-    public function roles(): BelongsToMany
-    {
-        return $this->belongsToMany(Role::class, 'role_assignments')->withPivot('school_id')->withTimestamps();
-    }
-
-    public function groups(): BelongsToMany
-    {
-        return $this->belongsToMany(Group::class);
-    }
 }
