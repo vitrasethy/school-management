@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Group extends Model
 {
@@ -19,8 +20,8 @@ class Group extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function users(): BelongsToMany
+    public function roleAssignments(): MorphMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->morphMany(RoleAssignment::class, 'roleAssignmentable');
     }
 }

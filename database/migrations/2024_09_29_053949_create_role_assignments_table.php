@@ -14,7 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Role::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(School::class)->constrained()->cascadeOnDelete();
+            $table->string('role_assignmentable_type');
+            $table->integer('role_assignmentable_id');
             $table->timestamps();
         });
     }

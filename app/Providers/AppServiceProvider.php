@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,5 +28,10 @@ class AppServiceProvider extends ServiceProvider
 
         // This will remove the 'data' wrapping globally
         JsonResource::withoutWrapping();
+
+        // Allow super admin to access all requests
+        Gate::before(function ($user, $ability) {
+            return $user->is_super_admin ? true : null;
+        });
     }
 }
