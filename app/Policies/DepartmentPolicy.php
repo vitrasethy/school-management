@@ -25,7 +25,7 @@ class DepartmentPolicy
 
     public function create(User $user, Department $department): bool
     {
-        return $user->can('view', $department->school);
+        return $user->can('view', $department->school) && $user->is_super_admin === false;
     }
 
     public function update(User $user, Department $department): bool

@@ -30,8 +30,8 @@ class AppServiceProvider extends ServiceProvider
         JsonResource::withoutWrapping();
 
         // Allow super admin to access all requests
-        Gate::before(function ($user, $ability) {
-            return $user->is_super_admin ? true : null;
-        });
+        //Gate::before(function ($user, $ability) {
+        //    return $user->is_super_admin ? true : null;
+        //});
     }
 }

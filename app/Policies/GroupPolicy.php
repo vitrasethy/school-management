@@ -22,7 +22,7 @@ class GroupPolicy
 
     public function create(User $user, Group $group): bool
     {
-        return $user->can('viewAny', $group->department);
+        return $user->can('viewAny', $group->department) && $user->is_super_admin === false;
     }
 
     public function update(User $user, Group $group): bool
