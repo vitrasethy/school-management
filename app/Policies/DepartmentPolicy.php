@@ -8,8 +8,6 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DepartmentPolicy
 {
-    use HandlesAuthorization;
-
     public function viewAny(User $user, Department $department): bool
     {
         return $user->can('view', $department->school);
@@ -17,24 +15,24 @@ class DepartmentPolicy
 
     public function view(User $user, Department $department): bool
     {
-        $is_school_admin = $user->can('view', $department->school);
-        $is_department_admin = $department->roleAssignments()->whereUserId($user->id)->exists();
+        $isDepartAdmin = $user->role_id === 2;
+        $isRelateCurrDepart = $user->school_id === $department->school_id;
 
-        return $is_school_admin || $is_department_admin;
+        return $this->viewAny($user, $department) || ($isDepartAdmin && $isRelateCurrDepart);
     }
 
     public function create(User $user, Department $department): bool
     {
-        return $user->can('view', $department->school) && $user->is_super_admin === false;
+        return $this->view($user, $department) && $user->is_super_admin === false;
     }
 
     public function update(User $user, Department $department): bool
     {
-        return $user->can('view', $department->school);
+        return $this->view($user, $department);
     }
 
     public function delete(User $user, Department $department): bool
     {
-        return $user->can('view', $department->school);
+        return $this->view($user, $department);
     }
 }

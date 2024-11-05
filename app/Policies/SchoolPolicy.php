@@ -15,7 +15,10 @@ class SchoolPolicy
 
     public function view(User $user, School $school): bool
     {
-        return $school->roleAssignments()->whereUserId($user->id)->exists();
+        $isSchoolAdmin = $user->role_id === 1;
+        $isRelateCurrSchool = $user->school_id === $school->id;
+
+        return $this->viewAny($user) || ($isRelateCurrSchool && $isSchoolAdmin);
     }
 
     public function update(User $user, School $school): bool
