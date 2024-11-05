@@ -20,32 +20,34 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item" id="schools">
+                @if (Auth::user()->load('roleAssignments'))
+                    <li class="nav-item" id="school">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-school"></i>
+                            <p>
+                                School
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('super.school.show') }}" class="nav-link" id="school-show">
+                                    <i class="fas fa-angle-double-right nav-icon"></i>
+                                    <p>School List</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('super.school.create') }}" class="nav-link" id="school-create">
+                                    <i class="fas fa-angle-double-right nav-icon"></i>
+                                    <p>Create School</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                <li class="nav-item" id="department">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            School
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('school') }}" class="nav-link" id="schools-list">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>School List</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('school.create') }}" class="nav-link" id="schools-create">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Create School</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item" id="departments">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fa fa-building"></i>
                         <p>
                             Department
                             <i class="right fas fa-angle-left"></i>
@@ -53,15 +55,61 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('department') }}" class="nav-link" id="departments-list">
+                            <a href="{{ route('department.show') }}" class="nav-link" id="department-show">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Department List</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('department.create') }}" class="nav-link" id="departments-create">
+                            <a href="{{ route('department.create') }}" class="nav-link" id="department-create">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Create Department</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" id="group">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-users"></i>
+                        <p>
+                            Group
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('group.show') }}" class="nav-link" id="group-show">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Group List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('group.create') }}" class="nav-link" id="group-create">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Create Group</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" id="user">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-user"></i>
+                        <p>
+                            User
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('user.show') }}" class="nav-link" id="user-show">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>User List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('user.create') }}" class="nav-link" id="user-create">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Create User</p>
                             </a>
                         </li>
                     </ul>

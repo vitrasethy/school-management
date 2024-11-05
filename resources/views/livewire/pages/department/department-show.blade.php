@@ -16,23 +16,15 @@
                 <thead>
                     <tr>
                         <th>
-                            {{-- <x-sort-button :name="'id'" :displayName="'ID'" :sortBy="$sortBy"
-                                :sortDir="$sortDir"></x-sort-button> --}}
                             ID
                         </th>
                         <th>
-                            {{-- <x-sort-button :name="'name'" :displayName="'Name'" :sortBy="$sortBy"
-                                :sortDir="$sortDir"></x-sort-button> --}}
                             Name
                         </th>
                         <th>
-                            {{-- <x-sort-button :name="'name'" :displayName="'Name'" :sortBy="$sortBy"
-                                :sortDir="$sortDir"></x-sort-button> --}}
                             School
                         </th>
                         <th>
-                            {{-- <x-sort-button :name="'created_at'" :displayName="'Created At'" :sortBy="$sortBy"
-                                :sortDir="$sortDir"></x-sort-button> --}}
                             Created At
                         </th>
                         <th>Updated At</th>
@@ -49,7 +41,11 @@
                             <td>{{ $department->updated_at }}</td>
                             <td>
                                 <a href="{{ route('department.index', $department->id) }}"
-                                    class="btn btn-primary">View</a>
+                                    class="btn btn-sm btn-success">View</a>
+                                <a href="{{ route('department.edit', $department->id) }}"
+                                    class="btn btn-sm btn-primary">Edit</a>
+                                <button class="btn btn-sm btn-danger"
+                                    wire:click="$dispatch('alert-delete', {id: {{ $department->id }}})">Delete</button>
                             </td>
                         </tr>
                     @endforeach
@@ -61,3 +57,36 @@
         </div>
     </div>
 </div>
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $("#sidebar li a").removeClass("active");
+            $("#department>a").addClass("active");
+            $("#department").addClass("menu-open");
+            $("#department-show").addClass("my-active");
+        });
+        window.addEventListener("alert-delete", (event) => {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('confirmed-delete', {
+                        school_id: event.detail.id
+                    })
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Department has been deleted.",
+                        icon: "success"
+                    });
+                }
+            });
+        });
+    </script>
+@endsection

@@ -32,3 +32,15 @@
         </form>
     </div>
 </div>
+
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $("#sidebar li a").removeClass("active");
+            $("#department>a").addClass("active");
+            $("#department").addClass("menu-open");
+            $("#department-create").addClass("my-active");
+        });
+    </script>
+@endsection

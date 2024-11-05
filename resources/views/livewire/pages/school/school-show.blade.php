@@ -1,7 +1,7 @@
 <div class="card card-primary">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
-            <h3 class="card-title">Themes Table</h3>
+            <h3 class="card-title">School List</h3>
             <div class="row">
                 <div class="col-4">
                     <select wire:model.live='perPage' class="form-control mr-2" aria-label="Default select example">
@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-8">
                     <input wire:model.live.debounce.500ms="search" type="text" class="form-control"
-                        placeholder="Search Themes" />
+                        placeholder="Search School" />
                 </div>
             </div>
         </div>
@@ -22,18 +22,12 @@
             <thead>
                 <tr>
                     <th>
-                        {{-- <x-sort-button :name="'id'" :displayName="'ID'" :sortBy="$sortBy"
-                            :sortDir="$sortDir"></x-sort-button> --}}
                         ID
                     </th>
                     <th>
-                        {{-- <x-sort-button :name="'name'" :displayName="'Name'" :sortBy="$sortBy"
-                            :sortDir="$sortDir"></x-sort-button> --}}
                         Name
                     </th>
                     <th>
-                        {{-- <x-sort-button :name="'created_at'" :displayName="'Created At'" :sortBy="$sortBy"
-                            :sortDir="$sortDir"></x-sort-button> --}}
                         Created At
                     </th>
                     <th>Updated At</th>
@@ -49,8 +43,11 @@
                         <td>{{ $school->updated_at }}</td>
                         <td>
                             <div>
-                                <a href="{{ route('school.index', $school->id) }}" class="btn btn-primary">View</a>
-                                <button class="btn btn-danger"
+                                <a href="{{ route('super.school.index', $school->id) }}"
+                                    class="btn btn-sm btn-success">View</a>
+                                <a href="{{ route('school.edit', $school->id) }}"
+                                    class="btn btn-sm btn-primary">Edit</a>
+                                <button class="btn btn-sm btn-danger"
                                     wire:click="$dispatch('alert-delete', {id: {{ $school->id }}})">Delete</button>
                             </div>
                         </td>
@@ -68,8 +65,8 @@
     <script>
         $(document).ready(function() {
             $("#sidebar li a").removeClass("active");
-            $("#schools>a").addClass("active");
-            $("#schools").addClass("menu-open");
+            $("#school>a").addClass("active");
+            $("#school").addClass("menu-open");
             $("#schools-index").addClass("my-active");
         });
         window.addEventListener("alert-delete", (event) => {

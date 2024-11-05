@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Edit Department</h3>
+            <h3 class="card-title">Create Group</h3>
         </div>
         <form wire:submit='save'>
             <div class="card-body">
@@ -14,7 +14,7 @@
                 </div>
                 <div class="form-group">
                     <label>School</label>
-                    <select wire:model='form.school_id' class="form-control">
+                    <select wire:model.live='school_id' class="form-control">
                         <option value="">Select a school</option>
                         @foreach ($schools as $school)
                             <option wire:key='{{ $school->id }}' value="{{ $school->id }}">{{ $school->name }}
@@ -27,8 +27,20 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary">Create</button>
             </div>
         </form>
     </div>
 </div>
+
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $("#sidebar li a").removeClass("active");
+            $("#group>a").addClass("active");
+            $("#group").addClass("menu-open");
+            $("#group-create").addClass("my-active");
+        });
+    </script>
+@endsection

@@ -8,7 +8,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class SchoolList extends Component
+class SchoolShow extends Component
 {
     use WithPagination;
 
@@ -24,6 +24,6 @@ class SchoolList extends Component
 
     public function render()
     {
-        return view('livewire.pages.school.school-list', ['schools' => School::paginate($this->pageSize)]);
+        return view('livewire.pages.school.school-show', ['schools' => School::paginate($this->pageSize)]);
     }
 }
