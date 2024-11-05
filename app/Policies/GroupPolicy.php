@@ -17,7 +17,10 @@ class GroupPolicy
 
     public function view(User $user, Group $group): bool
     {
-        return $user->can('view', $group->department) || $group->roleAssignments()->whereUserId($user->id)->exists();
+        $isTeachOrStudent = $user->role_id === 3 || $user->role_id === 4;
+        $isRelateCurrGroup = $user->school_id === $group->department->school->id;
+
+        return $this->viewAny($user, $group) || ($isTeachOrStudent && $isRelateCurrGroup);
     }
 
     public function create(User $user, Group $group): bool
