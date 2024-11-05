@@ -13,99 +13,107 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false" id="sidebar">
                 <li class="nav-item">
-                    <a href="#" class="nav-link" id="dashboard">
+                    <a href="{{ route('home') }}" class="nav-link" id="dashboard">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
                         </p>
                     </a>
                 </li>
-                {{-- <li class="nav-item" id="themes">
+                @if (Auth::user()->load('roleAssignments'))
+                    <li class="nav-item" id="school">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-school"></i>
+                            <p>
+                                School
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('super.school.show') }}" class="nav-link" id="school-show">
+                                    <i class="fas fa-angle-double-right nav-icon"></i>
+                                    <p>School List</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('super.school.create') }}" class="nav-link" id="school-create">
+                                    <i class="fas fa-angle-double-right nav-icon"></i>
+                                    <p>Create School</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                <li class="nav-item" id="department">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fa fa-building"></i>
                         <p>
-                            Themes
+                            Department
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('themes') }}" class="nav-link" id="themes-index">
+                            <a href="{{ route('department.show') }}" class="nav-link" id="department-show">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Theme List</p>
+                                <p>Department List</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('themes.create') }}" class="nav-link" id="themes-create">
+                            <a href="{{ route('department.create') }}" class="nav-link" id="department-create">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Create Theme</p>
+                                <p>Create Department</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item" id="product">
+                <li class="nav-item" id="group">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-box"></i>
+                        <i class="nav-icon fa fa-users"></i>
                         <p>
-                            Products
+                            Group
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('products') }}" class="nav-link" id="product-index">
+                            <a href="{{ route('group.show') }}" class="nav-link" id="group-show">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Product List</p>
+                                <p>Group List</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('products.create') }}" class="nav-link" id="product-create">
+                            <a href="{{ route('group.create') }}" class="nav-link" id="group-create">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Create Product</p>
+                                <p>Create Group</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item" id="order">
+                <li class="nav-item" id="user">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-boxes"></i>
+                        <i class="nav-icon fa fa-user"></i>
                         <p>
-                            Orders
+                            User
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('orders') }}" class="nav-link" id="order-index">
+                            <a href="{{ route('user.show') }}" class="nav-link" id="user-show">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Orders List</p>
+                                <p>User List</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('orders.create') }}" class="nav-link" id="order-create">
+                            <a href="{{ route('user.create') }}" class="nav-link" id="user-create">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Create Order</p>
+                                <p>Create User</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item" id="delivery">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-dolly"></i>
-                        <p>
-                            Deliveries
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('orders') }}" class="nav-link" id="delivery-index">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Deliveries List</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

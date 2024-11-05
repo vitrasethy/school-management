@@ -10,7 +10,10 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class School extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+        'khmer_name'
+    ];
 
     public function departments(): HasMany
     {
