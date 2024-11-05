@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class RoleAssignment extends Model
@@ -14,5 +15,10 @@ class RoleAssignment extends Model
     public function roleAssignmentable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
     }
 }
