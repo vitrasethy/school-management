@@ -20,7 +20,7 @@
                         </p>
                     </a>
                 </li>
-                @if (Auth::user()->load('roleAssignments'))
+                @if (Auth::user()->is_super_admin)
                     <li class="nav-item" id="school">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-school"></i>
@@ -36,38 +36,45 @@
                                     <p>School List</p>
                                 </a>
                             </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" id="setting">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-cog"></i>
+                            <p>
+                                Setting
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('super.school.create') }}" class="nav-link" id="school-create">
+                                <a href="{{ route('super.school.show') }}" class="nav-link" id="role">
                                     <i class="fas fa-angle-double-right nav-icon"></i>
-                                    <p>Create School</p>
+                                    <p>Roles</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
                 @endif
-                <li class="nav-item" id="department">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-building"></i>
-                        <p>
-                            Department
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('department.show') }}" class="nav-link" id="department-show">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Department List</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('department.create') }}" class="nav-link" id="department-create">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Create Department</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @if (Auth::user()->role_id == 1 || Auth::user()->is_super_admin)
+                    <li class="nav-item" id="department">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-building"></i>
+                            <p>
+                                Department
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('department.show') }}" class="nav-link" id="department-show">
+                                    <i class="fas fa-angle-double-right nav-icon"></i>
+                                    <p>Department List</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
                 <li class="nav-item" id="group">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
@@ -81,12 +88,6 @@
                             <a href="{{ route('group.show') }}" class="nav-link" id="group-show">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Group List</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('group.create') }}" class="nav-link" id="group-create">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Create Group</p>
                             </a>
                         </li>
                     </ul>
@@ -104,12 +105,6 @@
                             <a href="{{ route('user.show') }}" class="nav-link" id="user-show">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>User List</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('user.create') }}" class="nav-link" id="user-create">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Create User</p>
                             </a>
                         </li>
                     </ul>

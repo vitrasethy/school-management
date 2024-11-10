@@ -33,6 +33,7 @@ class DepartmentForm extends Form
     {
         $this->validate();
         Department::create($this->all());
+        $this->reset('name');
     }
 
     public function update()

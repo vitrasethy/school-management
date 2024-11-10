@@ -1,11 +1,18 @@
 <div class="card card-primary">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
-            <h3 class="card-title">Department Table</h3>
+            <h3 class="card-title">School List</h3>
             <div class="row">
-                <div class="col-12">
+                <div class="col-4">
+                    <select wire:model.live='perPage' class="form-control mr-2" aria-label="Default select example">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+                <div class="col-8">
                     <input wire:model.live.debounce.500ms="search" type="text" class="form-control"
-                        placeholder="Search Department" />
+                        placeholder="Search School" />
                 </div>
             </div>
         </div>
@@ -21,9 +28,6 @@
                         Name
                     </th>
                     <th>
-                        School
-                    </th>
-                    <th>
                         Created At
                     </th>
                     <th>Updated At</th>
@@ -31,21 +35,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($departments as $department)
-                    <tr wire:key='{{ $department->id }}'>
-                        <td>{{ $department->id }}</td>
-                        <td>{{ $department->name }}</td>
-                        <td>{{ $department->school->name }}</td>
-                        <td>{{ $department->created_at }}</td>
-                        <td>{{ $department->updated_at }}</td>
+                @foreach ($schools as $school)
+                    <tr wire:key='{{ $school->id }}'>
+                        <td>{{ $school->id }}</td>
+                        <td>{{ $school->name }}</td>
+                        <td>{{ $school->created_at }}</td>
+                        <td>{{ $school->updated_at }}</td>
                         <td>
-                            <div class="d-flex align-items-center">
-                                {{-- <a href="{{ route('department.index', $department->id) }}"
+                            <div class="d-flex">
+                                {{-- <a href="{{ route('super.school.index', $school->id) }}"
                                     class="btn btn-sm btn-success">View</a> --}}
+                                <livewire:school.school-edit-modal :school="$school" :wire:key="$school->id" />
                                 <button class="btn btn-sm btn-danger"
-                                    wire:click="$dispatch('alert-delete', {id: {{ $department->id }}})">Delete</button>
-                                <livewire:department.edit-department-modal :department="$department"
-                                    :wire:key="'department-modal-'.$department->id" />
+                                    wire:click="$dispatch('alert-delete', {id: {{ $school->id }}})">Delete</button>
                             </div>
                         </td>
                     </tr>
@@ -54,18 +56,18 @@
         </table>
     </div>
     <div class="card-footer clearfix">
-        {{ $departments->links() }}
+        {{ $schools->links() }}
     </div>
 </div>
 
 @section('js')
     <script>
-        // $(document).ready(function() {
-        //     $("#sidebar li a").removeClass("active");
-        //     $("#schools>a").addClass("active");
-        //     $("#schools").addClass("menu-open");
-        //     $("#schools-index").addClass("my-active");
-        // });
+        $(document).ready(function() {
+            $("#sidebar li a").removeClass("active");
+            $("#school>a").addClass("active");
+            $("#school").addClass("menu-open");
+            $("#schools-index").addClass("my-active");
+        });
         window.addEventListener("alert-delete", (event) => {
             Swal.fire({
                 title: "Are you sure?",
@@ -78,11 +80,11 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.dispatch('confirmed-delete', {
-                        department_id: event.detail.id
+                        school_id: event.detail.id
                     })
                     Swal.fire({
                         title: "Deleted!",
-                        text: "Department has been deleted.",
+                        text: "School has been deleted.",
                         icon: "success"
                     });
                 }
