@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Group extends Model
 {
-    protected $fillable = ['department_id', 'name', 'school_year'];
+    protected $fillable = ['department_id', 'name', 'school_year', 'code'];
 
     public function department(): BelongsTo
     {

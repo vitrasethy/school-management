@@ -6,6 +6,7 @@ use App\Models\Department;
 use App\Models\Group;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Illuminate\Support\Str;
 
 class GroupForm extends Form
 {
@@ -34,7 +35,12 @@ class GroupForm extends Form
     public function create()
     {
         $this->validate();
-        Group::create($this->all());
+        Group::create([
+            'department_id' => $this->department_id,
+            'name' => $this->name,
+            'school_year' => $this->school_year,
+            'code' => Str::random(10),
+        ]);
         $this->reset(['department_id', 'name', 'school_year']);
     }
 

@@ -38,7 +38,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item" id="setting">
+                    {{-- <li class="nav-item" id="setting">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-cog"></i>
                             <p>
@@ -54,7 +54,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                 @endif
                 @if (Auth::user()->role_id == 1 || Auth::user()->is_super_admin)
                     <li class="nav-item" id="department">
