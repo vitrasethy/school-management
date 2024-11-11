@@ -27,6 +27,7 @@ class SchoolForm extends Form
     {
         $this->validate();
         School::create($this->all());
+        $this->reset(['name', 'khmer_name']);
     }
 
     public function update()
@@ -34,6 +35,4 @@ class SchoolForm extends Form
         $this->validate();
         $this->school->update($this->all());
     }
-
-    public function delete() {}
 }
