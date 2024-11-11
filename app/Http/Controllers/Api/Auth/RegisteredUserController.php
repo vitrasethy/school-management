@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
 
         $token = $user->createToken($user->email)->plainTextToken;
 
-        $user_resource = new UserResource($user->load('roles'));
+        $user_resource = new UserResource($user->load('role'));
 
         return response()->json([
             'token' => $token,
