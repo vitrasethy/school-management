@@ -16,8 +16,6 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'is_super_admin' => $this->is_super_admin,
-
-            'roles' => RoleAssignmentResource::collection($this->whenLoaded('roles')),
         ];
     }
 }

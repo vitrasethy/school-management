@@ -13,9 +13,6 @@ use Illuminate\Http\Response;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Handle an incoming authentication request.
-     */
     #[LoginOperation]
     public function store(LoginRequest $request): JsonResponse
     {
@@ -23,7 +20,7 @@ class AuthenticatedSessionController extends Controller
 
         $token = $request->user()->createToken($request->email)->plainTextToken;
 
-        $user_resource = new UserResource($request->user()->load('roles'));
+        $user_resource = new UserResource($request->user());
 
         return response()->json([
             'token' => $token,
@@ -32,9 +29,6 @@ class AuthenticatedSessionController extends Controller
         ]);
     }
 
-    /**
-     * Destroy a token from database.
-     */
     #[LogoutOperation]
     public function destroy(Request $request): Response
     {
