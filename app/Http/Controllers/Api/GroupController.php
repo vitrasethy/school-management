@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\GroupRequest;
 use App\Http\Resources\GroupResource;
 use App\Models\Group;
 use Auth;
 
-class GroupController extends Controller
+class GroupController extends BaseController
 {
     public function index()
     {
         $group = Group::all();
 
-        return GroupResource::collection($group);
+        return $this->successResponse(GroupResource::collection($group));
     }
 
     public function store(GroupRequest $request)
@@ -23,12 +22,12 @@ class GroupController extends Controller
 
         $group = Group::create($validated);
 
-        return new GroupResource($group);
+        return $this->successResponse(new GroupResource($group), 201);
     }
 
     public function show(Group $group)
     {
-        return new GroupResource($group);
+        return $this->successResponse(new GroupResource($group));
     }
 
     public function update(GroupRequest $request, Group $group)
@@ -37,20 +36,20 @@ class GroupController extends Controller
 
         $group->update($validated);
 
-        return new GroupResource($group);
+        return $this->successResponse(new GroupResource($group));
     }
 
     public function destroy(Group $group)
     {
         $group->delete();
 
-        return response()->noContent();
+        return $this->noContentResponse();
     }
 
     public function findByUser()
     {
         $groups = Group::whereRelation('users', 'id', '=', Auth::id())->get();
 
-        return GroupResource::collection($groups);
+        return $this->successResponse(GroupResource::collection($groups));
     }
 }

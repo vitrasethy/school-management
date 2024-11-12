@@ -3,17 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Attributes\GetCurrentUserOperation;
-use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
     #[GetCurrentUserOperation]
     public function getCurrentUser(Request $request)
     {
         $user = $request->user()->load('role');
 
-        return new UserResource($user);
+        return $this->successResponse(new UserResource($user));
     }
 }

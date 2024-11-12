@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\JoinGroupRequest;
 use App\Models\Group;
 use Auth;
 use function abort;
-use function response;
 
-class GroupCodeController extends Controller
+class GroupCodeController extends BaseController
 {
     public function join(Group $group, JoinGroupRequest $request)
     {
@@ -21,6 +19,6 @@ class GroupCodeController extends Controller
 
         $group->users()->attach(Auth::id());
 
-        return response()->noContent();
+        return $this->noContentResponse();
     }
 }
