@@ -12,7 +12,7 @@ class UserController extends Controller
     #[GetCurrentUserOperation]
     public function getCurrentUser(Request $request)
     {
-        $user = $request->user()->load('roles');
+        $user = $request->user()->load('role');
 
         return new UserResource($user);
     }
