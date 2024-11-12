@@ -10,6 +10,7 @@ use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use function dd;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -21,6 +22,8 @@ class AuthenticatedSessionController extends Controller
         $token = $request->user()->createToken($request->email)->plainTextToken;
 
         $user_resource = new UserResource($request->user()->load('role'));
+
+        //dd($user_resource->toJson());
 
         return response()->json([
             'token' => $token,
