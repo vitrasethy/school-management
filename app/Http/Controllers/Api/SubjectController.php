@@ -8,13 +8,15 @@ use App\Http\Resources\SubjectResource;
 use App\Models\Group;
 use App\Models\Subject;
 
-class SubjectController extends Controller
+class SubjectController extends BaseController
 {
     public function index(Group $group)
     {
         $subjects = Subject::whereRelation('groups', 'id', '=', $group->id)->get();
 
-        return SubjectResource::collection($subjects);
+        return $this->successResponse(
+            SubjectResource::collection($subjects)
+        );
     }
 
     public function store(SubjectRequest $request, Group $group)
@@ -25,25 +27,31 @@ class SubjectController extends Controller
 
         $subject->groups()->attach($group->id);
 
-        return new SubjectResource($subject);
+        return $this->successResponse(
+            new SubjectResource($subject)
+        );
     }
 
     public function show(Subject $subject)
     {
-        return new SubjectResource($subject);
+        return $this->successResponse(
+            new SubjectResource($subject)
+        );
     }
 
     public function update(SubjectRequest $request, Subject $subject)
     {
         $subject->update($request->validated());
 
-        return new SubjectResource($subject);
+        return $this->successResponse(
+            new SubjectResource($subject)
+        );
     }
 
     public function destroy(Subject $subject)
     {
         $subject->delete();
 
-        return response()->json();
+        return $this->noContentResponse();
     }
 }
