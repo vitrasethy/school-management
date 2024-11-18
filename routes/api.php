@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\Api\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Api\Auth\RegisteredUserController;
+use App\Http\Controllers\Api\ClassroomController;
 use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\GroupCodeController;
 use App\Http\Controllers\Api\GroupController;
 use App\Http\Controllers\Api\SchoolController;
+use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,8 +19,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('{group}/join-group', [GroupCodeController::class, 'join']);
 
     Route::get('groups/user', [GroupController::class, 'findByUser']);
+    Route::apiResource('groups.subjects', SubjectController::class)->shallow();
 
     Route::apiResource('groups', GroupController::class);
+
+    Route::apiResource('classrooms', ClassroomController::class);
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
 });

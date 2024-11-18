@@ -12,13 +12,13 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        Role::insert([
-            ['name' => 'School Admin'],
-            ['name' => 'Department Admin'],
-            ['name' => 'Student'],
-            ['name' => 'Teacher'],
+        $this->call([
+            RoleSeeder::class,
+            UserSeeder::class,
+            SchoolSeeder::class,
+            DepartmentSeeder::class,
+            GroupSeeder::class,
+            SubjectSeeder::class,
         ]);
-
-        User::factory(1)->create(['is_super_admin' => true, 'email' => 'admin@admin.com']);
     }
 }

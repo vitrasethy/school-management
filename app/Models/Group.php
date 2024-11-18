@@ -21,4 +21,14 @@ class Group extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function subjects(): BelongsToMany
+    {
+        return $this->belongsToMany(Subject::class);
+    }
+
+    public function classrooms(): BelongsToMany
+    {
+        return $this->belongsToMany(Classroom::class)->withPivot('start_time', 'end_time');
+    }
 }

@@ -23,8 +23,6 @@ class AuthenticatedSessionController extends Controller
 
         $user_resource = new UserResource($request->user()->load('role'));
 
-        //dd($user_resource->toJson());
-
         return response()->json([
             'token' => $token,
             'expires' => 24 * 60 * 60 * 1000,
