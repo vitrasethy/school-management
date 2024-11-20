@@ -74,6 +74,23 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item" id="subject">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-book"></i>
+                            <p>
+                                Subject
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('subject.show') }}" class="nav-link" id="department-show">
+                                    <i class="fas fa-angle-double-right nav-icon"></i>
+                                    <p>Subject List</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @endif
                 <li class="nav-item" id="group">
                     <a href="#" class="nav-link">

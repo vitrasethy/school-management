@@ -8,6 +8,7 @@ use App\Models\Group;
 use App\Models\Role;
 use App\Models\School;
 use App\Models\User;
+use App\Policies\GroupPolicy;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -33,15 +34,11 @@ class UserEditModal extends Component
 
         if ($authUser->is_super_admin) {
             $this->departments = Department::where('school_id', $this->form->school_id)->get();
-            $this->groups = Group::whereHas('department', function ($query) {
-                $query->where('school_id', $this->form->school_id);
-            })->get();
+            $this->groups = Group::where('department_id', $this->form->department_id)->get();
         } elseif ($authUser->role_id == 1) {
             $this->form->school_id = $authUser->school_id;
             $this->departments = Department::where('school_id', $authUser->school_id)->get();
-            $this->groups = Group::whereHas('department', function ($query) use ($authUser) {
-                $query->where('school_id', $authUser->school_id);
-            })->get();
+            $this->groups = Group::where('department_id', $this->form->department_id)->get();
         } elseif ($authUser->role_id > 1) {
             $this->form->school_id = $authUser->school_id;
             $this->form->department_id = $authUser->departments->first()->id;

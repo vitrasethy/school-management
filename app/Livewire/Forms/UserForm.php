@@ -23,6 +23,7 @@ class UserForm extends Form
     public $department_id = 0;
     // #[Validate('required')]
     public $group_id = 0;
+    public $group_id_list = [];
     #[Validate('required')]
     public $role_id = 0;
 
@@ -34,6 +35,7 @@ class UserForm extends Form
         $this->school_id = $user->school_id;
         $this->department_id = $user->departments->isNotEmpty() ? $user->departments[0]->id : null;
         $this->group_id = $user->groups->isNotEmpty() ? $user->groups[0]->id : null;
+        $this->group_id_list = $user->groups->pluck('id')->toArray();
         $this->role_id = $user->role_id;
     }
 
@@ -51,8 +53,7 @@ class UserForm extends Form
 
         if ($this->department_id) {
             $user->departments()->attach($this->department_id);
-        }
-        if ($this->role_id == 3 && $this->group_id) {
+        } elseif (($this->role_id == 3 || $this->role_id == 4) && $this->group_id) {
             $user->groups()->attach($this->group_id);
         }
 
@@ -79,8 +80,8 @@ class UserForm extends Form
         }
 
         // Update the related groups
-        if ($this->group_id) {
-            $this->user->groups()->sync([$this->group_id]);
+        if (!empty($this->group_id_list)) {
+            $this->user->groups()->sync($this->group_id_list);
         } else {
             $this->user->groups()->detach();
         }
