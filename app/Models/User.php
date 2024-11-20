@@ -58,8 +58,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Group::class);
     }
 
-    public function subjects(): HasMany
+    public function subjects(): BelongsToMany
     {
-        return $this->hasMany(Subject::class, 'teacher_id');
+        return $this->belongsToMany(Subject::class, 'subject_teacher');
     }
 }

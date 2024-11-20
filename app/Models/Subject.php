@@ -8,18 +8,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Subject extends Model
 {
-    protected $fillable = [
-        'name',
-        'teacher_id'
-    ];
+    protected $fillable = ["name", "teacher_id"];
 
     public function teacher(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'teacher_id');
+        return $this->belongsTo(User::class, "teacher_id");
     }
 
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class);
+    }
+
+    public function teachers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'subject_teacher');
     }
 }
