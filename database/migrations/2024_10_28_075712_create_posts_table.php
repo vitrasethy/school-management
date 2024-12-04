@@ -9,9 +9,9 @@ return new class extends Migration {
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('subject_id')->constrained('subjects')->cascadeOnDelete();
             $table->string('caption');
-            $table->text('image');
-            $table->foreignId('group_id')->constrained('groups')->cascadeOnDelete();
             $table->timestamps();
         });
     }

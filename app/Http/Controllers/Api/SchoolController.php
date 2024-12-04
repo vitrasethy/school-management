@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Actions\CreateSchool;
 use App\Http\Requests\SchoolRequest;
 use App\Http\Resources\SchoolResource;
 use App\Models\School;
@@ -11,21 +10,29 @@ class SchoolController extends BaseController
 {
     public function index()
     {
-        return $this->successResponse(SchoolResource::collection(School::all()));
+        $schools = School::all();
+
+        $data = SchoolResource::collection($schools);
+
+        return $this->successResponse($data);
     }
 
-    public function store(SchoolRequest $request, CreateSchool $action)
+    public function store(SchoolRequest $request)
     {
         $validated = $request->validated();
 
-        $school = $action->execute($validated);
+        $school = School::create($validated);
 
-        return $this->successResponse(new SchoolResource($school), 201);
+        $data = new SchoolResource($school);
+
+        return $this->successResponse($data, 201);
     }
 
     public function show(School $school)
     {
-        return $this->successResponse(new SchoolResource($school));
+        $data = new SchoolResource($school);
+
+        return $this->successResponse($data);
     }
 
     public function update(SchoolRequest $request, School $school)
@@ -34,7 +41,9 @@ class SchoolController extends BaseController
 
         $school->update($validated);
 
-        return $this->successResponse(new SchoolResource($school));
+        $data = new SchoolResource($school);
+
+        return $this->successResponse($data);
     }
 
     public function destroy(School $school)

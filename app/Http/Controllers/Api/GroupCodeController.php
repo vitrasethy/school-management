@@ -9,15 +9,15 @@ use function abort;
 
 class GroupCodeController extends BaseController
 {
-    public function join(Group $group, JoinGroupRequest $request)
+    public function join(JoinGroupRequest $request)
     {
         $validated = $request->validated();
 
-        if ($group->code !== $validated['code']) {
+        if ($validated['group_id'] !== $validated['code']) {
             abort(404);
         }
 
-        $group->users()->attach(Auth::id());
+        Group::find($validated['group_id'])->users()->attach(Auth::id());
 
         return $this->noContentResponse();
     }

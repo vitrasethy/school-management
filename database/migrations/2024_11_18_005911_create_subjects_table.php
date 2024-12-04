@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('department_id')->constrained('departments');
             $table->string('name');
             $table->timestamps();
         });

@@ -4,29 +4,36 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Attributes\LoginOperation;
 use App\Attributes\LogoutOperation;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\BaseController;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\AuthResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class AuthenticatedSessionController extends Controller
+class AuthenticatedSessionController extends BaseController
 {
     #[LoginOperation]
     public function store(LoginRequest $request): JsonResponse
     {
         $request->authenticate();
 
-        $token = $request->user()->createToken($request->email)->plainTextToken;
+        $token = $request
+            ->user()
+            ->createToken($request->email)
+            ->plainTextToken;
 
-        $user_resource = new UserResource($request->user()->load('role'));
+        $user = $request
+            ->user()
+            ->load('role')
+            ->append([
+                'token' => $token,
+                'expires' => 24 * 60 * 60 * 1000,
+            ]);
 
-        return response()->json([
-            'token' => $token,
-            'expires' => 24 * 60 * 60 * 1000,
-            ...$user_resource->toArray($request),
-        ]);
+        $data = new AuthResource($user);
+
+        return $this->successResponse($data);
     }
 
     #[LogoutOperation]

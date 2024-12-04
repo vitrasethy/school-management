@@ -6,12 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Department extends Model
 {
-    protected $fillable = ['school_id', 'name',];
+    protected $fillable = ['name'];
+
+    public function subjects(): HasMany
+    {
+        return $this->hasMany(Subject::class);
+    }
 
     public function school(): BelongsTo
     {

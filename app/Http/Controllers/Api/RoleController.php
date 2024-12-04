@@ -15,24 +15,40 @@ class RoleController extends BaseController
 
     public function index()
     {
-        return $this->successResponse(RoleResource::collection(Role::all()));
+        $roles = Role::all();
+
+        $data = RoleResource::collection($roles);
+
+        return $this->successResponse($data);
     }
 
     public function store(RoleRequest $request)
     {
-        return $this->successResponse(new RoleResource(Role::create($request->validated())), 201);
+        $validated = $request->validated();
+
+        $role = Role::create($validated);
+
+        $data = new RoleResource($role);
+
+        return $this->successResponse($data, 201);
     }
 
     public function show(Role $role)
     {
-        return $this->successResponse(new RoleResource($role));
+        $data = new RoleResource($role);
+
+        return $this->successResponse($data);
     }
 
     public function update(RoleRequest $request, Role $role)
     {
-        $role->update($request->validated());
+        $validated = $request->validated();
 
-        return $this->successResponse(new RoleResource($role));
+        $role->update($validated);
+
+        $data = new RoleResource($role);
+
+        return $this->successResponse($data);
     }
 
     public function destroy(Role $role)

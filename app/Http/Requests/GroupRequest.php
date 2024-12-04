@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\GroupYear;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class GroupRequest extends FormRequest
 {
@@ -11,7 +13,9 @@ class GroupRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'school_year' => ['required', 'string', 'regex:/^\d{4}-\d{4}$/'],
-            'code' => ['required', 'string', 'max:6']
+            'code' => ['required', 'string', 'max:6'],
+            'year' => ['required', Rule::enum(GroupYear::class)],
+            'department_id' => ['required', 'exists:departments']
         ];
     }
 }

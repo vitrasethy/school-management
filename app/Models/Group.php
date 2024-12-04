@@ -10,7 +10,12 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Group extends Model
 {
-    protected $fillable = ['department_id', 'name', 'school_year', 'code'];
+    protected $fillable = [
+        'department_id',
+        'name',
+        'school_year',
+        'code',
+    ];
 
     public function department(): BelongsTo
     {
@@ -19,16 +24,6 @@ class Group extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
-    }
-
-    public function subjects(): BelongsToMany
-    {
-        return $this->belongsToMany(Subject::class);
-    }
-
-    public function classrooms(): BelongsToMany
-    {
-        return $this->belongsToMany(Classroom::class)->withPivot('start_time', 'end_time');
+        return $this->belongsToMany(User::class, 'group_student', 'group_id', 'student_id');
     }
 }

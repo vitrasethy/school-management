@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Attributes\RegisterOperation;
+use App\Http\Controllers\Api\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AuthResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 
-class RegisteredUserController extends Controller
+class RegisteredUserController extends BaseController
 {
     /**
      * Handle an incoming registration request.
@@ -31,20 +33,22 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'is_super_admin' => false,
             'password' => Hash::make($request->string('password')),
         ]);
 
-        Auth::login($user);
+        //Auth::login($user);
 
         $token = $user->createToken($user->email)->plainTextToken;
 
-        $user_resource = new UserResource($user->load('role'));
+        $user
+            ->load('role')
+            ->append([
+                'token' => $token,
+                'expires' => 24 * 60 * 60 * 1000,
+            ]);
 
-        return response()->json([
-            'token' => $token,
-            'expires' => 24 * 60 * 60 * 1000,
-            ...$user_resource->toArray($request),
-        ]);
+        $data = new AuthResource($user);
+
+        return $this->successResponse($data);
     }
 }

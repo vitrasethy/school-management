@@ -5,47 +5,48 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubjectRequest;
 use App\Http\Resources\SubjectResource;
+use App\Models\Department;
 use App\Models\Group;
 use App\Models\Subject;
 
 class SubjectController extends BaseController
 {
-    public function index(Group $group)
+    public function index()
     {
-        $subjects = Subject::whereRelation('groups', 'id', '=', $group->id)->get();
+        $subjects = Subject::all();
 
-        return $this->successResponse(
-            SubjectResource::collection($subjects)
-        );
+        $data = SubjectResource::collection($subjects);
+
+        return $this->successResponse($data);
     }
 
-    public function store(SubjectRequest $request, Group $group)
+    public function store(SubjectRequest $request)
     {
         $validated = $request->validated();
 
         $subject = Subject::create($validated);
 
-        $subject->groups()->attach($group->id);
+        $data = new SubjectResource($subject);
 
-        return $this->successResponse(
-            new SubjectResource($subject)
-        );
+        return $this->successResponse($data, 201);
     }
 
     public function show(Subject $subject)
     {
-        return $this->successResponse(
-            new SubjectResource($subject)
-        );
+        $data = new SubjectResource($subject);
+
+        return $this->successResponse($data);
     }
 
     public function update(SubjectRequest $request, Subject $subject)
     {
-        $subject->update($request->validated());
+        $validated = $request->validated();
 
-        return $this->successResponse(
-            new SubjectResource($subject)
-        );
+        $subject->update($validated);
+
+        $data = new SubjectResource($subject);
+
+        return $this->successResponse($data);
     }
 
     public function destroy(Subject $subject)

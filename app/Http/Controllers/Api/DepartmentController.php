@@ -11,35 +11,41 @@ class DepartmentController extends BaseController
 {
     public function index(School $school)
     {
-        $department = Department::where('school_id', $school->id)->get();
+        $departments = Department::all();
 
-        return $this->successResponse(DepartmentResource::collection($department));
+        $data = DepartmentResource::collection($departments);
+
+        return $this->successResponse($data);
     }
 
-    public function store(DepartmentRequest $request, School $school)
+    public function store(DepartmentRequest $request)
     {
         $validated = $request->validated();
 
-        $department = Department::create([
-            ...$validated,
-            'school_id' => $school->id,
-        ]);
+        $department = Department::create($validated);
 
-        return $this->successResponse(new DepartmentResource($department), 201);
+        $data = new DepartmentResource($department);
+
+        return $this->successResponse($data, 201);
     }
 
     public function show(Department $department)
     {
-        return $this->successResponse(new DepartmentResource($department));
+        $data = new DepartmentResource($department);
+
+        return $this->successResponse($data);
     }
 
-    public function update(DepartmentRequest $request, Department $department)
-    {
+    public function update(
+        DepartmentRequest $request, Department $department
+    ) {
         $validated = $request->validated();
 
         $department->update($validated);
 
-        return $this->successResponse(new DepartmentResource($department));
+        $data = new DepartmentResource($department);
+
+        return $this->successResponse($data);
     }
 
     public function destroy(Department $department)

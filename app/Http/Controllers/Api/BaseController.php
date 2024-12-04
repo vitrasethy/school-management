@@ -35,8 +35,12 @@ class BaseController extends Controller
         ], $statusCode);
     }
 
-    protected function noContentResponse(): JsonResponse
+    protected function noContentResponse($message = null): JsonResponse
     {
-        return response()->json(null, 204);
+        return response()->json([
+            'success' => true,
+            'data' => [],
+            'message' => $message,
+        ], 204);
     }
 }

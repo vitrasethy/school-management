@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('department_id')->constrained()->cascadeOnDelete();
             $table->string('name');
+            $table->enum('year', [1,2,3,4]);
             $table->string('school_year');
             $table->string('code');
             $table->timestamps();

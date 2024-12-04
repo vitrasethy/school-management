@@ -9,6 +9,10 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory(1)->create(['is_super_admin' => true, 'email' => 'admin@admin.com']);
+        User::factory(1)
+            ->create([
+                'role_id' => 1,
+                'email' => 'admin@admin.com'
+            ]);
     }
 }

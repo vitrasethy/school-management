@@ -7,12 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Classroom extends Model
 {
-    protected $fillable = [
-        'name',
-    ];
+    protected $fillable = ['name'];
 
-    public function groups(): BelongsToMany
+    public function subjects(): BelongsToMany
     {
-        return $this->belongsToMany(Group::class)->withPivot('start_time', 'end_time');
+        return $this->belongsToMany(Subject::class)->withPivot('start_time', 'end_time');
     }
 }

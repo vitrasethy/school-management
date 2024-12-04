@@ -16,7 +16,6 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'role' => new RoleResource($this->whenLoaded('role')),
-            'is_super_admin' => $this->is_super_admin,
         ];
     }
 }

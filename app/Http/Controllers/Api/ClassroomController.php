@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\ClassroomRequest;
 use App\Http\Resources\ClassroomResource;
 use App\Models\Classroom;
@@ -11,30 +10,38 @@ class ClassroomController extends BaseController
 {
     public function index()
     {
-        return $this->successResponse(ClassroomResource::collection(Classroom::all()));
+        $classrooms = Classroom::all();
+
+        $data = ClassroomResource::collection($classrooms);
+
+        return $this->successResponse($data);
     }
 
     public function store(ClassroomRequest $request)
     {
-        return $this->successResponse(
-            new ClassroomResource(Classroom::create($request->validated()))
-        );
+        $validated = $request->validated();
+
+        $classroom = Classroom::create($validated);
+
+        $data = new ClassroomResource($classroom);
+
+        return $this->successResponse($data);
     }
 
     public function show(Classroom $classroom)
     {
-        return $this->successResponse(
-            new ClassroomResource($classroom)
-        );
+        $data = new ClassroomResource($classroom);
+
+        return $this->successResponse($data);
     }
 
     public function update(ClassroomRequest $request, Classroom $classroom)
     {
         $classroom->update($request->validated());
 
-        return $this->successResponse(
-            new ClassroomResource($classroom)
-        );
+        $data = new ClassroomResource($classroom);
+
+        return $this->successResponse($data);
     }
 
     public function destroy(Classroom $classroom)

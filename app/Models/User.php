@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -18,10 +18,14 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'image_url',
         'password',
-        'is_super_admin',
         'role_id',
         'school_id',
+    ];
+
+    protected $attributes = [
+        'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg'
     ];
 
     protected $hidden = [
@@ -48,18 +52,28 @@ class User extends Authenticatable
         return $this->belongsTo(School::class);
     }
 
-    public function departments(): BelongsToMany
+    public function departments(): BelongsTo
     {
-        return $this->belongsToMany(Department::class);
+        return $this->belongsTo(Department::class);
     }
 
     public function groups(): BelongsToMany
     {
-        return $this->belongsToMany(Group::class);
+        return $this->belongsToMany(Group::class, 'group_student', 'student_id', 'group_id');
     }
 
     public function subjects(): BelongsToMany
     {
-        return $this->belongsToMany(Subject::class, 'subject_teacher');
+        return $this->belongsToMany(Subject::class, 'subject_teacher', 'teacher_id', 'subject_id');
+    }
+
+    public function response(): HasOne
+    {
+        return $this->hasOne(Response::class, 'user_id');
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class, 'user_id');
     }
 }

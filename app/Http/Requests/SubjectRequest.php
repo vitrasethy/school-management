@@ -10,7 +10,7 @@ class SubjectRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'teacher_id' => ['required', 'exists:users,id']
+            'subject_id' => ['required', 'exists:subjects']
         ];
     }
 }

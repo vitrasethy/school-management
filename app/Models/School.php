@@ -10,18 +10,15 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class School extends Model
 {
-    protected $fillable = [
-        'name',
-        'khmer_name'
-    ];
+    protected $fillable = ['name'];
 
     public function departments(): HasMany
     {
         return $this->hasMany(Department::class, 'school_id');
     }
 
-    public function user(): HasOne
+    public function users(): HasMany
     {
-        return $this->hasOne(User::class, 'school_id');
+        return $this->hasMany(User::class, 'school_id');
     }
 }

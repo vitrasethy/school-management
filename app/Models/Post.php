@@ -9,11 +9,15 @@ class Post extends Model
 {
     protected $fillable = [
         'caption',
-        'image',
     ];
 
-    public function group(): BelongsTo
+    public function subject(): BelongsTo
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsTo(Subject::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

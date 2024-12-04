@@ -14,9 +14,6 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'caption' => $this->caption,
-            'image' => $this->image,
-
-            'group' => $this->whenLoaded('group', new GroupResource($this->group)),
         ];
     }
 }

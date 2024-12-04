@@ -10,6 +10,7 @@ class DepartmentRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:100'],
+            'school_id' => ['required', 'exists:schools']
         ];
     }
 }

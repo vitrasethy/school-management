@@ -5,23 +5,39 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Subject extends Model
 {
-    protected $fillable = ["name", "teacher_id"];
+    protected $fillable = ["name"];
 
-    public function teacher(): BelongsTo
+    public function classrooms(): BelongsToMany
     {
-        return $this->belongsTo(User::class, "teacher_id");
+        return $this->belongsToMany(Classroom::class)->withPivot('start_time', 'end_time');
     }
 
-    public function groups(): BelongsToMany
+    public function posts(): HasMany
     {
-        return $this->belongsToMany(Group::class);
+        return $this->hasMany(Post::class, 'subject_id');
     }
 
     public function teachers(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'subject_teacher');
+        return $this->belongsToMany(User::class, 'subject_teacher', 'subject_id', 'teacher_id');
+    }
+
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(Schedule::class, 'subject_id');
+    }
+
+    public function activities(): HasMany
+    {
+        return $this->hasMany(Activity::class, 'subject_id');
     }
 }
