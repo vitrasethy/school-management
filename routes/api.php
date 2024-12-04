@@ -1,23 +1,23 @@
 <?php
 
-use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\Api\ActivityController;
 use App\Http\Controllers\Api\ActivityTypeController;
+use App\Http\Controllers\Api\AnswerController;
 use App\Http\Controllers\Api\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Api\Auth\RegisteredUserController;
 use App\Http\Controllers\Api\ClassroomController;
 use App\Http\Controllers\Api\DepartmentController;
+use App\Http\Controllers\Api\FormController;
 use App\Http\Controllers\Api\GroupCodeController;
 use App\Http\Controllers\Api\GroupController;
+use App\Http\Controllers\Api\OptionController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\QuestionController;
+use App\Http\Controllers\Api\ResponseController;
 use App\Http\Controllers\Api\ScheduleController;
 use App\Http\Controllers\Api\SchoolController;
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\FormController;
-use App\Http\Controllers\OptionController;
-use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\ResponseController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {

@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\BaseController;
 use App\Http\Requests\ResponseRequest;
 use App\Http\Resources\ResponseResource;
 use App\Models\Response;

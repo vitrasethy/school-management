@@ -10,7 +10,7 @@ class SchoolPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->is_super_admin;
+        return $user->role_id === 1;
     }
 
     public function view(User $user, School $school): bool
