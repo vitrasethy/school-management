@@ -12,13 +12,14 @@ class SubjectSeeder extends Seeder
     public function run(): void
     {
         $subject1 = Subject::create([
+            'department_id' => 1,
             'name' => 'Data Structures and Algorithms',
         ]);
 
         $subject2 = Subject::create([
+            'department_id' => 1,
             'name' => 'Backend Developer',
         ]);
 
-        Group::find(1)->subjects()->attach([$subject1->id, $subject2->id]);
     }
 }
