@@ -15,7 +15,7 @@
                 <form wire:submit.prevent="save">
                     <div class="modal-body">
                         <div class="row">
-                            @if (Auth::user()->role_id == 1)
+                            @if ($user->role_id == 2)
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Name</label>
@@ -27,7 +27,7 @@
                                     </div>
                                 </div>
                             @endif
-                            @if (Auth::user()->is_super_admin)
+                            @if ($user->role_id == 1)
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>Name</label>
@@ -58,8 +58,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-sm btn-success">Save changes</button>
                     </div>
                 </form>
             </div>

@@ -1,9 +1,9 @@
 <div>
     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-        data-target="#editUserModal-{{ $user->id }}">
+        data-target="#editStudentModal-{{ $student->id }}">
         Edit
     </button>
-    <div class="modal fade" id="editUserModal-{{ $user->id }}" wire:ignore.self>
+    <div class="modal fade" id="editStudentModal-{{ $student->id }}" wire:ignore.self>
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -98,33 +98,33 @@
                                     @enderror
                                 </div>
                             </div>
-                            @if ($form->role_id > 3 && $form->department_id != 0)
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Group</label>
-                                        <div class="d-flex flex-wrap">
-                                            @foreach ($groups as $group)
-                                                <div class="form-check mr-2">
-                                                    <input type="checkbox" class="form-check-input"
-                                                        id="group-{{ $group->id }}" wire:model="form.group_id_list"
-                                                        value="{{ $group->id }}">
-                                                    <label class="form-check-label"
-                                                        for="group-{{ $group->id }}">{{ $group->name }}
-                                                        {{ $group->school_year }}</label>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                        @error('form.group_id_list')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
+                            {{-- @if ($form->role_id > 3 && $form->school_id != 0 && $form->department_id != 0) --}}
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Group</label>
+                                    <div class="d-flex flex-wrap">
+                                        @foreach ($groups as $group)
+                                            <div class="form-check mr-2">
+                                                <input type="checkbox" class="form-check-input"
+                                                    id="group-{{ $group->id }}" wire:model="form.group_id_list"
+                                                    value="{{ $group->id }}">
+                                                <label class="form-check-label"
+                                                    for="group-{{ $group->id }}">{{ $group->name }}
+                                                    {{ $group->school_year }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
+                                    @error('form.group_id_list')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                            @endif
+                            </div>
+                            {{-- @endif --}}
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-sm btn-success">Save</button>
                     </div>
                 </form>
             </div>

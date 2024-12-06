@@ -22,6 +22,7 @@ class User extends Authenticatable
         'password',
         'role_id',
         'school_id',
+        'department_id'
     ];
 
     protected $attributes = [
@@ -52,7 +53,7 @@ class User extends Authenticatable
         return $this->belongsTo(School::class);
     }
 
-    public function departments(): BelongsTo
+    public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }

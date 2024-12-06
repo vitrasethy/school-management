@@ -14,6 +14,7 @@ class Group extends Model
         'department_id',
         'name',
         'school_year',
+        'year',
         'code',
     ];
 

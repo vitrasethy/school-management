@@ -21,12 +21,12 @@ class GroupCreateModal extends Component
     {
         $this->user = Auth::user();
         $this->departments = collect();
-        if ($this->user->is_super_admin) {
+        if ($this->user->role_id == 1) {
             $this->schools = School::all();
-        } elseif ($this->user->role_id == 1) {
-            $this->departments = Department::where('school_id', $this->user->school_id)->get();
         } elseif ($this->user->role_id == 2) {
-            $this->form->department_id = $this->user->departments->first()->id;
+            $this->departments = Department::where('school_id', $this->user->school_id)->get();
+        } elseif ($this->user->role_id == 3) {
+            $this->form->department_id = $this->user->department_id;
         }
     }
 

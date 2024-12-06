@@ -25,7 +25,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            @if ($user->is_super_admin)
+                            @if ($user->role_id == 1)
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>School</label>
@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                             @endif
-                            @if ($user->role_id != 2)
+                            @if ($user->role_id < 3)
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>Department</label>
@@ -71,11 +71,21 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group">
+                                    <label>Year</label>
+                                    <input wire:model="form.year" type="text" class="form-control"
+                                        placeholder="Year">
+                                    @error('form.year')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-sm btn-success">Save</button>
                     </div>
                 </form>
             </div>

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Department extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'school_id'];
 
     public function subjects(): HasMany
     {

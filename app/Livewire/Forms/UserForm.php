@@ -33,7 +33,7 @@ class UserForm extends Form
         $this->name = $user->name;
         $this->email = $user->email;
         $this->school_id = $user->school_id;
-        $this->department_id = $user->departments->isNotEmpty() ? $user->departments[0]->id : null;
+        $this->department_id = $user->department_id;
         $this->group_id = $user->groups->isNotEmpty() ? $user->groups[0]->id : null;
         $this->group_id_list = $user->groups->pluck('id')->toArray();
         $this->role_id = $user->role_id;
@@ -45,25 +45,22 @@ class UserForm extends Form
         $user = User::create([
             'role_id' => $this->role_id,
             'school_id' => $this->school_id,
+            'department_id' => $this->department_id,
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
-            'is_super_admin' => false,
         ]);
-
-        if ($this->department_id) {
-            $user->departments()->attach($this->department_id);
-        } elseif (($this->role_id == 3 || $this->role_id == 4) && $this->group_id) {
-            $user->groups()->attach($this->group_id);
+        if (!empty($this->group_id_list)) {
+            $user->groups()->attach($this->group_id_list);
         }
 
-        $this->reset(['name', 'email', 'password', 'department_id', 'group_id', 'role_id']);
+        $this->reset(['name', 'email', 'password', 'group_id_list', 'role_id']);
     }
 
     public function update()
     {
         $this->validate();
-        $updateData = $this->only(['name', 'email', 'role_id']);
+        $updateData = $this->only(['name', 'email', 'role_id', 'school_id', 'department_id']);
 
         // Only update the password if it is provided
         if ($this->password) {
@@ -72,18 +69,15 @@ class UserForm extends Form
 
         $this->user->update($updateData);
 
-        // Update the related departments
-        if ($this->department_id) {
-            $this->user->departments()->sync([$this->department_id]);
-        } else {
-            $this->user->departments()->detach();
-        }
-
-        // Update the related groups
-        if (!empty($this->group_id_list)) {
-            $this->user->groups()->sync($this->group_id_list);
-        } else {
+        if ($this->role_id < 4) {
             $this->user->groups()->detach();
+        } else {
+            // Update the related groups
+            if (!empty($this->group_id_list)) {
+                $this->user->groups()->sync($this->group_id_list);
+            } else {
+                $this->user->groups()->detach();
+            }
         }
     }
 }

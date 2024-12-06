@@ -12,13 +12,15 @@ class CreateDepartmentModal extends Component
     public DepartmentForm $form;
 
     public $schools;
+    public $user;
 
     public function mount()
     {
-        $this->schools = School::all();
-        $user = Auth::user();
-        if ($user->role_id == 1) {
-            $this->form->school_id = $user->school_id;
+        $this->user = Auth::user();
+        if ($this->user->role_id == 1) {
+            $this->schools = School::all();
+        } elseif ($this->user->role_id == 2) {
+            $this->form->school_id = $this->user->school_id;
         }
     }
 

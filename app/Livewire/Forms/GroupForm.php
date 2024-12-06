@@ -18,6 +18,9 @@ class GroupForm extends Form
     public $name = "";
     #[Validate('required|min:1')]
     public $school_year = "";
+    #[Validate('required')]
+    public $year = "";
+
 
     public function setForm(Group $group)
     {
@@ -25,6 +28,7 @@ class GroupForm extends Form
         $this->department_id = $group->department_id;
         $this->name = $group->name;
         $this->school_year = $group->school_year;
+        $this->year = $group->year;
     }
 
     public function setDepartmentId(Department $department)
@@ -39,9 +43,10 @@ class GroupForm extends Form
             'department_id' => $this->department_id,
             'name' => $this->name,
             'school_year' => $this->school_year,
+            'year' => $this->year,
             'code' => Str::random(10),
         ]);
-        $this->reset(['department_id', 'name', 'school_year']);
+        $this->reset(['name', 'school_year', 'year']);
     }
 
     public function update()

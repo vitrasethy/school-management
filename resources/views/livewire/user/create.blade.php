@@ -1,6 +1,6 @@
 <div>
-    <button type="button" class="btn btn-sm btn-primary mb-4" data-toggle="modal" data-target="#createUserModal">
-        Create User
+    <button type="button" class="btn btn-sm btn-success mb-4" data-toggle="modal" data-target="#createUserModal">
+        Create User <i class="fa fa-plus ml-2" aria-hidden="true"></i>
     </button>
     <div class="modal fade" id="createUserModal" wire:ignore.self>
         <div class="modal-dialog modal-lg">
@@ -11,7 +11,7 @@
                         <span>&times;</span>
                     </button>
                 </div>
-                <form wire:submit.prevent="save">
+                <form wire:submit="save">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12 col-lg-6">
@@ -34,7 +34,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            @if ($user->is_super_admin)
+                            @if ($user->role_id == 1)
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>School</label>
@@ -68,7 +68,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            @if ($form->role_id > 1 && $form->school_id != 0 && $user->role_id != 2)
+                            @if ($user->role_id < 3 && $form->role_id > 2 && $form->school_id != 0)
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>Department</label>
@@ -87,24 +87,6 @@
                                     </div>
                                 </div>
                             @endif
-                            @if ($form->role_id > 2 && $form->school_id != 0 && $form->department_id != 0)
-                                <div class="col-12 col-lg-6">
-                                    <div class="form-group">
-                                        <label>Group</label>
-                                        <select wire:model="form.group_id" class="form-control">
-                                            <option value="">Select a Group</option>
-                                            @foreach ($groups as $group)
-                                                <option wire:key="{{ $group->id }}" value="{{ $group->id }}">
-                                                    {{ $group->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('form.group_id')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            @endif
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label>Password</label>
@@ -115,11 +97,33 @@
                                     @enderror
                                 </div>
                             </div>
+                            @if ($form->role_id > 3 && $form->department_id != 0)
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Group</label>
+                                        <div class="d-flex flex-wrap">
+                                            @foreach ($groups as $group)
+                                                <div class="form-check mr-2">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="group-{{ $group->id }}" wire:model="form.group_id_list"
+                                                        value="{{ $group->id }}">
+                                                    <label class="form-check-label"
+                                                        for="group-{{ $group->id }}">{{ $group->name }}
+                                                        {{ $group->school_year }}</label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        @error('form.group_id_list')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-sm btn-success">Create</button>
                     </div>
                 </form>
             </div>

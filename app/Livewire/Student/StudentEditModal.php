@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\User;
+namespace App\Livewire\Student;
 
 use App\Livewire\Forms\UserForm;
 use App\Models\Department;
@@ -11,36 +11,36 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class UserEditModal extends Component
+class StudentEditModal extends Component
 {
     public UserForm $form;
-    public User $user;
+    public User $student;
 
     public $roles;
     public $schools;
     public $departments;
     public $groups;
 
-    public function mount(User $user)
+    public function mount(User $student)
     {
-        $this->form->setForm($user);
+        $this->form->setForm($student);
         $this->roles = Role::all();
         $this->schools = School::all();
         $this->departments = collect();
         $this->groups = collect();
 
-        $authUser = Auth::user();
+        $user = Auth::user();
 
-        if ($authUser->role_id == 1) {
+        if ($user->role_id == 1) {
             $this->departments = Department::where('school_id', $this->form->school_id)->get();
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
-        } elseif ($authUser->role_id == 2) {
-            $this->form->school_id = $authUser->school_id;
-            $this->departments = Department::where('school_id', $authUser->school_id)->get();
+        } elseif ($user->role_id == 2) {
+            $this->form->school_id = $user->school_id;
+            $this->departments = Department::where('school_id', $user->school_id)->get();
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
-        } elseif ($authUser->role_id > 2) {
-            $this->form->school_id = $authUser->school_id;
-            $this->form->department_id = $authUser->department_id;
+        } elseif ($user->role_id > 2) {
+            $this->form->school_id = $user->school_id;
+            $this->form->department_id = $user->department_id;
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
         }
     }
@@ -70,11 +70,11 @@ class UserEditModal extends Component
     public function save()
     {
         $this->form->update();
-        $this->dispatch('refresh-users');
+        // $this->dispatch('refresh-users');
     }
 
     public function render()
     {
-        return view('livewire.user.user-edit-modal');
+        return view('livewire.student.student-edit-modal');
     }
 }

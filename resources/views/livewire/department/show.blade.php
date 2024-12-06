@@ -1,4 +1,4 @@
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <h3 class="card-title">Department Table</h3>
@@ -23,10 +23,6 @@
                     <th>
                         School
                     </th>
-                    <th>
-                        Created At
-                    </th>
-                    <th>Updated At</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -36,8 +32,6 @@
                         <td>{{ $department->id }}</td>
                         <td>{{ $department->name }}</td>
                         <td>{{ $department->school->name }}</td>
-                        <td>{{ $department->created_at }}</td>
-                        <td>{{ $department->updated_at }}</td>
                         <td>
                             <div class="d-flex align-items-center">
                                 {{-- <a href="{{ route('department.index', $department->id) }}"

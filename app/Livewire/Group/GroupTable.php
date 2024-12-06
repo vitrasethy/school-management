@@ -19,11 +19,11 @@ class GroupTable extends Component
     public function mount()
     {
         $user = Auth::user();
-        if ($user->role_id == 1) {
+        if ($user->role_id == 2) {
             $this->school_id = $user->school_id;
         }
-        if ($user->departments->isNotEmpty()) {
-            $this->department_id = $user->departments->first()->id;
+        if ($user->role_id == 3) {
+            $this->department_id = $user->department_id;
         }
     }
 

@@ -25,12 +25,14 @@ class Create extends Component
         $this->roles = Role::all();
         $this->schools = School::all();
         $this->user = Auth::user();
-        if ($this->user->role_id == 1) {
+
+        if ($this->user->role_id == 2) {
             $this->form->school_id = Auth::user()->school_id;
             $this->departments = Department::where('school_id', Auth::user()->school_id)->get();
-        } elseif ($this->user->role_id == 2) {
+            $this->groups = Group::where('department_id', $this->form->department_id)->get();
+        } elseif ($this->user->role_id == 3) {
             $this->form->school_id = Auth::user()->school_id;
-            $this->form->department_id = Auth::user()->departments->first()->id;
+            $this->form->department_id = Auth::user()->department_id;
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
         }
     }

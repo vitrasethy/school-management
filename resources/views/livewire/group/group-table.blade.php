@@ -1,4 +1,4 @@
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <h3 class="card-title">Group Table</h3>
@@ -26,6 +26,12 @@
                     <th>
                         Department
                     </th>
+                    <th>
+                        Year
+                    </th>
+                    <th>
+                        Academic Year
+                    </th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -34,13 +40,12 @@
                     <tr wire:key='{{ $group->id }}'>
                         <td>{{ $group->id }}</td>
                         <td>{{ $group->name }}</td>
-                        <td>{{ $group->department->school->name }}</td>
+                        <td>
+                            {{ $group->department->school->name }}
+                        </td>
                         <td>{{ $group->department->name }}</td>
-                        {{-- <td>
-                            @foreach ($group->departments as $department)
-                                <span>{{ $department->name }}</span><br>
-                            @endforeach
-                        </td> --}}
+                        <td>{{ $group->year }}</td>
+                        <td>{{ $group->school_year }}</td>
                         <td>
                             <div class="d-flex align-items-center">
                                 {{-- <a href="{{ route('group.index', $group->id) }}" class="btn btn-sm btn-success">View</a> --}}

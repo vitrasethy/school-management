@@ -15,10 +15,13 @@ Route::get('/school', [SchoolController::class, 'show'])->middleware('auth')->na
 // Department
 Route::get('/department', [DepartmentController::class, 'show'])->middleware('auth')->name('department.show');
 // Group
-Route::get('/group', [GroupController::class, 'show'])->middleware('auth')->name('group.show');
-// Student
-Route::get('/user', [UserController::class, 'show'])->middleware('auth')->name('user.show');
+// Route::get('/group', [GroupController::class, 'show'])->middleware('auth')->name('group.show');
+Route::view('/group', 'group.group-index')->middleware('auth')->name('group.index');
 // Subject
 Route::get('/subject', [SubjectController::class, 'show'])->middleware('auth')->name('subject.show');
+
+Route::view('/user/student', 'user.student-index')->middleware('auth')->name('student.index');
+Route::view('/user/teacher', 'user.teacher-index')->middleware('auth')->name('teacher.index');
+Route::view('/user/staff', 'user.staff-index')->middleware('auth')->name('staff.index');
 
 Auth::routes();

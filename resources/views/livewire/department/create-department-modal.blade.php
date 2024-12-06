@@ -1,6 +1,7 @@
 <div>
-    <button type="button" class="btn btn-sm btn-primary mb-4" data-toggle="modal" data-target="#createDepartmentModal">
+    <button type="button" class="btn btn-sm btn-success mb-4" data-toggle="modal" data-target="#createDepartmentModal">
         Create Department
+        <i class="fa fa-plus ml-2" aria-hidden="true"></i>
     </button>
     <div class="modal fade" id="createDepartmentModal" wire:ignore.self>
         <div class="modal-dialog modal-lg">
@@ -14,7 +15,7 @@
                 <form wire:submit.prevent="save">
                     <div class="modal-body">
                         <div class="row">
-                            @if (Auth::user()->role_id == 1)
+                            @if ($user->role_id == 2)
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Name</label>
@@ -26,7 +27,7 @@
                                     </div>
                                 </div>
                             @endif
-                            @if (Auth::user()->is_super_admin)
+                            @if ($user->role_id == 1)
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>Name</label>
@@ -57,8 +58,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-sm btn-success">Create</button>
                     </div>
                 </form>
             </div>

@@ -3,7 +3,9 @@
     <a href="#" class="brand-link">
         <img src="{{ asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE</span>
+        <span class="brand-text font-weight-light">Admin<b>LTE</b></span>
+        {{-- <span
+            class="brand-text font-weight-light">{{ Auth::user()->department_id ? Auth::user()->department->name : Auth::user()->school->name }}</span> --}}
     </a>
 
     <!-- Sidebar -->
@@ -20,7 +22,7 @@
                         </p>
                     </a>
                 </li>
-                @if (Auth::user()->is_super_admin)
+                @if (Auth::user()->role_id == 1)
                     <li class="nav-item" id="school">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-school"></i>
@@ -56,7 +58,7 @@
                         </ul>
                     </li> --}}
                 @endif
-                @if (Auth::user()->role_id == 1 || Auth::user()->is_super_admin)
+                @if (Auth::user()->role_id < 3)
                     <li class="nav-item" id="department">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-building"></i>
@@ -74,24 +76,24 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item" id="subject">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa fa-book"></i>
-                            <p>
-                                Subject
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('subject.show') }}" class="nav-link" id="department-show">
-                                    <i class="fas fa-angle-double-right nav-icon"></i>
-                                    <p>Subject List</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                 @endif
+                <li class="nav-item" id="subject">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-book"></i>
+                        <p>
+                            Subject
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('subject.show') }}" class="nav-link" id="department-show">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Subject List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item" id="group">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
@@ -102,7 +104,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('group.show') }}" class="nav-link" id="group-show">
+                            <a href="{{ route('group.index') }}" class="nav-link" id="group-show">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Group List</p>
                             </a>
@@ -113,15 +115,27 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-user"></i>
                         <p>
-                            User
+                            Users
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('user.show') }}" class="nav-link" id="user-show">
+                        {{-- <li class="nav-item">
+                            <a href="{{ route('student.index') }}" class="nav-link" id="user-show">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>User List</p>
+                                <p>Students</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('teacher.index') }}" class="nav-link" id="user-show">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Teachers</p>
+                            </a>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a href="{{ route('staff.index') }}" class="nav-link" id="user-show">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Users</p>
                             </a>
                         </li>
                     </ul>
