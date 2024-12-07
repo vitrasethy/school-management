@@ -29,9 +29,9 @@ class AppServiceProvider extends ServiceProvider
         // This will remove the 'data' wrapping globally
         JsonResource::withoutWrapping();
 
-        // Allow super admin to access all requests
-        //Gate::before(function ($user, $ability) {
-        //    return $user->is_super_admin ? true : null;
-        //});
+         //Allow super admin to access all requests
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('super admin') ? true : null;
+        });
     }
 }

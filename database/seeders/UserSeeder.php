@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -12,8 +11,9 @@ class UserSeeder extends Seeder
     {
         User::factory(1)
             ->create([
-                'role_id' => 1,
                 'email' => 'admin@admin.com'
             ]);
+
+        User::find(1)->assignRole('super admin');
     }
 }

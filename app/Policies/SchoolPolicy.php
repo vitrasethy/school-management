@@ -10,11 +10,15 @@ class SchoolPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->role_id === 1;
+        return $user->hasRole('super admin');
     }
 
     public function view(User $user, School $school): bool
     {
+        if ($user->hasRole('super admin')) return true;
+
+
+
         $isSchoolAdmin = $user->role_id === 1;
         $isRelateCurrSchool = $user->school_id === $school->id;
 
