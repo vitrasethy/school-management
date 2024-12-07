@@ -40,4 +40,9 @@ class Subject extends Model
     {
         return $this->hasMany(Activity::class, 'subject_id');
     }
+
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class);
+    }
 }

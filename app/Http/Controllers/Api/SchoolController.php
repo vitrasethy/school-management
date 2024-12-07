@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\SchoolRequest;
 use App\Http\Resources\SchoolResource;
 use App\Models\School;
+use Auth;
 
 class SchoolController extends BaseController
 {
@@ -24,6 +25,10 @@ class SchoolController extends BaseController
         $school = School::create($validated);
 
         $data = new SchoolResource($school);
+
+        Auth::user()->update(['school_id' => $school->id]);
+
+        Auth::user()->assignRole('school admin');
 
         return $this->successResponse($data, 201);
     }

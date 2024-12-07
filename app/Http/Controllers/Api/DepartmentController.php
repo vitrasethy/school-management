@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\DepartmentRequest;
 use App\Http\Resources\DepartmentResource;
 use App\Models\Department;
-use App\Models\School;
+use Auth;
 
 class DepartmentController extends BaseController
 {
-    public function index(School $school)
+    public function index()
     {
         $departments = Department::all();
 
@@ -23,6 +23,13 @@ class DepartmentController extends BaseController
         $validated = $request->validated();
 
         $department = Department::create($validated);
+
+        Auth::user()->update([
+            'school_id' => $department->school_id,
+            'department_id' => $department->id,
+        ]);
+
+        Auth::user()->assignRole('department admin');
 
         $data = new DepartmentResource($department);
 
