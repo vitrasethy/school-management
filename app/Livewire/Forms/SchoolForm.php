@@ -13,21 +13,17 @@ class SchoolForm extends Form
     #[Validate('required|min:1')]
     public $name = "";
 
-    #[Validate('required|min:1')]
-    public $khmer_name = "";
-
     public function setForm(School $school)
     {
         $this->school = $school;
         $this->name = $school->name;
-        $this->khmer_name = $school->khmer_name;
     }
 
     public function create()
     {
         $this->validate();
         School::create($this->all());
-        $this->reset(['name', 'khmer_name']);
+        $this->reset(['name']);
     }
 
     public function update()

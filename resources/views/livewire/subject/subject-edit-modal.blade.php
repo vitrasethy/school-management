@@ -29,8 +29,31 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label>Department</label>
+                                        <select wire:model="form.department_id" class="form-control">
+                                            <option value="">Select a Department</option>
+                                            @foreach ($departments as $department)
+                                                <option wire:key="{{ $department->id }}" value="{{ $department->id }}">
+                                                    {{ $department->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input wire:model="form.name" type="text" class="form-control"
+                                            placeholder="Subject Name">
+                                        @error('form.name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                             @endif
-                            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                            @if (Auth::user()->role_id == 2)
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>Department</label>

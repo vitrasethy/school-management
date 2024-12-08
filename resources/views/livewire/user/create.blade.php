@@ -58,6 +58,9 @@
                                     <select wire:model.live="form.role_id" class="form-control">
                                         <option value="">Select a Role</option>
                                         @foreach ($roles as $role)
+                                            @if (($user->role_id == 2 && $role->id == 1) || ($user->role_id == 3 && ($role->id == 1 || $role->id == 2)))
+                                                @continue
+                                            @endif
                                             <option wire:key="{{ $role->id }}" value="{{ $role->id }}">
                                                 {{ $role->name }}
                                             </option>

@@ -26,11 +26,18 @@ class SubjectEditModal extends Component
 
         if ($user->role_id == 1) {
             $this->schools = School::all();
+            $this->school_id = $subject->department->school_id;
+            $this->departments = Department::where('school_id', $this->school_id)->get();
         } elseif ($user->role_id == 2) {
             $this->departments = Department::where('school_id', $user->school_id)->get();
         } elseif ($user->role_id == 3) {
             $this->form->department_id = $user->department_id;
         }
+    }
+
+    public function updatedSchoolId()
+    {
+        $this->departments = Department::where('school_id', $this->school_id)->get();
     }
 
     public function save()

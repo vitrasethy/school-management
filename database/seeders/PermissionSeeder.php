@@ -10,46 +10,46 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         Permission::create(['name' => 'read activities'])
-            ->assignRole(['school admin', 'department admin', 'teacher', 'student']);
+            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
 
         Permission::create(['name' => 'read a activity'])
-            ->assignRole(['school admin', 'department admin', 'teacher', 'student']);
+            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
 
         Permission::create(['name' => 'write a activity'])
-            ->assignRole(['school admin', 'department admin', 'teacher']);
+            ->assignRole(['School Admin', 'Department Admin', 'Teacher']);
 
         Permission::create(['name' => 'read activity types'])
-            ->assignRole(['school admin', 'department admin', 'teacher', 'student']);
+            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
 
         Permission::create(['name' => 'read a activity type'])
-            ->assignRole(['school admin', 'department admin', 'teacher', 'student']);
+            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
 
         Permission::create(['name' => 'write activity type'])
-            ->assignRole('school admin');
+            ->assignRole('School Admin');
 
         Permission::create(['name' => 'write a school']);
 
         Permission::create(['name' => 'read schools']);
 
         Permission::create(['name' => 'read a school'])
-            ->assignRole(['school admin', 'department admin', 'teacher', 'student']);
+            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
 
         Permission::create(['name' => 'read a department'])
-            ->assignRole(['school admin', 'department admin', 'teacher', 'student']);
+            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
 
         Permission::create(['name' => 'read departments'])
-            ->assignRole(['school admin', 'department admin']);
+            ->assignRole(['School Admin', 'Department Admin']);
 
         Permission::create(['name' => 'write department'])
-            ->assignRole('school admin');
+            ->assignRole('School Admin');
 
         Permission::create(['name' => 'write group'])
-            ->assignRole(['school admin', 'department admin']);
+            ->assignRole(['School Admin', 'Department Admin']);
 
         Permission::create(['name' => 'read a group'])
-            ->assignRole(['school admin', 'department admin', 'teacher', 'student']);
+            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
 
         Permission::create(['name' => 'read groups'])
-            ->assignRole(['school admin', 'department admin', 'teacher']);
+            ->assignRole(['School Admin', 'Department Admin', 'Teacher']);
     }
 }

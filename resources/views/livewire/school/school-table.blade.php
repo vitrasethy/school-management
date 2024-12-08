@@ -1,4 +1,4 @@
-<div class="card card-primary">
+<div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <h3 class="card-title">School List</h3>

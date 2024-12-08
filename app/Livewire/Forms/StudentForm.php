@@ -17,7 +17,8 @@ class StudentForm extends Form
     #[Validate('required|min:1')]
     public $password = "";
 
-    public function setGroupId(User $user) {
-        $this
+    public function setGroupId(User $user)
+    {
+        // $this
     }
 }

@@ -69,7 +69,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            @if ($form->role_id > 2 && $form->school_id != 0)
+                            @if ($form->role_id > 2 && $form->school_id != 0 && Auth::user()->role_id != 3)
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>Department</label>

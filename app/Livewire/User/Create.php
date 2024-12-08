@@ -49,6 +49,16 @@ class Create extends Component
         $this->groups = Group::where('department_id', $this->form->department_id)->get();
     }
 
+    public function updatedFormRoleId()
+    {
+        if ($this->form->role_id == 1) {
+            $this->form->school_id = null;
+            $this->form->department_id = null;
+        } elseif ($this->form->role_id == 2) {
+            $this->form->department_id = null;
+        }
+    }
+
     public function save()
     {
         $this->form->create();

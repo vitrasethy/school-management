@@ -22,7 +22,7 @@
                         </p>
                     </a>
                 </li>
-                @if (Auth::user()->role_id == 1)
+                @if (Auth::user()->getRoleNames()->contains('Super Admin'))
                     <li class="nav-item" id="school">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-school"></i>
@@ -40,23 +40,6 @@
                             </li>
                         </ul>
                     </li>
-                    {{-- <li class="nav-item" id="setting">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa fa-cog"></i>
-                            <p>
-                                Setting
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('super.school.show') }}" class="nav-link" id="role">
-                                    <i class="fas fa-angle-double-right nav-icon"></i>
-                                    <p>Roles</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li> --}}
                 @endif
                 @if (Auth::user()->role_id < 3)
                     <li class="nav-item" id="department">
@@ -120,18 +103,6 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('student.index') }}" class="nav-link" id="user-show">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Students</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('teacher.index') }}" class="nav-link" id="user-show">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Teachers</p>
-                            </a>
-                        </li> --}}
                         <li class="nav-item">
                             <a href="{{ route('staff.index') }}" class="nav-link" id="user-show">
                                 <i class="fas fa-angle-double-right nav-icon"></i>

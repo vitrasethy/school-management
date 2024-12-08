@@ -14,6 +14,6 @@ class UserSeeder extends Seeder
                 'email' => 'admin@admin.com'
             ]);
 
-        User::find(1)->assignRole('super admin');
+        User::find(1)->assignRole('Super Admin');
     }
 }
