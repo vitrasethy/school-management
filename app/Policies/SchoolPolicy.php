@@ -4,34 +4,38 @@ namespace App\Policies;
 
 use App\Models\School;
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SchoolPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->hasRole('super admin');
+        return $user->hasPermissionTo('view all schools');
     }
 
     public function view(User $user, School $school): bool
     {
-        if ($user->hasRole('super admin')) return true;
+        if ($user->hasPermissionTo('view all schools')) return true;
 
-
-
-        $isSchoolAdmin = $user->role_id === 1;
-        $isRelateCurrSchool = $user->school_id === $school->id;
-
-        return $this->viewAny($user) || ($isRelateCurrSchool && $isSchoolAdmin);
+        return
+            $user->school_id === $school->id &&
+            $user->hasPermissionTo('view own school');
     }
 
     public function update(User $user, School $school): bool
     {
-        return $this->view($user, $school);
+        if ($user->hasPermissionTo('edit all schools')) return true;
+
+        return
+            $user->school_id === $school->id &&
+            $user->hasPermissionTo('edit own school');
     }
 
     public function delete(User $user, School $school): bool
     {
-        return $this->view($user, $school);
+        if ($user->hasPermissionTo('delete all school')) return true;
+
+        return
+            $user->school_id === $school->id &&
+            $user->hasPermissionTo('delete own school');
     }
 }

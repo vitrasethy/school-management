@@ -6,11 +6,14 @@ use App\Http\Requests\DepartmentRequest;
 use App\Http\Resources\DepartmentResource;
 use App\Models\Department;
 use Auth;
+use Illuminate\Support\Facades\Gate;
 
 class DepartmentController extends BaseController
 {
     public function index()
     {
+        Gate::authorize('viewAny', Department::class);
+
         $departments = Department::all();
 
         $data = DepartmentResource::collection($departments);
@@ -20,6 +23,8 @@ class DepartmentController extends BaseController
 
     public function store(DepartmentRequest $request)
     {
+        Gate::authorize('create', Department::class);
+
         $validated = $request->validated();
 
         $department = Department::create($validated);
@@ -38,14 +43,17 @@ class DepartmentController extends BaseController
 
     public function show(Department $department)
     {
+        Gate::authorize('view', $department);
+
         $data = new DepartmentResource($department);
 
         return $this->successResponse($data);
     }
 
-    public function update(
-        DepartmentRequest $request, Department $department
-    ) {
+    public function update(DepartmentRequest $request, Department $department)
+    {
+        Gate::authorize('update', $department);
+
         $validated = $request->validated();
 
         $department->update($validated);
@@ -57,6 +65,8 @@ class DepartmentController extends BaseController
 
     public function destroy(Department $department)
     {
+        Gate::authorize('delete', Department::class);
+
         $department->delete();
 
         return $this->noContentResponse();

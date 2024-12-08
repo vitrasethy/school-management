@@ -6,11 +6,15 @@ use App\Http\Requests\SchoolRequest;
 use App\Http\Resources\SchoolResource;
 use App\Models\School;
 use Auth;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 
 class SchoolController extends BaseController
 {
-    public function index()
+    public function index(): JsonResponse
     {
+        Gate::authorize('viewAny', School::class);
+
         $schools = School::all();
 
         $data = SchoolResource::collection($schools);
@@ -18,7 +22,7 @@ class SchoolController extends BaseController
         return $this->successResponse($data);
     }
 
-    public function store(SchoolRequest $request)
+    public function store(SchoolRequest $request): JsonResponse
     {
         $validated = $request->validated();
 
@@ -35,6 +39,8 @@ class SchoolController extends BaseController
 
     public function show(School $school)
     {
+        Gate::authorize('view', $school);
+
         $data = new SchoolResource($school);
 
         return $this->successResponse($data);
@@ -42,6 +48,8 @@ class SchoolController extends BaseController
 
     public function update(SchoolRequest $request, School $school)
     {
+        Gate::authorize('update', $school);
+
         $validated = $request->validated();
 
         $school->update($validated);
@@ -53,6 +61,8 @@ class SchoolController extends BaseController
 
     public function destroy(School $school)
     {
+        Gate::authorize('delete', $school);
+
         $school->delete();
 
         return $this->noContentResponse();

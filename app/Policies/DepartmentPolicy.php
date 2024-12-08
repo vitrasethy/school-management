@@ -4,35 +4,39 @@ namespace App\Policies;
 
 use App\Models\Department;
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DepartmentPolicy
 {
-    public function viewAny(User $user, Department $department): bool
+    public function viewAny(User $user): bool
     {
-        return $user->can('view', $department->school);
+        return $user->hasPermissionTo('view all departments');
     }
 
     public function view(User $user, Department $department): bool
     {
-        $isDepartAdmin = $user->role_id === 2;
-        $isRelateCurrDepart = $user->school_id === $department->school_id;
+        if ($user->hasPermissionTo('view all departments')) return true;
 
-        return $this->viewAny($user, $department) || ($isDepartAdmin && $isRelateCurrDepart);
+        return
+            $user->department_id === $department->id &&
+            $user->hasPermissionTo('view own department');
     }
 
-    public function create(User $user, Department $department): bool
+    public function create(User $user): bool
     {
-        return $this->view($user, $department) && $user->is_super_admin === false;
+        return $user->hasPermissionTo('create department');
     }
 
     public function update(User $user, Department $department): bool
     {
-        return $this->view($user, $department);
+        if ($user->hasPermissionTo('edit all department')) return true;
+
+        return
+            $user->department_id === $department->id &&
+            $user->hasPermissionTo('edit own departments');
     }
 
-    public function delete(User $user, Department $department): bool
+    public function delete(User $user): bool
     {
-        return $this->view($user, $department);
+        return $user->hasPermissionTo('delete department');
     }
 }

@@ -21,6 +21,8 @@ use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('departments/{department}/groups', [GroupController::class, 'indexByDepartment']);
+
     Route::get('user', [UserController::class, 'getCurrentUser']);
 
     Route::post('join-group', [GroupCodeController::class, 'join']);

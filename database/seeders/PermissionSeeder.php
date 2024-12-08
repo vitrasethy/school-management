@@ -9,47 +9,54 @@ class PermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        Permission::create(['name' => 'read activities'])
-            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
+        Permission::create(['name' => 'create school']);
 
-        Permission::create(['name' => 'read a activity'])
-            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
+        Permission::create(['name' => 'view all schools'])
+            ->assignRole('super admin');
 
-        Permission::create(['name' => 'write a activity'])
-            ->assignRole(['School Admin', 'Department Admin', 'Teacher']);
+        Permission::create(['name' => 'view own school'])
+            ->assignRole(['super admin', 'school admin', 'department admin', 'teacher', 'student']);
 
-        Permission::create(['name' => 'read activity types'])
-            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
+        Permission::create(['name' => 'edit all schools'])
+            ->assignRole(['super admin']);
 
-        Permission::create(['name' => 'read a activity type'])
-            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
+        Permission::create(['name' => 'edit own school'])
+            ->assignRole(['super admin', 'school admin']);
 
-        Permission::create(['name' => 'write activity type'])
-            ->assignRole('School Admin');
+        Permission::create(['name' => 'delete own school'])
+            ->assignRole(['super admin', 'school admin']);
 
-        Permission::create(['name' => 'write a school']);
+        Permission::create(['name' => 'delete all school'])
+            ->assignRole(['super admin']);
 
-        Permission::create(['name' => 'read schools']);
+        Permission::create(['name' => 'create department'])
+            ->assignRole(['super admin', 'school admin']);
 
-        Permission::create(['name' => 'read a school'])
-            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
+        Permission::create(['name' => 'view all departments'])
+            ->assignRole(['super admin']);
 
-        Permission::create(['name' => 'read a department'])
-            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
+        Permission::create(['name' => 'view own department'])
+            ->assignRole(['super admin', 'school admin', 'department admin']);
 
-        Permission::create(['name' => 'read departments'])
-            ->assignRole(['School Admin', 'Department Admin']);
+        Permission::create(['name' => 'edit all department'])
+            ->assignRole(['super admin', 'school admin']);
 
-        Permission::create(['name' => 'write department'])
-            ->assignRole('School Admin');
+        Permission::create(['name' => 'edit own departments'])
+            ->assignRole(['super admin', 'school admin']);
 
-        Permission::create(['name' => 'write group'])
-            ->assignRole(['School Admin', 'Department Admin']);
+        Permission::create(['name' => 'delete department'])
+            ->assignRole(['super admin', 'school admin']);
 
-        Permission::create(['name' => 'read a group'])
-            ->assignRole(['School Admin', 'Department Admin', 'Teacher', 'Student']);
+        Permission::create(['name' => 'view all groups'])
+            ->assignRole(['super admin']);
 
-        Permission::create(['name' => 'read groups'])
-            ->assignRole(['School Admin', 'Department Admin', 'Teacher']);
+        Permission::create(['name' => 'view all group by own department'])
+            ->assignRole(['super admin', 'school admin', 'department admin']);
+
+        Permission::create(['name' => 'create group'])
+            ->assignRole(['super admin', 'school admin', 'department admin']);
+
+        Permission::create(['name' => 'view own group'])
+            ->assignRole(['super admin', 'school admin', 'department admin', 'teacher', 'student']);
     }
 }
