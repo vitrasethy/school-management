@@ -26,7 +26,7 @@ class Create extends Component
         $this->schools = School::all();
         $this->user = Auth::user();
 
-        if ($this->user->getRoleNames()->contains('super admin')) {
+        if ($this->user->getRoleNames()->contains('school admin')) {
             $this->form->school_id = Auth::user()->school_id;
             $this->departments = Department::where('school_id', Auth::user()->school_id)->get();
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
@@ -49,7 +49,7 @@ class Create extends Component
         $this->groups = Group::where('department_id', $this->form->department_id)->get();
     }
 
-    public function updatedFormRoleId()
+    public function updatedFormRole()
     {
         if ($this->form->role == 'super admin') {
             $this->form->school_id = null;
