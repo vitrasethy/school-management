@@ -22,7 +22,7 @@
                         </p>
                     </a>
                 </li>
-                @if (Auth::user()->getRoleNames()->contains('Super Admin'))
+                {{-- @if (Auth::user()->getRoleNames()->contains('super admin'))
                     <li class="nav-item" id="school">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-school"></i>
@@ -40,8 +40,27 @@
                             </li>
                         </ul>
                     </li>
-                @endif
-                @if (Auth::user()->role_id < 3)
+                @endif --}}
+                @can('view all schools')
+                    <li class="nav-item" id="school">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-school"></i>
+                            <p>
+                                School
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('super.school.show') }}" class="nav-link" id="school-show">
+                                    <i class="fas fa-angle-double-right nav-icon"></i>
+                                    <p>School List</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
+                @if (Auth::user()->hasRole('super admin') || Auth::user()->hasRole('school admin'))
                     <li class="nav-item" id="department">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-building"></i>

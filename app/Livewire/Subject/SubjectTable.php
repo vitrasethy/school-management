@@ -20,9 +20,9 @@ class SubjectTable extends Component
     {
         $user = Auth::user();
 
-        if ($user->role_id == 2) {
+        if ($user->hasRole('school admin')) {
             $this->school_id = $user->school_id;
-        } elseif ($user->role_id == 3) {
+        } elseif ($user->hasRole('department admin')) {
             $this->department_id = $user->department_id;
         }
     }

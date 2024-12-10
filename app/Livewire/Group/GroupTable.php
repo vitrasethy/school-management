@@ -19,10 +19,11 @@ class GroupTable extends Component
     public function mount()
     {
         $user = Auth::user();
-        if ($user->role_id == 2) {
+
+        if ($user->hasRole('school admin')) {
             $this->school_id = $user->school_id;
         }
-        if ($user->role_id == 3) {
+        if ($user->hasRole('department admin')) {
             $this->department_id = $user->department_id;
         }
     }
@@ -42,16 +43,20 @@ class GroupTable extends Component
 
     public function render()
     {
+        $query = Group::query();
+
+        if ($this->department_id) {
+            $query->where('department_id', $this->department_id);
+        }
+
+        if ($this->school_id) {
+            $query->whereHas('department', function ($query) {
+                return $query->where('school_id', $this->school_id);
+            });
+        }
+
         return view('livewire.group.group-table', [
-            'groups' => Group::when($this->department_id, function ($query, $department_id) {
-                return $query->where('department_id', $department_id);
-            })
-                ->when($this->school_id, function ($query, $school_id) {
-                    return $query->whereHas('department', function ($query) use ($school_id) {
-                        $query->where('school_id', $school_id);
-                    });
-                })
-                ->paginate($this->perPage)
+            'groups' => $query->paginate($this->perPage)
         ]);
     }
 }

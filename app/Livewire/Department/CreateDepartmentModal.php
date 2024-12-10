@@ -17,9 +17,10 @@ class CreateDepartmentModal extends Component
     public function mount()
     {
         $this->user = Auth::user();
-        if ($this->user->role_id == 1) {
+
+        if ($this->user->getRoleNames()->contains('super admin')) {
             $this->schools = School::all();
-        } elseif ($this->user->role_id == 2) {
+        } elseif ($this->user->getRoleNames()->contains('school admin')) {
             $this->form->school_id = $this->user->school_id;
         }
     }

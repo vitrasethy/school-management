@@ -21,11 +21,11 @@ class SubjectCreateModal extends Component
         $this->departments = collect();
         $user = Auth::user();
 
-        if ($user->role_id == 1) {
+        if ($user->hasRole('super admin')) {
             $this->schools = School::all();
-        } elseif ($user->role_id == 2) {
+        } elseif ($user->hasRole('school admin')) {
             $this->departments = Department::where('school_id', $user->school_id)->get();
-        } elseif ($user->role_id == 3) {
+        } elseif ($user->hasRole('department admin')) {
             $this->form->department_id = $user->department_id;
         }
     }

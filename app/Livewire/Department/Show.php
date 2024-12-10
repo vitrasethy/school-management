@@ -20,7 +20,7 @@ class Show extends Component
     public function mount()
     {
         $user = Auth::user();
-        if ($user->role_id == 2) {
+        if ($user->hasRole('school admin')) {
             $this->school_id = $user->school_id;
         }
     }
@@ -40,10 +40,14 @@ class Show extends Component
 
     public function render()
     {
+        $query = Department::query();
+
+        if ($this->school_id) {
+            $query->where('school_id', $this->school_id);
+        }
+
         return view('livewire.department.show', [
-            'departments' => Department::when($this->school_id, function ($query, $school_id) {
-                return $query->where('school_id', $school_id);
-            })->paginate($this->perPage)
+            'departments' => $query->paginate($this->perPage)
         ]);
     }
 }

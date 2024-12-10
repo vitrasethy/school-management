@@ -15,7 +15,7 @@
                 <form wire:submit.prevent="save">
                     <div class="modal-body">
                         <div class="row">
-                            @if (Auth::user()->role_id == 1)
+                            @if (Auth::user()->hasRole('super admin'))
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>School</label>
@@ -30,7 +30,7 @@
                                     </div>
                                 </div>
                             @endif
-                            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                            @if (Auth::user()->hasRole('super admin') || Auth::user()->hasRole('school admin'))
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>Department</label>
@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                             @endif
-                            @if (Auth::user()->role_id == 3)
+                            @if (Auth::user()->hasRole('department admin'))
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Name</label>

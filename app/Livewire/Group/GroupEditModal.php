@@ -26,12 +26,12 @@ class GroupEditModal extends Component
         $this->school_id = $group->department->school->id;
         $this->departments = collect();
         $this->user = Auth::user();
-        if ($this->user->role_id == 1) {
+        if ($this->user->hasRole('super admin')) {
             $this->schools = School::all();
             $this->departments = Department::where('school_id', $this->school_id)->get();
-        } elseif ($this->user->role_id == 2) {
+        } elseif ($this->user->hasRole('school admin')) {
             $this->departments = Department::where('school_id', $this->user->school_id)->get();
-        } elseif ($this->user->role_id == 3) {
+        } elseif ($this->user->hasRole('department admin')) {
             $this->form->department_id = $this->user->department_id;
         }
     }

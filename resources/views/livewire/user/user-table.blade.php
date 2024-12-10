@@ -29,10 +29,6 @@
                     <th>
                         Role
                     </th>
-                    {{-- <th>
-                        Created At
-                    </th>
-                    <th>Updated At</th> --}}
                     <th>Action</th>
                 </tr>
             </thead>
@@ -42,14 +38,12 @@
                         <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>
-                            {{ $user->school->name }}
+                            {{ $user->school ? $user->school->name : 'N/A' }}
                         </td>
                         <td>
                             {{ $user->department ? $user->department->name : 'N/A' }}
                         </td>
-                        <td>{{ $user->role->name }}</td>
-                        {{-- <td>{{ $user->created_at }}</td>
-                        <td>{{ $user->updated_at }}</td> --}}
+                        <td>{{ $user->getRoleNames()[0] }}</td>
                         <td>
                             <div class="d-flex align-items-center">
                                 {{-- <a href="{{ route('user.index', $user->id) }}" class="btn btn-sm btn-success">View</a> --}}

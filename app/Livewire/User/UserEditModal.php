@@ -29,18 +29,18 @@ class UserEditModal extends Component
         $this->departments = collect();
         $this->groups = collect();
 
-        $authUser = Auth::user();
+        $current_user = Auth::user();
 
-        if ($authUser->role_id == 1) {
+        if ($current_user->hasRole('super admin')) {
             $this->departments = Department::where('school_id', $this->form->school_id)->get();
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
-        } elseif ($authUser->role_id == 2) {
-            $this->form->school_id = $authUser->school_id;
-            $this->departments = Department::where('school_id', $authUser->school_id)->get();
+        } elseif ($current_user->hasRole('school admin')) {
+            $this->form->school_id = $current_user->school_id;
+            $this->departments = Department::where('school_id', $current_user->school_id)->get();
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
-        } elseif ($authUser->role_id > 2) {
-            $this->form->school_id = $authUser->school_id;
-            $this->form->department_id = $authUser->department_id;
+        } elseif ($current_user->hasRole('department admin')) {
+            $this->form->school_id = $current_user->school_id;
+            $this->form->department_id = $current_user->department_id;
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
         }
     }
@@ -57,12 +57,12 @@ class UserEditModal extends Component
         $this->groups = Group::where('department_id', $this->form->department_id)->get();
     }
 
-    public function updatedFormRoleId()
+    public function updatedFormRole()
     {
-        if ($this->form->role_id == 1) {
+        if ($this->form->role == 'super admin') {
             $this->form->school_id = null;
             $this->form->department_id = null;
-        } elseif ($this->form->role_id == 2) {
+        } elseif ($this->form->role == 'school admin') {
             $this->form->department_id = null;
         }
     }

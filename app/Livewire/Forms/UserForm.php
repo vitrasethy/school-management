@@ -17,15 +17,15 @@ class UserForm extends Form
     public $email = "";
     #[Validate('nullable|string|min:8')]
     public $password = "";
-    #[Validate('required')]
-    public $school_id = 0;
     // #[Validate('required')]
-    public $department_id = 0;
+    public $school_id = null;
+    // #[Validate('required')]
+    public $department_id = null;
     // #[Validate('required')]
     public $group_id = 0;
     public $group_id_list = [];
     #[Validate('required')]
-    public $role_id = 0;
+    public $role = "";
 
     public function setForm(User $user)
     {
@@ -36,31 +36,31 @@ class UserForm extends Form
         $this->department_id = $user->department_id;
         $this->group_id = $user->groups->isNotEmpty() ? $user->groups[0]->id : null;
         $this->group_id_list = $user->groups->pluck('id')->toArray();
-        $this->role_id = $user->role_id;
+        $this->role = $user->getRoleNames()[0];
     }
 
     public function create()
     {
         $this->validate();
         $user = User::create([
-            'role_id' => $this->role_id,
-            'school_id' => $this->school_id,
-            'department_id' => $this->department_id,
+            'school_id' => $this->school_id == 0 ? null : $this->school_id,
+            'department_id' => $this->department_id == 0 ? null : $this->department_id,
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ]);
+        $user->assignRole($this->role);
         if (!empty($this->group_id_list)) {
             $user->groups()->attach($this->group_id_list);
         }
 
-        $this->reset(['name', 'email', 'password', 'group_id_list', 'role_id']);
+        $this->reset(['name', 'email', 'password', 'group_id_list', 'role']);
     }
 
     public function update()
     {
         $this->validate();
-        $updateData = $this->only(['name', 'email', 'role_id', 'school_id', 'department_id']);
+        $updateData = $this->only(['name', 'email', 'school_id', 'department_id']);
 
         // Only update the password if it is provided
         if ($this->password) {
@@ -68,8 +68,9 @@ class UserForm extends Form
         }
 
         $this->user->update($updateData);
+        $this->user->syncRoles($this->role);
 
-        if ($this->role_id < 4) {
+        if ($this->role == "super admin" || $this->role == "school admin" || $this->role == "department admin") {
             $this->user->groups()->detach();
         } else {
             // Update the related groups

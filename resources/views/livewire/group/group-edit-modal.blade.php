@@ -25,7 +25,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            @if ($user->role_id == 1)
+                            @if ($user->hasRole('super admin'))
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>School</label>
@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                             @endif
-                            @if ($user->role_id < 3)
+                            @if ($user->hasRole('super admin') || $user->hasRole('school admin'))
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>Department</label>
