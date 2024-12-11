@@ -19,9 +19,9 @@ class UserTable extends Component
     public function mount()
     {
         $user = Auth::user();
-        if ($user->role_id == 2) {
+        if ($user->getRoleNames()->contains('school admin')) {
             $this->school_id = $user->school_id;
-        } elseif ($user->role_id == 3) {
+        } elseif ($user->getRoleNames()->contains('department admin')) {
             $this->department_id = $user->department_id;
         }
     }
@@ -42,15 +42,22 @@ class UserTable extends Component
 
     public function render()
     {
+        $query = User::query();
+
+        if ($this->school_id) {
+            $query->when($this->school_id, function ($query) {
+                return $query->where('school_id', $this->school_id);
+            });
+        }
+
+        if ($this->department_id) {
+            $query->when($this->department_id, function ($query) {
+                return $query->where('department_id', $this->department_id);
+            });
+        }
+
         return view('livewire.user.user-table', [
-            'users' => User::when($this->school_id, function ($query, $school_id) {
-                return $query->where('school_id', $school_id);
-            })
-                ->when($this->department_id, function ($query, $department_id) {
-                    return $query->where('department_id', $department_id);
-                })
-                ->where('role_id', '>', 1)
-                ->paginate($this->perPage)
+            'users' => $query->withoutRole('super admin')->paginate($this->perPage)
         ]);
     }
 }

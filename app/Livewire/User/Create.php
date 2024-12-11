@@ -26,11 +26,11 @@ class Create extends Component
         $this->schools = School::all();
         $this->user = Auth::user();
 
-        if ($this->user->role_id == 2) {
+        if ($this->user->getRoleNames()->contains('school admin')) {
             $this->form->school_id = Auth::user()->school_id;
             $this->departments = Department::where('school_id', Auth::user()->school_id)->get();
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
-        } elseif ($this->user->role_id == 3) {
+        } elseif ($this->user->getRoleNames()->contains('department admin')) {
             $this->form->school_id = Auth::user()->school_id;
             $this->form->department_id = Auth::user()->department_id;
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
@@ -49,12 +49,12 @@ class Create extends Component
         $this->groups = Group::where('department_id', $this->form->department_id)->get();
     }
 
-    public function updatedFormRoleId()
+    public function updatedFormRole()
     {
-        if ($this->form->role_id == 1) {
+        if ($this->form->role == 'super admin') {
             $this->form->school_id = null;
             $this->form->department_id = null;
-        } elseif ($this->form->role_id == 2) {
+        } elseif ($this->form->role == 'school admin') {
             $this->form->department_id = null;
         }
     }

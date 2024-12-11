@@ -15,19 +15,7 @@
                 <form wire:submit.prevent="save">
                     <div class="modal-body">
                         <div class="row">
-                            @if ($user->role_id == 2)
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <input wire:model="form.name" type="text" class="form-control"
-                                            placeholder="Name">
-                                        @error('form.name')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            @endif
-                            @if ($user->role_id == 1)
+                            @role('super admin')
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>Name</label>
@@ -54,7 +42,19 @@
                                         @enderror
                                     </div>
                                 </div>
-                            @endif
+                            @endrole
+                            @role('school admin')
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input wire:model="form.name" type="text" class="form-control"
+                                            placeholder="Name">
+                                        @error('form.name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endrole
                         </div>
                     </div>
                     <div class="modal-footer">

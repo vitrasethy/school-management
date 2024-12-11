@@ -34,7 +34,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            @if ($user->role_id == 1)
+                            @role('super admin')
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>School</label>
@@ -51,45 +51,51 @@
                                         @enderror
                                     </div>
                                 </div>
-                            @endif
+                            @endrole
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label>Role</label>
-                                    <select wire:model.live="form.role_id" class="form-control">
+                                    <select wire:model.live="form.role" class="form-control">
                                         <option value="">Select a Role</option>
                                         @foreach ($roles as $role)
-                                            @if (($user->role_id == 2 && $role->id == 1) || ($user->role_id == 3 && ($role->id == 1 || $role->id == 2)))
+                                            @if (
+                                                ($user->getRoleNames()->contains('school admin') && $role->id == 1) ||
+                                                    ($user->getRoleNames()->contains('department admin') && ($role->id == 1 || $role->id == 2)))
                                                 @continue
                                             @endif
-                                            <option wire:key="{{ $role->id }}" value="{{ $role->id }}">
+                                            <option wire:key="{{ $role->id }}" value="{{ $role->name }}">
                                                 {{ $role->name }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('form.role_id')
+                                    @error('form.role')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-                            @if ($user->role_id < 3 && $form->role_id > 2 && $form->school_id != 0)
-                                <div class="col-12 col-lg-6">
-                                    <div class="form-group">
-                                        <label>Department</label>
-                                        <select wire:model.live="form.department_id" class="form-control">
-                                            <option value="">Select a Department</option>
-                                            @foreach ($departments as $department)
-                                                <option wire:key="{{ $department->id }}"
-                                                    value="{{ $department->id }}">
-                                                    {{ $department->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('form.department_id')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
+                            @role(['super admin', 'school admin'])
+                                @if (
+                                    ($form->role == 'department admin' || $form->role == 'teacher' || $form->role == 'student') &&
+                                        $form->school_id != 0)
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <label>Department</label>
+                                            <select wire:model.live="form.department_id" class="form-control">
+                                                <option value="">Select a Department</option>
+                                                @foreach ($departments as $department)
+                                                    <option wire:key="{{ $department->id }}"
+                                                        value="{{ $department->id }}">
+                                                        {{ $department->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('form.department_id')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                            @endif
+                                @endif
+                            @endrole
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
                                     <label>Password</label>
@@ -100,7 +106,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            @if ($form->role_id > 3 && $form->department_id != 0)
+                            @if (($form->role == 'teacher' || $form->role == 'student') && $form->department_id != 0)
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Group</label>
