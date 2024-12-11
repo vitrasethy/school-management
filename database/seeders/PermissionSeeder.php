@@ -35,6 +35,9 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'view all departments'])
             ->assignRole(['super admin']);
 
+        Permission::create(['name' => 'view all departments within a school'])
+            ->assignRole(['super admin', 'school admin']);
+
         Permission::create(['name' => 'view own department'])
             ->assignRole(['super admin', 'school admin', 'department admin']);
 
