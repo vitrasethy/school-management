@@ -12,6 +12,10 @@ class School extends Model
 {
     protected $fillable = ['name'];
 
+    protected $attributes = [
+        'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx_DVDju34ygSyxCFLiCiat_DQoyUusJHXdw&s'
+    ];
+
     public function departments(): HasMany
     {
         return $this->hasMany(Department::class, 'school_id');

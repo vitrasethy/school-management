@@ -11,6 +11,10 @@ class Department extends Model
 {
     protected $fillable = ['name', 'school_id'];
 
+    protected $attributes = [
+        'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx_DVDju34ygSyxCFLiCiat_DQoyUusJHXdw&s'
+    ];
+
     public function subjects(): HasMany
     {
         return $this->hasMany(Subject::class);
