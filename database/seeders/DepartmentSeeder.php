@@ -11,11 +11,13 @@ class DepartmentSeeder extends Seeder
     {
         Department::insert([
             [
-                'name' => 'ITE',
+                'name' => 'Information Technology Engineering',
+                'abbr' => 'ITE',
                 'school_id' => 1,
             ],
             [
-                'name' => 'DSE',
+                'name' => 'Bio Engineering',
+                'abbr' => 'BE',
                 'school_id' => 1,
             ]
         ]);
