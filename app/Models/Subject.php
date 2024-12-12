@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Subject extends Model
 {
@@ -21,9 +22,9 @@ class Subject extends Model
         return $this->hasMany(Post::class, 'subject_id');
     }
 
-    public function teachers(): BelongsToMany
+    public function teacher($groupId): HasOne
     {
-        return $this->belongsToMany(User::class, 'subject_teacher', 'subject_id', 'teacher_id');
+        return $this->hasOne(Teacher::class, 'subject_id')->where('group_id', $groupId);
     }
 
     public function department(): BelongsTo
