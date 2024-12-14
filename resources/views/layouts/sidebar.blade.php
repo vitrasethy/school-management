@@ -1,9 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-        <img src="{{ asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Admin<b>LTE</b></span>
+        <img src="{{ Auth::user()->school->image ?? asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}" alt="Logo"
+             class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">{{ Auth::user()->school->abbr ?? 'AdminLTE' }}</span>
         {{-- <span
             class="brand-text font-weight-light">{{ Auth::user()->department_id ? Auth::user()->department->name : Auth::user()->school->name }}</span> --}}
     </a>
@@ -43,92 +43,94 @@
                 @endif --}}
                 @can('view all schools')
                     <li class="nav-item" id="school">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('super.school.show')}}" class="nav-link">
                             <i class="nav-icon fas fa-school"></i>
                             <p>
                                 School
-                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('super.school.show') }}" class="nav-link" id="school-show">
-                                    <i class="fas fa-angle-double-right nav-icon"></i>
-                                    <p>School List</p>
-                                </a>
-                            </li>
-                        </ul>
+                        {{--                                                <a href="#" class="nav-link">--}}
+                        {{--                                                    <i class="nav-icon fas fa-school"></i>--}}
+                        {{--                                                    <p>--}}
+                        {{--                                                        School--}}
+                        {{--                                                        <i class="right fas fa-angle-left"></i>--}}
+                        {{--                                                    </p>--}}
+                        {{--                                                </a>--}}
+                        {{--                        <ul class="nav nav-treeview">--}}
+                        {{--                            <li class="nav-item">--}}
+                        {{--                                <a href="{{ route('super.school.show') }}" class="nav-link" id="school-show">--}}
+                        {{--                                    <i class="fas fa-angle-double-right nav-icon"></i>--}}
+                        {{--                                    <p>School List</p>--}}
+                        {{--                                </a>--}}
+                        {{--                            </li>--}}
+                        {{--                        </ul>--}}
                     </li>
                 @endcan
                 @if (Auth::user()->hasRole('super admin') || Auth::user()->hasRole('school admin'))
                     <li class="nav-item" id="department">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('department.show')}}" class="nav-link">
                             <i class="nav-icon fa fa-building"></i>
                             <p>
                                 Department
-                                <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('department.show') }}" class="nav-link" id="department-show">
-                                    <i class="fas fa-angle-double-right nav-icon"></i>
-                                    <p>Department List</p>
-                                </a>
-                            </li>
-                        </ul>
+                        {{--                        <ul class="nav nav-treeview">--}}
+                        {{--                            <li class="nav-item">--}}
+                        {{--                                <a href="{{ route('department.show') }}" class="nav-link" id="department-show">--}}
+                        {{--                                    <i class="fas fa-angle-double-right nav-icon"></i>--}}
+                        {{--                                    <p>Department List</p>--}}
+                        {{--                                </a>--}}
+                        {{--                            </li>--}}
+                        {{--                        </ul>--}}
                     </li>
                 @endif
                 <li class="nav-item" id="subject">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('subject.show')}}" class="nav-link">
                         <i class="nav-icon fa fa-book"></i>
                         <p>
                             Subject
-                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('subject.show') }}" class="nav-link" id="department-show">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Subject List</p>
-                            </a>
-                        </li>
-                    </ul>
+                    {{--                    <ul class="nav nav-treeview">--}}
+                    {{--                        <li class="nav-item">--}}
+                    {{--                            <a href="{{ route('subject.show') }}" class="nav-link" id="department-show">--}}
+                    {{--                                <i class="fas fa-angle-double-right nav-icon"></i>--}}
+                    {{--                                <p>Subject List</p>--}}
+                    {{--                            </a>--}}
+                    {{--                        </li>--}}
+                    {{--                    </ul>--}}
                 </li>
                 <li class="nav-item" id="group">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('group.index')}}" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
                         <p>
                             Group
-                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('group.index') }}" class="nav-link" id="group-show">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Group List</p>
-                            </a>
-                        </li>
-                    </ul>
+                    {{--                    <ul class="nav nav-treeview">--}}
+                    {{--                        <li class="nav-item">--}}
+                    {{--                            <a href="{{ route('group.index') }}" class="nav-link" id="group-show">--}}
+                    {{--                                <i class="fas fa-angle-double-right nav-icon"></i>--}}
+                    {{--                                <p>Group List</p>--}}
+                    {{--                            </a>--}}
+                    {{--                        </li>--}}
+                    {{--                    </ul>--}}
                 </li>
                 <li class="nav-item" id="user">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('staff.index')}}" class="nav-link">
                         <i class="nav-icon fa fa-user"></i>
                         <p>
                             Users
-                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('staff.index') }}" class="nav-link" id="user-show">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Users</p>
-                            </a>
-                        </li>
-                    </ul>
+                    {{--                    <ul class="nav nav-treeview">--}}
+                    {{--                        <li class="nav-item">--}}
+                    {{--                            <a href="{{ route('staff.index') }}" class="nav-link" id="user-show">--}}
+                    {{--                                <i class="fas fa-angle-double-right nav-icon"></i>--}}
+                    {{--                                <p>Users</p>--}}
+                    {{--                            </a>--}}
+                    {{--                        </li>--}}
+                    {{--                    </ul>--}}
                 </li>
             </ul>
         </nav>

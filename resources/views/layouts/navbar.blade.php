@@ -1,4 +1,4 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-dark bg-primary">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -9,9 +9,9 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <img src="{{ asset('vendor/adminlte/dist/img/user8-128x128.jpg') }}" alt="avatar" width="25"
-                    height="25" class="img-circle brand-image">
+            <a data-toggle="dropdown" href="#">
+                <img src="{{ Auth::user()->image_url ?? asset('vendor/adminlte/dist/img/user8-128x128.jpg') }}"
+                     alt="avatar" width="30" height="30" class="img-circle brand-image">
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <a href="/" class="dropdown-item">
@@ -22,7 +22,7 @@
                     @csrf
                 </form>
                 <a href="#" class="dropdown-item"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt mr-2 text-danger"></i> Log Out
                 </a>
             </div>

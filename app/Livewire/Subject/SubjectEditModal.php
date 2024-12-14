@@ -7,6 +7,7 @@ use App\Models\Department;
 use App\Models\School;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class SubjectEditModal extends Component
@@ -17,7 +18,7 @@ class SubjectEditModal extends Component
     public $schools;
     public $departments;
 
-    public function mount(Subject $subject)
+    public function mount(Subject $subject): void
     {
         $this->subject = $subject;
         $this->form->setForm($subject);
@@ -35,18 +36,18 @@ class SubjectEditModal extends Component
         }
     }
 
-    public function updatedSchoolId()
+    public function updatedSchoolId(): void
     {
         $this->departments = Department::where('school_id', $this->school_id)->get();
     }
 
-    public function save()
+    public function save(): void
     {
         $this->form->update();
         $this->dispatch('refresh-subjects');
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.subject.subject-edit-modal');
     }

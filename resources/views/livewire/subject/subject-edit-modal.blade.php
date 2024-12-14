@@ -1,6 +1,6 @@
 <div>
     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-        data-target="#editSubjectModal-{{ $subject->id }}">
+            data-target="#editSubjectModal-{{ $subject->id }}">
         Edit
     </button>
     <div class="modal fade" id="editSubjectModal-{{ $subject->id }}" wire:ignore.self>
@@ -23,7 +23,7 @@
                                             <option value="">Select a School</option>
                                             @foreach ($schools as $school)
                                                 <option wire:key="{{ $school->id }}" value="{{ $school->id }}">
-                                                    {{ $school->name }}
+                                                    {{  $school->name }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -46,9 +46,9 @@
                                     <div class="form-group">
                                         <label>Name</label>
                                         <input wire:model="form.name" type="text" class="form-control"
-                                            placeholder="Subject Name">
+                                               placeholder="Subject Name">
                                         @error('form.name')
-                                            <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -71,9 +71,9 @@
                                     <div class="form-group">
                                         <label>Name</label>
                                         <input wire:model="form.name" type="text" class="form-control"
-                                            placeholder="Subject Name">
+                                               placeholder="Subject Name">
                                         @error('form.name')
-                                            <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -83,9 +83,9 @@
                                     <div class="form-group">
                                         <label>Name</label>
                                         <input wire:model="form.name" type="text" class="form-control"
-                                            placeholder="Subject Name">
+                                               placeholder="Subject Name">
                                         @error('form.name')
-                                            <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>

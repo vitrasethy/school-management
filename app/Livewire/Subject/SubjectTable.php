@@ -4,6 +4,7 @@ namespace App\Livewire\Subject;
 
 use App\Models\Subject;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -16,7 +17,7 @@ class SubjectTable extends Component
     public $department_id;
     public $per_page = 10;
 
-    public function mount()
+    public function mount(): void
     {
         $user = Auth::user();
 
@@ -28,19 +29,19 @@ class SubjectTable extends Component
     }
 
     #[On('refresh-subjects')]
-    public function refreshSubjects()
+    public function refreshSubjects(): void
     {
         $this->resetPage();
     }
 
     #[On('confirmed-delete')]
-    public function delete($subject_id)
+    public function delete($subject_id): void
     {
         $subject = Subject::find($subject_id);
         $subject->delete();
     }
 
-    public function render()
+    public function render(): View
     {
         $query = Subject::query();
 

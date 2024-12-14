@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('subject_id')->constrained('subjects');
             $table->foreignIdFor(Group::class)->constrained();
+            $table->timestamps();
         });
     }
 

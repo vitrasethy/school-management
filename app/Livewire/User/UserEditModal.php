@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\School;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class UserEditModal extends Component
@@ -21,7 +22,7 @@ class UserEditModal extends Component
     public $departments;
     public $groups;
 
-    public function mount(User $user)
+    public function mount(User $user): void
     {
         $this->form->setForm($user);
         $this->roles = Role::all();
@@ -45,19 +46,19 @@ class UserEditModal extends Component
         }
     }
 
-    public function updatedFormSchoolId()
+    public function updatedFormSchoolId(): void
     {
         $this->form->department_id = 0;
         $this->departments = Department::where('school_id', $this->form->school_id)->get();
     }
 
-    public function updatedFormDepartmentId()
+    public function updatedFormDepartmentId(): void
     {
         $this->form->group_id = 0;
         $this->groups = Group::where('department_id', $this->form->department_id)->get();
     }
 
-    public function updatedFormRole()
+    public function updatedFormRole(): void
     {
         if ($this->form->role == 'super admin') {
             $this->form->school_id = null;
@@ -67,13 +68,13 @@ class UserEditModal extends Component
         }
     }
 
-    public function save()
+    public function save(): void
     {
         $this->form->update();
         $this->dispatch('refresh-users');
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.user.user-edit-modal');
     }

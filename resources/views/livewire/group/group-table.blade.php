@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <input wire:model.live.debounce.500ms="search" type="text" class="form-control"
-                        placeholder="Search Group" />
+                           placeholder="Search Group"/>
                 </div>
             </div>
         </div>
@@ -13,50 +13,54 @@
     <div class="card-body">
         <table id="example2" class="table table-hover text-nowrap">
             <thead>
-                <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        School
-                    </th>
-                    <th>
-                        Department
-                    </th>
-                    <th>
-                        Year
-                    </th>
-                    <th>
-                        Academic Year
-                    </th>
-                    <th>Action</th>
-                </tr>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    School
+                </th>
+                <th>
+                    Department
+                </th>
+                <th>
+                    Year
+                </th>
+                <th>
+                    Academic Year
+                </th>
+                <th>Action</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach ($groups as $group)
-                    <tr wire:key='{{ $group->id }}'>
-                        <td>{{ $group->id }}</td>
-                        <td>{{ $group->name }}</td>
-                        <td>
-                            {{ $group->department->school->name }}
-                        </td>
-                        <td>{{ $group->department->name }}</td>
-                        <td>{{ $group->year }}</td>
-                        <td>{{ $group->school_year }}</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                {{-- <a href="{{ route('group.index', $group->id) }}" class="btn btn-sm btn-success">View</a> --}}
-                                <button class="btn btn-sm btn-danger"
-                                    wire:click="$dispatch('alert-delete', {id: {{ $group->id }}})">Delete</button>
-                                <livewire:group.group-edit-modal :group="$group"
-                                    :wire:key="'group-modal-'.$group->id" />
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
+            @foreach ($groups as $group)
+                <tr wire:key='{{ $group->id }}'>
+                    <td>{{ $group->id }}</td>
+                    <td>{{ $group->name }}</td>
+                    <td>
+                        {{ $group->department->school->name }}
+                    </td>
+                    <td>{{ $group->department->name }}</td>
+                    <td>{{ $group->year }}</td>
+                    <td>{{ $group->school_year }}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <a href="{{ route('group.show', $group->id) }}" class="btn btn-sm btn-primary mr-2"><i
+                                    class="fa fa-eye" aria-hidden="true"></i></a>
+                            <livewire:group.group-edit-modal :group="$group"
+                                                             :wire:key="'group-modal-'.$group->id"/>
+                            <button class="btn btn-sm btn-danger ml-2"
+                                    wire:click="$dispatch('alert-delete', {id: {{ $group->id }}})"><i
+                                    class="fa fa-trash"
+                                    aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>
@@ -67,12 +71,11 @@
 
 @section('js')
     <script>
-        // $(document).ready(function() {
-        //     $("#sidebar li a").removeClass("active");
-        //     $("#schools>a").addClass("active");
-        //     $("#schools").addClass("menu-open");
-        //     $("#schools-index").addClass("my-active");
-        // });
+        $(document).ready(function () {
+            $("#sidebar li a").removeClass("active");
+            $("#group>a").addClass("active");
+            $("#group").addClass("menu-open");
+        });
         window.addEventListener("alert-delete", (event) => {
             Swal.fire({
                 title: "Are you sure?",

@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-8">
                     <input wire:model.live.debounce.500ms="search" type="text" class="form-control"
-                        placeholder="Search School" />
+                           placeholder="Search School"/>
                 </div>
             </div>
         </div>
@@ -20,38 +20,39 @@
     <div class="card-body">
         <table id="example2" class="table table-hover text-nowrap">
             <thead>
-                <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Created At
-                    </th>
-                    <th>Updated At</th>
-                    <th>Action</th>
-                </tr>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Created At
+                </th>
+                <th>Updated At</th>
+                <th>Action</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach ($schools as $school)
-                    <tr wire:key='{{ $school->id }}'>
-                        <td>{{ $school->id }}</td>
-                        <td>{{ $school->name }}</td>
-                        <td>{{ $school->created_at }}</td>
-                        <td>{{ $school->updated_at }}</td>
-                        <td>
-                            <div class="d-flex">
-                                {{-- <a href="{{ route('super.school.index', $school->id) }}"
-                                    class="btn btn-sm btn-success">View</a> --}}
-                                <livewire:school.school-edit-modal :school="$school" :wire:key="$school->id" />
-                                <button class="btn btn-sm btn-danger"
-                                    wire:click="$dispatch('alert-delete', {id: {{ $school->id }}})">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
+            @foreach ($schools as $school)
+                <tr wire:key='{{ $school->id }}'>
+                    <td>{{ $school->id }}</td>
+                    <td>{{ $school->name }}</td>
+                    <td>{{ $school->created_at }}</td>
+                    <td>{{ $school->updated_at }}</td>
+                    <td>
+                        <div class="d-flex">
+                            {{-- <a href="{{ route('super.school.index', $school->id) }}"
+                                class="btn btn-sm btn-success">View</a> --}}
+                            <livewire:school.school-edit-modal :school="$school" :wire:key="$school->id"/>
+                            <button class="btn btn-sm btn-danger"
+                                    wire:click="$dispatch('alert-delete', {id: {{ $school->id }}})">Delete
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>
@@ -62,11 +63,10 @@
 
 @section('js')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#sidebar li a").removeClass("active");
             $("#school>a").addClass("active");
             $("#school").addClass("menu-open");
-            $("#schools-index").addClass("my-active");
         });
         window.addEventListener("alert-delete", (event) => {
             Swal.fire({

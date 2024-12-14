@@ -9,7 +9,7 @@
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
@@ -23,31 +23,31 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
-        {{-- Navbar --}}
-        @include('layouts.navbar')
-        {{-- Sidebar --}}
-        @include('layouts.sidebar')
-        {{-- Content Wrapper --}}
-        <div class="content-wrapper">
-            <div class="p-2 p-md-4">
-                {{ $slot }}
-            </div>
+<div class="wrapper">
+    {{-- Navbar --}}
+    @include('layouts.navbar')
+    {{-- Sidebar --}}
+    @include('layouts.sidebar')
+    {{-- Content Wrapper --}}
+    <div class="content-wrapper">
+        <div class="p-2 p-md-4">
+            {{ $slot }}
         </div>
-        {{-- Footer --}}
-        @include('layouts.footer')
     </div>
+    {{-- Footer --}}
+    {{--        @include('layouts.footer')--}}
+</div>
 
-    <!-- jQuery -->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap -->
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
-    <!-- SweetAlert2 -->
-    <script src="{{ asset('vendor/sweetalert2/sweetalert2.min.js') }}"></script>
-    <!-- JS Script -->
-    @yield('js')
+<!-- jQuery -->
+<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+<!-- Bootstrap -->
+<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+<!-- SweetAlert2 -->
+<script src="{{ asset('vendor/sweetalert2/sweetalert2.min.js') }}"></script>
+<!-- JS Script -->
+@yield('js')
 </body>
 
 </html>
