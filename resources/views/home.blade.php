@@ -21,3 +21,13 @@
         </div>
     </div>
 @endsection
+
+@section('js')
+    <script>
+        $(document).ready(function () {
+            $("#sidebar li a").removeClass("active");
+            $("#dashboard>a").addClass("active");
+            $("#dashboard").addClass("menu-open");
+        });
+    </script>
+@endsection

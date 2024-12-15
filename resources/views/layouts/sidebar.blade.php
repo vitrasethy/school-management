@@ -3,9 +3,16 @@
     <a href="#" class="brand-link">
         <img src="{{ Auth::user()->school->image ?? asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}" alt="Logo"
              class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">{{ Auth::user()->school->abbr ?? 'AdminLTE' }}</span>
-        {{-- <span
-            class="brand-text font-weight-light">{{ Auth::user()->department_id ? Auth::user()->department->name : Auth::user()->school->name }}</span> --}}
+        @role('super admin')
+        <span class="brand-text font-weight-light">AdminLTE</span>
+        @endrole
+        @role('school admin')
+        <span class="brand-text font-weight-light">{{Auth::user()->school->abbr}}</span>
+        @endrole
+        @role('department admin')
+        <span
+            class="brand-text font-weight-light">{{Auth::user()->school->abbr.' - '.Auth::user()->department->abbr}}</span>
+        @endrole
     </a>
 
     <!-- Sidebar -->
@@ -14,8 +21,8 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false" id="sidebar">
-                <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link" id="dashboard">
+                <li class="nav-item" id="dashboard">
+                    <a href="{{ route('home') }}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard

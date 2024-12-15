@@ -16,44 +16,64 @@
                     <div class="modal-body">
                         <div class="row">
                             @role('super admin')
-                                <div class="col-12 col-lg-6">
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <input wire:model="form.name" type="text" class="form-control"
-                                            placeholder="Name">
-                                        @error('form.name')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input wire:model="form.name" type="text" class="form-control"
+                                           placeholder="Name">
+                                    @error('form.name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                <div class="col-12 col-lg-6">
-                                    <div class="form-group">
-                                        <label>School</label>
-                                        <select wire:model="form.school_id" class="form-control">
-                                            <option value="">Select a school</option>
-                                            @foreach ($schools as $school)
-                                                <option wire:key="{{ $school->id }}" value="{{ $school->id }}">
-                                                    {{ $school->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('form.school_id')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group">
+                                    <label>School</label>
+                                    <select wire:model="form.school_id" class="form-control">
+                                        <option value="">Select a school</option>
+                                        @foreach ($schools as $school)
+                                            <option wire:key="{{ $school->id }}" value="{{ $school->id }}">
+                                                {{ $school->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('form.school_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group">
+                                    <label>Abbreviate Name</label>
+                                    <input wire:model="form.abbr" type="text" class="form-control"
+                                           placeholder="Name">
+                                    @error('form.abbr')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                             @endrole
                             @role('school admin')
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <input wire:model="form.name" type="text" class="form-control"
-                                            placeholder="Name">
-                                        @error('form.name')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input wire:model="form.name" type="text" class="form-control"
+                                           placeholder="Name">
+                                    @error('form.name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group">
+                                    <label>Abbreviate Name</label>
+                                    <input wire:model="form.abbr" type="text" class="form-control"
+                                           placeholder="Name">
+                                    @error('form.abbr')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                             @endrole
                         </div>
                     </div>

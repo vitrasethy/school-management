@@ -22,25 +22,17 @@
             <thead>
             <tr>
                 <th>
-                    ID
-                </th>
-                <th>
                     Name
                 </th>
-                <th>
-                    Created At
-                </th>
-                <th>Updated At</th>
                 <th>Action</th>
             </tr>
             </thead>
             <tbody>
             @foreach ($schools as $school)
                 <tr wire:key='{{ $school->id }}'>
-                    <td>{{ $school->id }}</td>
-                    <td>{{ $school->name }}</td>
-                    <td>{{ $school->created_at }}</td>
-                    <td>{{ $school->updated_at }}</td>
+                    <td><img src="{{ $school->image ?? asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}"
+                             class="img-circle brand-image mr-2" width="30" height="30"
+                             alt="school-logo"/> {{ $school->name }}</td>
                     <td>
                         <div class="d-flex">
                             {{-- <a href="{{ route('super.school.index', $school->id) }}"
