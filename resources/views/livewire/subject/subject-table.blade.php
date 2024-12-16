@@ -5,7 +5,7 @@
                 @if($filters['school_id'])
                     <span wire:key="filter-pill-gender"
                           class="badge badge-pill badge-info d-inline-flex align-items-center">
-                                School: {{$school->name}}
+                                School: {{$school->abbr}}
                     <a href="#" wire:click.prevent="removeFilter('school')" class="text-white ml-2">
                         <span class="sr-only">Remove filter option</span>
                         <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none"
@@ -19,7 +19,7 @@
                 @if($filters['department_id'])
                     <span wire:key="filter-pill-gender"
                           class="badge badge-pill badge-info d-inline-flex align-items-center">
-                                Department: {{$department->name}}
+                                Department: {{$department->abbr}}
                     <a href="#" wire:click.prevent="removeFilter('department')" class="text-white ml-2">
                         <span class="sr-only">Remove filter option</span>
                         <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none"
@@ -37,6 +37,7 @@
             <div class="d-flex align-items-center">
                 <input wire:model.live.debounce.500ms="search" type="text" class="form-control"
                        placeholder="Search Subject"/>
+                @role(['super admin', 'school admin'])
                 <div x-data="{ open: false }" x-on:keydown.escape.stop="open = false" x-on:mousedown.away="open = false"
                      class="btn-group d-block d-md-inline">
                     <button x-on:click="open = !open" type="button"
@@ -62,6 +63,7 @@
                             </div>
                         </li>
                         @endrole
+                        @role(['super admin', 'school admin'])
                         <li>
                             <div wire:key="filter-department" class="p-2">
                                 <label for="filter-department" class="mb-2">
@@ -77,8 +79,10 @@
                                 </select>
                             </div>
                         </li>
+                        @endrole
                     </ul>
                 </div>
+                @endrole
             </div>
             <div>
                 <select wire:model.live='perPage' class="form-control mr-2" aria-label="Default select example">

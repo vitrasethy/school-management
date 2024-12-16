@@ -1,12 +1,150 @@
 <div class="card">
     <div class="card-header">
+        @if($filters['school_id'] || $filters['department_id'] || $filters['year'] || $filters['academic_year'])
+            <div class="mb-2">Applied Filters:
+                @if($filters['school_id'])
+                    <span wire:key="filter-pill-gender"
+                          class="badge badge-pill badge-info d-inline-flex align-items-center">
+                                School: {{$school->abbr}}
+                    <a href="#" wire:click.prevent="removeFilter('school')" class="text-white ml-2">
+                        <span class="sr-only">Remove filter option</span>
+                        <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none"
+                             viewBox="0 0 8 8">
+                            <path stroke-linecap="round" stroke-width="1.5"
+                                  d="M1 1l6 6m0-6L1 7"></path>
+                        </svg>
+                    </a>
+                </span>
+                @endif
+                @if($filters['department_id'])
+                    <span wire:key="filter-pill-gender"
+                          class="badge badge-pill badge-info d-inline-flex align-items-center">
+                                Department: {{$department->abbr}}
+                    <a href="#" wire:click.prevent="removeFilter('department')" class="text-white ml-2">
+                        <span class="sr-only">Remove filter option</span>
+                        <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none"
+                             viewBox="0 0 8 8">
+                            <path stroke-linecap="round" stroke-width="1.5"
+                                  d="M1 1l6 6m0-6L1 7"></path>
+                        </svg>
+                    </a>
+                </span>
+                @endif
+                @if($filters['year'])
+                    <span wire:key="filter-pill-gender"
+                          class="badge badge-pill badge-info d-inline-flex align-items-center">
+                                Year: {{$filters['year']}}
+                    <a href="#" wire:click.prevent="removeFilter('year')" class="text-white ml-2">
+                        <span class="sr-only">Remove filter option</span>
+                        <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none"
+                             viewBox="0 0 8 8">
+                            <path stroke-linecap="round" stroke-width="1.5"
+                                  d="M1 1l6 6m0-6L1 7"></path>
+                        </svg>
+                    </a>
+                </span>
+                @endif
+                @if($filters['academic_year'])
+                    <span wire:key="filter-pill-gender"
+                          class="badge badge-pill badge-info d-inline-flex align-items-center">
+                                Academic Year: {{$filters['academic_year']}}
+                    <a href="#" wire:click.prevent="removeFilter('academic_year')" class="text-white ml-2">
+                        <span class="sr-only">Remove filter option</span>
+                        <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none"
+                             viewBox="0 0 8 8">
+                            <path stroke-linecap="round" stroke-width="1.5"
+                                  d="M1 1l6 6m0-6L1 7"></path>
+                        </svg>
+                    </a>
+                </span>
+                @endif
+                <a href="#" wire:click.prevent="resetFilters" class="badge badge-pill badge-light">Clear</a>
+            </div>
+        @endif
         <div class="d-flex justify-content-between align-items-center">
-            <h3 class="card-title">Group Table</h3>
-            <div class="row">
-                <div class="col-12">
-                    <input wire:model.live.debounce.500ms="search" type="text" class="form-control"
-                           placeholder="Search Group"/>
+            <div class="d-flex align-items-center">
+                <input wire:model.live.debounce.500ms="search" type="text" class="form-control"
+                       placeholder="Search User"/>
+                <div x-data="{ open: false }" x-on:keydown.escape.stop="open = false" x-on:mousedown.away="open = false"
+                     class="btn-group d-block d-md-inline">
+                    <button x-on:click="open = !open" type="button"
+                            class="btn dropdown-toggle d-block w-100 d-md-inline">
+                        Filters
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu w-100" x-bind:class="{'show' : open }" role="menu">
+                        @role('super admin')
+                        <li>
+                            <div wire:key="filter-school" class="p-2">
+                                <label for="filter-school" class="mb-2">
+                                    School
+                                </label>
+                                <select wire:model.live="filters.school_id"
+                                        id="filter-school" class="form-control">
+                                    <option value="">Any</option>
+                                    @foreach($schools as $school)
+                                        <option wire:key="{{$school->id}}"
+                                                value={{$school->id}}>{{$school->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </li>
+                        @endrole
+                        @role(['super admin', 'school admin'])
+                        <li>
+                            <div wire:key="filter-department" class="p-2">
+                                <label for="filter-department" class="mb-2">
+                                    Department
+                                </label>
+                                <select wire:model.live="filters.department_id"
+                                        id="filter-department" class="form-control">
+                                    <option value="">Any</option>
+                                    @foreach($departments as $department)
+                                        <option wire:key="{{$department->id}}"
+                                                value={{$department->id}}>{{$department->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </li>
+                        @endrole
+                        <li>
+                            <div wire:key="filter-year" class="p-2">
+                                <label for="filter-year" class="mb-2">
+                                    Year
+                                </label>
+                                <select wire:model.live="filters.year"
+                                        id="filter-year" class="form-control">
+                                    <option value="">Any</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li>
+                            <div wire:key="filter-academic-year" class="p-2">
+                                <label for="filter-academic-year" class="mb-2">
+                                    Academic Year
+                                </label>
+                                <select wire:model.live="filters.academic_year"
+                                        id="filter-academic-year" class="form-control">
+                                    <option value="">Any</option>
+                                    <option value="2025-2026">2025-2026</option>
+                                    <option value="2024-2025">2024-2025</option>
+                                    <option value="2023-2024">2023-2024</option>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
+            </div>
+            <div>
+                <select wire:model.live='perPage' class="form-control mr-2" aria-label="Default select example">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
             </div>
         </div>
     </div>

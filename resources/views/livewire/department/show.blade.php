@@ -4,7 +4,7 @@
             <div class="mb-2">Applied Filters:
                 <span wire:key="filter-pill-gender"
                       class="badge badge-pill badge-info d-inline-flex align-items-center">
-                        School: {{$school->name}}
+                        School: {{$school->abbr}}
                     </span>
                 <a href="#" wire:click.prevent="resetFilter" class="badge badge-pill badge-light">Clear</a>
             </div>
