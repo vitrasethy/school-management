@@ -23,6 +23,7 @@ class DepartmentForm extends Form
         $this->department = $department;
         $this->name = $department->name;
         $this->school_id = $department->school_id;
+        $this->abbr = $department->abbr;
     }
 
     public function setSchoolId(School $school): void

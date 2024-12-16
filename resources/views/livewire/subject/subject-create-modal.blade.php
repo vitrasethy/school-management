@@ -1,10 +1,11 @@
 <div>
-    <button type="button" class="btn btn-sm btn-success mb-4" data-toggle="modal" data-target="#createSubjectModal">
+    <button type="button" class="btn btn-sm btn-success mb-2 mb-md-4" data-toggle="modal"
+            data-target="#createSubjectModal">
         Create Subject
         <i class="fa fa-plus ml-2" aria-hidden="true"></i>
     </button>
     <div class="modal fade" id="createSubjectModal" wire:ignore.self>
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Create Subject</h5>
@@ -16,7 +17,7 @@
                     <div class="modal-body">
                         <div class="row">
                             @if (Auth::user()->hasRole('super admin'))
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label>School</label>
                                         <select wire:model.live="school_id" class="form-control">
@@ -31,7 +32,7 @@
                                 </div>
                             @endif
                             @if (Auth::user()->hasRole('super admin') || Auth::user()->hasRole('school admin'))
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label>Department</label>
                                         <select wire:model="form.department_id" class="form-control">
@@ -44,13 +45,13 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label>Name</label>
                                         <input wire:model="form.name" type="text" class="form-control"
-                                            placeholder="Subject Name">
+                                               placeholder="Subject Name">
                                         @error('form.name')
-                                            <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -60,9 +61,9 @@
                                     <div class="form-group">
                                         <label>Name</label>
                                         <input wire:model="form.name" type="text" class="form-control"
-                                            placeholder="Subject Name">
+                                               placeholder="Subject Name">
                                         @error('form.name')
-                                            <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>

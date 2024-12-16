@@ -6,6 +6,7 @@ use App\Livewire\Forms\SubjectForm;
 use App\Models\Department;
 use App\Models\School;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class SubjectCreateModal extends Component
@@ -16,7 +17,7 @@ class SubjectCreateModal extends Component
     public $schools;
     public $departments;
 
-    public function mount()
+    public function mount(): void
     {
         $this->departments = collect();
         $user = Auth::user();
@@ -30,18 +31,18 @@ class SubjectCreateModal extends Component
         }
     }
 
-    public function updatedSchoolId()
+    public function updatedSchoolId(): void
     {
         $this->departments = Department::where('school_id', $this->school_id)->get();
     }
 
-    public function save()
+    public function save(): void
     {
         $this->form->create();
         $this->dispatch('refresh-subjects');
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.subject.subject-create-modal');
     }

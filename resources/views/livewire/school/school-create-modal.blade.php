@@ -40,7 +40,7 @@
                                 <div class="form-group">
                                     <label>Image</label>
                                     <input wire:model="form.image" type="file" class="form-control-file"
-                                           placeholder="Name">
+                                           placeholder="School Logo">
                                     @error('form.image')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror

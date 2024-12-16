@@ -11,9 +11,12 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class UserEditModal extends Component
 {
+    use WithFileUploads;
+
     public UserForm $form;
     public User $user;
 

@@ -31,7 +31,7 @@
             @foreach ($schools as $school)
                 <tr wire:key='{{ $school->id }}'>
                     <td><img src="{{ $school->image ?? asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}"
-                             class="img-circle brand-image mr-2" width="30" height="30"
+                             class="img-circle brand-image mr-2" style="width: 30px; height: 30px; object-fit: cover;"
                              alt="school-logo"/> {{ $school->name }}</td>
                     <td>
                         <div class="d-flex">
@@ -39,7 +39,8 @@
                                 class="btn btn-sm btn-success">View</a> --}}
                             <livewire:school.school-edit-modal :school="$school" :wire:key="$school->id"/>
                             <button class="btn btn-sm btn-danger"
-                                    wire:click="$dispatch('alert-delete', {id: {{ $school->id }}})">Delete
+                                    wire:click="$dispatch('alert-delete', {id: {{ $school->id }}})"><i
+                                    class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                         </div>
                     </td>

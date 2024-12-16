@@ -1,5 +1,6 @@
 <div>
-    <button type="button" class="btn btn-sm btn-success mb-4" data-toggle="modal" data-target="#createGroupModal">
+    <button type="button" class="btn btn-sm btn-success mb-2 mb-md-4" data-toggle="modal"
+            data-target="#createGroupModal">
         Create Group <i class="fa fa-plus ml-2" aria-hidden="true"></i>
     </button>
     <div class="modal fade" id="createGroupModal" wire:ignore.self>
@@ -18,9 +19,9 @@
                                 <div class="form-group">
                                     <label>Name</label>
                                     <input wire:model="form.name" type="text" class="form-control"
-                                        placeholder="Name">
+                                           placeholder="Name">
                                     @error('form.name')
-                                        <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -37,7 +38,7 @@
                                             @endforeach
                                         </select>
                                         @error('form.department_id')
-                                            <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -55,7 +56,7 @@
                                             @endforeach
                                         </select>
                                         @error('form.department_id')
-                                            <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
@@ -64,9 +65,9 @@
                                 <div class="form-group">
                                     <label>School Year</label>
                                     <input wire:model="form.school_year" type="text" class="form-control"
-                                        placeholder="School Year">
+                                           placeholder="School Year">
                                     @error('form.school_year')
-                                        <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -74,9 +75,9 @@
                                 <div class="form-group">
                                     <label>Year</label>
                                     <input wire:model="form.year" type="text" class="form-control"
-                                        placeholder="Year">
+                                           placeholder="Year">
                                     @error('form.year')
-                                        <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>

@@ -6,6 +6,7 @@ use App\Livewire\Forms\DepartmentForm;
 use App\Models\Department;
 use App\Models\School;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class EditDepartmentModal extends Component
@@ -16,7 +17,7 @@ class EditDepartmentModal extends Component
     public $schools;
     public $user;
 
-    public function mount(Department $department)
+    public function mount(Department $department): void
     {
         $this->department = $department;
         $this->form->setForm($department);
@@ -29,13 +30,13 @@ class EditDepartmentModal extends Component
         }
     }
 
-    public function save()
+    public function save(): void
     {
         $this->form->update();
         $this->dispatch('refresh-departments');
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.department.edit-department-modal');
     }

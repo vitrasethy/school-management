@@ -11,7 +11,7 @@
         <li class="nav-item dropdown">
             <a data-toggle="dropdown" href="#">
                 <img src="{{ Auth::user()->image_url ?? asset('vendor/adminlte/dist/img/user8-128x128.jpg') }}"
-                     alt="avatar" width="30" height="30" class="img-circle brand-image">
+                     alt="avatar" class="img-circle brand-image" style="width: 30px; height: 30px; object-fit: cover;">
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <a href="/" class="dropdown-item">

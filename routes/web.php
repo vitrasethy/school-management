@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SubjectController;
@@ -15,7 +14,6 @@ Route::get('/school', [SchoolController::class, 'show'])->middleware('auth')->na
 // Department
 Route::get('/department', [DepartmentController::class, 'show'])->middleware('auth')->name('department.show');
 // Group
-// Route::get('/group', [GroupController::class, 'show'])->middleware('auth')->name('group.show');
 Route::view('/group', 'group.group-index')->middleware('auth')->name('group.index');
 Route::get('/group/{group}', GroupShow::class)->middleware('auth')->name('group.show');
 // Subject

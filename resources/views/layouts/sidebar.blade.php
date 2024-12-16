@@ -2,7 +2,8 @@
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
         <img src="{{ Auth::user()->school->image ?? asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}" alt="Logo"
-             class="brand-image img-circle elevation-3" style="opacity: .8">
+             class="brand-image img-circle elevation-3"
+             style="object-fit: cover; opacity: .8;">
         @role('super admin')
         <span class="brand-text font-weight-light">AdminLTE</span>
         @endrole

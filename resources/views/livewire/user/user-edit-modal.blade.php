@@ -105,6 +105,25 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group">
+                                    <label>Profile Image</label>
+                                    <input wire:model="form.image_url" type="file" class="form-control-file"
+                                           placeholder="Profile Image">
+                                    <div class="mt-2">
+                                        @if ($form->image_url && is_object($form->image_url))
+                                            <img src="{{ $form->image_url->temporaryUrl() }}" class="mt-2"
+                                                 style="max-height: 200px" alt="school-logo"/>
+                                        @elseif ($form->existing_image)
+                                            <img src="{{ $form->existing_image }}" class="mt-2"
+                                                 style="max-height: 200px" alt="school-logo"/>
+                                        @endif
+                                    </div>
+                                    @error('form.image_url')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                             @if (($form->role == 'teacher' || $form->role == 'student') && $form->department_id != 0)
                                 <div class="col-12">
                                     <div class="form-group">

@@ -1,5 +1,6 @@
 <div>
-    <button type="button" class="btn btn-sm btn-success mb-4" data-toggle="modal" data-target="#createUserModal">
+    <button type="button" class="btn btn-sm btn-success mb-2 mb-md-4" data-toggle="modal"
+            data-target="#createUserModal">
         Create User <i class="fa fa-plus ml-2" aria-hidden="true"></i>
     </button>
     <div class="modal fade" id="createUserModal" wire:ignore.self>
@@ -102,6 +103,22 @@
                                     <input wire:model="form.password" type="password" class="form-control"
                                            placeholder="Password">
                                     @error('form.password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group">
+                                    <label>Profile Image</label>
+                                    <input wire:model="form.image_url" type="file" class="form-control-file"
+                                           placeholder="Profile Image">
+                                    <div class="mt-2">
+                                        @if ($form->image_url)
+                                            <img src="{{ $form->image_url->temporaryUrl() }}" class="mt-2"
+                                                 style="max-height: 200px" alt="school-logo"/>
+                                        @endif
+                                    </div>
+                                    @error('form.image_url')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

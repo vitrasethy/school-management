@@ -15,9 +15,6 @@
             <thead>
             <tr>
                 <th>
-                    ID
-                </th>
-                <th>
                     Name
                 </th>
                 <th>
@@ -35,8 +32,10 @@
             <tbody>
             @foreach ($users as $user)
                 <tr wire:key='{{ $user->id }}'>
-                    <td>{{ $user->id }}</td>
-                    <td>{{ $user->name }}</td>
+                    <td><img src="{{ $user->image_url ?? asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}"
+                             class="rounded-circle mr-2"
+                             style="width: 30px; height: 30px; object-fit: cover;"
+                             alt="school-logo"/> {{ $user->name }}</td>
                     <td>
                         {{ $user->school ? $user->school->name : 'N/A' }}
                     </td>

@@ -1,7 +1,7 @@
 <div>
-    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+    <button type="button" class="btn btn-sm btn-warning text-white mr-2" data-toggle="modal"
             data-target="#editDepartmentModal-{{ $school->id }}">
-        Edit
+        <i class="fa fa-pen" aria-hidden="true"></i>
     </button>
     <div class="modal fade" id="editDepartmentModal-{{ $school->id }}" wire:ignore.self>
         <div class="modal-dialog">

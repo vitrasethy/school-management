@@ -1,10 +1,10 @@
 <div>
-    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+    <button type="button" class="btn btn-sm btn-warning text-white" data-toggle="modal"
             data-target="#editSubjectModal-{{ $subject->id }}">
-        Edit
+        <i class="fa fa-pen" aria-hidden="true"></i>
     </button>
     <div class="modal fade" id="editSubjectModal-{{ $subject->id }}" wire:ignore.self>
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Subject</h5>
@@ -16,7 +16,7 @@
                     <div class="modal-body">
                         <div class="row">
                             @if (Auth::user()->hasRole('super admin'))
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label>School</label>
                                         <select wire:model.live="school_id" class="form-control">
@@ -29,7 +29,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label>Department</label>
                                         <select wire:model="form.department_id" class="form-control">
@@ -42,7 +42,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label>Name</label>
                                         <input wire:model="form.name" type="text" class="form-control"
@@ -54,7 +54,7 @@
                                 </div>
                             @endif
                             @if (Auth::user()->hasRole('school admin'))
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label>Department</label>
                                         <select wire:model="form.department_id" class="form-control">
@@ -67,7 +67,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label>Name</label>
                                         <input wire:model="form.name" type="text" class="form-control"
