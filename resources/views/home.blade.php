@@ -1,25 +1,15 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
-
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                        {{ __('You are logged in!') }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @role('super admin')
+    <livewire:home.super-admin-statistic/>
+    @endrole
+    @role('school admin')
+    <livewire:home.school-admin-statistic/>
+    @endrole
+    @role('department admin')
+    <livewire:home.department-admin-statistic/>
+    @endrole
 @endsection
 
 @section('js')

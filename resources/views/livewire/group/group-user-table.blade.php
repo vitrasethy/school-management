@@ -2,8 +2,9 @@
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center">
             <h3 class="card-title">Students</h3>
-            <livewire:group.add-student-modal :group="$group"
-                                              :wire:key="'group-modal-'.$group->id"/>
+            <livewire:group.group-user-add-modal :group="$group"
+                                                 :wire:key="'group-modal-'.$group->id"/>
+
         </div>
     </div>
     <div class="card-body">
