@@ -80,7 +80,8 @@ class UserTable extends Component
     #[On('refresh-users')]
     public function refreshUsers(): void
     {
-        $this->resetPage();
+        $page = $this->getPage();
+        $this->setPage($page);
     }
 
     #[On('confirmed-delete')]
@@ -122,7 +123,7 @@ class UserTable extends Component
         }
 
         return view('livewire.user.user-table', [
-            'users' => $query->withoutRole('super admin')->paginate($this->perPage)
+            'users' => $query->withoutRole('super admin')->latest()->paginate($this->perPage)
         ]);
     }
 }

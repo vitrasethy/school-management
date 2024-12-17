@@ -36,7 +36,7 @@ class UserForm extends Form
         $this->name = $user->name;
         $this->email = $user->email;
         $this->school_id = $user->school_id;
-        $this->department_id = $user->department_id;
+        $this->department_id = $user->department_id ?? null;
         $this->group_id = $user->groups->isNotEmpty() ? $user->groups[0]->id : null;
         $this->group_id_list = $user->groups->pluck('id')->toArray();
         $this->role = $user->getRoleNames()[0];
@@ -70,8 +70,9 @@ class UserForm extends Form
     public function update(): void
     {
         $this->validate();
-        $updateData = $this->only(['name', 'email', 'school_id', 'department_id']);
+        $updateData = $this->only(['name', 'email', 'school_id']);
 
+        $updateData['department_id'] = $this->department_id == 0 ? null : $this->department_id;
         // Only update the password if it is provided
         if ($this->password) {
             $updateData['password'] = Hash::make($this->password);

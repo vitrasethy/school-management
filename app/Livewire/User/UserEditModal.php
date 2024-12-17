@@ -75,6 +75,7 @@ class UserEditModal extends Component
     {
         $this->form->update();
         $this->dispatch('refresh-users');
+        $this->dispatch('close-modal', ['id' => $this->user->id]);
     }
 
     public function render(): View

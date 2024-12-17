@@ -141,7 +141,7 @@
             </thead>
             <tbody>
             @foreach ($users as $user)
-                <tr wire:key='{{ $user->id }}'>
+                <tr wire:key='user-{{ $user->id }}'>
                     <td><img src="{{ $user->image_url ?? asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}"
                              class="rounded-circle mr-2"
                              style="width: 30px; height: 30px; object-fit: cover;"
@@ -202,6 +202,9 @@
                     });
                 }
             });
+        });
+        window.addEventListener('close-modal', (event) => {
+            $('#editUserModal-' + event.detail[0].id).modal('hide');
         });
     </script>
 @endsection

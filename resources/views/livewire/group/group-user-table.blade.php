@@ -27,7 +27,12 @@
                 <tr wire:key='{{ $user->id }}'>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->getRoleNames()[0] }}</td>
-                    <td></td>
+                    <td>
+                        <button
+                            wire:click="$dispatch('alert-user-delete', {id: {{ $user->id }}})"
+                            class="btn btn-sm btn-danger ml-2"><i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

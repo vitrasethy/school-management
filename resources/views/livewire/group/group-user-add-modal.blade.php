@@ -11,48 +11,34 @@
                         <span>&times;</span>
                     </button>
                 </div>
-                <form wire:submit="save">
-                    <div class="modal-body">
-                        {{--                        <div class="row">--}}
-                        {{--                            <div class="col-12">--}}
-                        {{--                                <div class="form-group">--}}
-                        {{--                                    <label>Subject</label>--}}
-                        {{--                                    <select wire:model="subject_id" class="form-control">--}}
-                        {{--                                        <option value="">Select a Subject</option>--}}
-                        {{--                                        @foreach ($subjects as $subject)--}}
-                        {{--                                            <option wire:key="{{ $subject->id }}" value="{{ $subject->id }}">--}}
-                        {{--                                                {{ $subject->name }}--}}
-                        {{--                                            </option>--}}
-                        {{--                                        @endforeach--}}
-                        {{--                                    </select>--}}
-                        {{--                                    @error('subject_id')--}}
-                        {{--                                    <span class="text-danger">{{ $message }}</span>--}}
-                        {{--                                    @enderror--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-                        {{--                            <div class="col-12">--}}
-                        {{--                                <div class="form-group">--}}
-                        {{--                                    <label>Teacher</label>--}}
-                        {{--                                    <select wire:model="teacher_id" class="form-control">--}}
-                        {{--                                        <option value="">Select a Teacher</option>--}}
-                        {{--                                        @foreach ($teachers as $teacher)--}}
-                        {{--                                            <option wire:key="{{ $teacher->id }}" value="{{ $teacher->id }}">--}}
-                        {{--                                                {{ $teacher->name }}--}}
-                        {{--                                            </option>--}}
-                        {{--                                        @endforeach--}}
-                        {{--                                    </select>--}}
-                        {{--                                    @error('teacher_id')--}}
-                        {{--                                    <span class="text-danger">{{ $message }}</span>--}}
-                        {{--                                    @enderror--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-                        {{--                        </div>--}}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Search Student</label>
+                        <input type="text" wire:model.live.500ms="search_term" class="form-control"
+                               placeholder="Search by name">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-sm btn-success">Add</button>
-                    </div>
-                </form>
+                    <ul class="list-group">
+                        @foreach ($students as $student)
+                            <li wire:key={{$student->id}} class="list-group-item">
+                                <div class="d-flex align-items-center mb-3">
+                                    <img src="{{$student->image_url}}" alt="profile_avatar"
+                                         class="rounded-circle mr-2"
+                                         style="width: 30px; height: 30px; object-fit: cover;">
+                                    <p class="mb-0">{{ $student->name }}</p>
+                                </div>
+                                @if (!$group->users->contains($student))
+                                    <button wire:click="addStudent({{ $student->id }})" class="btn btn-sm btn-success">
+                                        Add
+                                    </button>
+                                @else
+                                    <button class="btn btn-sm btn-secondary" disabled>
+                                        Added
+                                    </button>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

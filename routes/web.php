@@ -21,6 +21,6 @@ Route::get('/subject', [SubjectController::class, 'show'])->middleware('auth')->
 
 Route::view('/user/student', 'user.student-index')->middleware('auth')->name('student.index');
 Route::view('/user/teacher', 'user.teacher-index')->middleware('auth')->name('teacher.index');
-Route::view('/user/staff', 'user.staff-index')->middleware('auth')->name('staff.index');
+Route::view('/user', 'user.staff-index')->middleware('auth')->name('staff.index');
 
 Auth::routes();

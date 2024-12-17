@@ -46,35 +46,3 @@
     </div>
 </div>
 
-@section('js')
-    <script>
-        // $(document).ready(function() {
-        //     $("#sidebar li a").removeClass("active");
-        //     $("#schools>a").addClass("active");
-        //     $("#schools").addClass("menu-open");
-        //     $("#schools-index").addClass("my-active");
-        // });
-        window.addEventListener("alert-delete", (event) => {
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.dispatch('confirmed-delete', {
-                        subject_group_id: event.detail.id
-                    })
-                    Swal.fire({
-                        title: "Removed!",
-                        text: "Subject has been removed from the group.",
-                        icon: "success"
-                    });
-                }
-            });
-        });
-    </script>
-@endsection
