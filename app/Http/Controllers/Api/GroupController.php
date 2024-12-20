@@ -41,6 +41,10 @@ class GroupController extends BaseController
 
         $group = Group::create($validated);
 
+        $group->update([
+            'code_id' => $group->department->school + $group->department + rand(),
+        ]);
+
         $data = new GroupResource($group);
 
         return $this->successResponse($data, 201);

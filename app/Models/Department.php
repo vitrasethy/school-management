@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Department extends Model
 {
-    protected $fillable = ['name', 'school_id', 'abbr'];
+    protected $fillable = ['name', 'school_id', 'abbr', 'code'];
 
     protected $attributes = [
         'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx_DVDju34ygSyxCFLiCiat_DQoyUusJHXdw&s'

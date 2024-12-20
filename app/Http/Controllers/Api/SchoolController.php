@@ -28,6 +28,8 @@ class SchoolController extends BaseController
 
         $school = School::create($validated);
 
+        $school->update(['code' => $school->id]);
+
         $data = new SchoolResource($school);
 
         Auth::user()->update(['school_id' => $school->id]);

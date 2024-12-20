@@ -29,6 +29,10 @@ class DepartmentController extends BaseController
 
         $department = Department::create($validated);
 
+        $department->update([
+            'code' => $request->school_id + $department->id,
+        ]);
+
         Auth::user()->update([
             'school_id' => $department->school_id,
             'department_id' => $department->id,

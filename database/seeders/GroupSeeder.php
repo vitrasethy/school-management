@@ -16,6 +16,7 @@ class GroupSeeder extends Seeder
                 'school_year' => '2024-2025',
                 'year' => 1,
                 'code' => '123456',
+                'code_id' => '11523',
             ],
             [
                 'name' => 'M2',
@@ -23,6 +24,7 @@ class GroupSeeder extends Seeder
                 'year' => 1,
                 'school_year' => '2024-2025',
                 'code' => '123457',
+                'code_id' => '11523',
             ],
             [
                 'name' => 'M3',
@@ -30,6 +32,7 @@ class GroupSeeder extends Seeder
                 'year' => 1,
                 'school_year' => '2024-2025',
                 'code' => '123458',
+                'code_id' => '11523',
             ],
         ]);
     }

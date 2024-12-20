@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class School extends Model
 {
-    protected $fillable = ['name', 'image', 'abbr'];
+    protected $fillable = ['name', 'image', 'abbr', 'code'];
 
     protected $attributes = [
         'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx_DVDju34ygSyxCFLiCiat_DQoyUusJHXdw&s'

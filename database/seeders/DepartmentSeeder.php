@@ -14,11 +14,13 @@ class DepartmentSeeder extends Seeder
                 'name' => 'Information Technology Engineering',
                 'abbr' => 'ITE',
                 'school_id' => 1,
+                'code' => '11',
             ],
             [
                 'name' => 'Bio Engineering',
                 'abbr' => 'BE',
                 'school_id' => 1,
+                'code' => '12',
             ]
         ]);
     }

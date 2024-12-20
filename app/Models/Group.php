@@ -5,8 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Group extends Model
 {
@@ -16,6 +14,7 @@ class Group extends Model
         'school_year',
         'year',
         'code',
+        'code_id',
     ];
 
     public function department(): BelongsTo

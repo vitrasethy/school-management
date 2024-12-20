@@ -10,6 +10,7 @@ return new class extends Migration {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->foreignId('department_id')->constrained()->cascadeOnDelete();
+            $table->string('code_id')->nullable();
             $table->string('name');
             $table->enum('year', [1,2,3,4]);
             $table->string('school_year');
