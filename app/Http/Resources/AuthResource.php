@@ -20,7 +20,6 @@ class AuthResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'role' => new RoleResource($this->whenLoaded('role')),
             'token' => $this->token,
             'expires' => $this->expires
         ];

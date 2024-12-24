@@ -10,6 +10,7 @@ use App\Http\Resources\AuthResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use function dd;
 
 class AuthenticatedSessionController extends BaseController
 {
@@ -23,17 +24,16 @@ class AuthenticatedSessionController extends BaseController
             ->createToken($request->email)
             ->plainTextToken;
 
-        $user = $request
-            ->user()
-            ->load('role')
-            ->append([
-                'token' => $token,
-                'expires' => 24 * 60 * 60 * 1000,
-            ]);
+        $user = [
+            'id' => $request->user()->id,
+            'name' => $request->user()->name,
+            'email' => $request->user()->email,
+            'role' => $request->user()->getRoleNames(),
+            'token' => $token,
+            'expires' => 24 * 60 * 60 * 1000,
+        ];
 
-        $data = new AuthResource($user);
-
-        return $this->successResponse($data);
+        return $this->successResponse($user);
     }
 
     #[LogoutOperation]
