@@ -11,7 +11,7 @@ class UserController extends BaseController
     #[GetCurrentUserOperation]
     public function getCurrentUser(Request $request)
     {
-        $user = $request->user()->load('role');
+        $user = $request->user();
 
         return $this->successResponse(new UserResource($user));
     }
