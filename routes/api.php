@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Api\Auth\RegisteredUserController;
 use App\Http\Controllers\Api\ClassroomController;
 use App\Http\Controllers\Api\DepartmentController;
+use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\FormController;
 use App\Http\Controllers\Api\GroupCodeController;
 use App\Http\Controllers\Api\GroupController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Api\ResponseController;
 use App\Http\Controllers\Api\ScheduleController;
 use App\Http\Controllers\Api\SchoolController;
 use App\Http\Controllers\Api\SubjectController;
+use App\Http\Controllers\Api\UserAffiliationController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +34,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
 
     Route::apiResources([
+        'user-affiliations' => UserAffiliationController::class,
+        'faculties' => FacultyController::class,
         'schools' => SchoolController::class,
         'departments' => DepartmentController::class,
         'subjects' => SubjectController::class,

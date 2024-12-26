@@ -14,9 +14,14 @@ class GroupResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'school_year' => $this->school_year,
-            'code' => $this->code,
-            'code_id' => $this->code_id,
+            'year' => $this->year,
+            'academic_year' => $this->academic_year,
+            'semester' => $this->semester,
+
+            'department' => new DepartmentResource($this->whenLoaded('department')),
+            'user_affiliations' => UserAffiliationResource::collection($this->whenLoaded('userAffiliations')),
+            'students' => UserResource::collection($this->whenLoaded('students')),
+            'subjects' => SubjectResource::collection($this->whenLoaded('subjects')),
         ];
     }
 }

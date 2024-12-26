@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\ClassroomRequest;
+use App\Http\Requests\StoreClassroomRequest;
+use App\Http\Requests\UpdateClassroomRequest;
 use App\Http\Resources\ClassroomResource;
 use App\Models\Classroom;
 
@@ -10,44 +11,38 @@ class ClassroomController extends BaseController
 {
     public function index()
     {
-        $classrooms = Classroom::all();
-
-        $data = ClassroomResource::collection($classrooms);
+        $data = ClassroomResource::collection(Classroom::all());
 
         return $this->successResponse($data);
     }
 
-    public function store(ClassroomRequest $request)
+    public function store(StoreClassroomRequest $request)
     {
-        $validated = $request->validated();
+        $data = new ClassroomResource(Classroom::create($request->validated()));
 
-        $classroom = Classroom::create($validated);
+        return $this->successResponse($data, 201);
+    }
 
-        $data = new ClassroomResource($classroom);
+    public function show(Classroom $faculty)
+    {
+        $data = new ClassroomResource($faculty);
 
         return $this->successResponse($data);
     }
 
-    public function show(Classroom $classroom)
+    public function update(UpdateClassroomRequest $request, Classroom $faculty)
     {
-        $data = new ClassroomResource($classroom);
+        $faculty->update($request->validated());
+
+        $data = new ClassroomResource($faculty);
 
         return $this->successResponse($data);
     }
 
-    public function update(ClassroomRequest $request, Classroom $classroom)
+    public function destroy(Classroom $faculty)
     {
-        $classroom->update($request->validated());
+        $faculty->delete();
 
-        $data = new ClassroomResource($classroom);
-
-        return $this->successResponse($data);
-    }
-
-    public function destroy(Classroom $classroom)
-    {
-        $classroom->delete();
-
-        return $this->noContentResponse();
+        return $this->successResponse([]);
     }
 }

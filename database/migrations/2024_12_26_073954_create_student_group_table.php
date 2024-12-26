@@ -9,19 +9,14 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('subjects', function (Blueprint $table) {
-            $table->id();
+        Schema::create('student_group', function (Blueprint $table) {
             $table->foreignIdFor(Group::class)->constrained();
-            $table->foreignId('teacher_id')->constrained('users');
-
-            $table->string('name');
-
-            $table->timestamps();
+            $table->foreignId('student_id')->constrained('users');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('student_group');
     }
 };

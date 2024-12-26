@@ -13,8 +13,14 @@ class DepartmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
             'code' => $this->code,
+            'name' => $this->name,
+            'image_url' => $this->image_url,
+            'abbr' => $this->abbr,
+
+            'faculty' => new FacultyResource($this->whenLoaded('faculty')),
+            'user_affiliations' => UserAffiliationResource::collection($this->whenLoaded('userAffiliations')),
+            'groups' => GroupResource::collection($this->whenLoaded('groups')),
         ];
     }
 }

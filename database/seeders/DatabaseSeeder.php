@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PermissionSeeder::class,
             UserSeeder::class,
-            SchoolSeeder::class,
-            DepartmentSeeder::class,
-            GroupSeeder::class,
-            SubjectSeeder::class,
+            //SchoolSeeder::class,
+            //DepartmentSeeder::class,
+            //GroupSeeder::class,
+            //SubjectSeeder::class,
         ]);
     }
 }

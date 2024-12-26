@@ -13,14 +13,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('school_id')->nullable()->constrained('schools');
-            $table->foreignId('department_id')->nullable()->constrained('departments');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('image_url');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            //$table->boolean('is_super_admin');
             $table->rememberToken();
             $table->timestamps();
         });

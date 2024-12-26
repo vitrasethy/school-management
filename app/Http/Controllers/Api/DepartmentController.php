@@ -2,65 +2,37 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\DepartmentRequest;
+use App\Http\Requests\StoreDepartmentRequest;
+use App\Http\Requests\UpdateDepartmentRequest;
 use App\Http\Resources\DepartmentResource;
 use App\Models\Department;
-use Auth;
-use Illuminate\Support\Facades\Gate;
 
 class DepartmentController extends BaseController
 {
     public function index()
     {
-        Gate::authorize('viewAny', Department::class);
-
-        $departments = Department::all();
-
-        $data = DepartmentResource::collection($departments);
+        $data = DepartmentResource::collection(Department::all());
 
         return $this->successResponse($data);
     }
 
-    public function store(DepartmentRequest $request)
+    public function store(StoreDepartmentRequest $request)
     {
-        Gate::authorize('create', Department::class);
-
-        $validated = $request->validated();
-
-        $department = Department::create($validated);
-
-        $department->update([
-            'code' => $request->school_id + $department->id,
-        ]);
-
-        Auth::user()->update([
-            'school_id' => $department->school_id,
-            'department_id' => $department->id,
-        ]);
-
-        Auth::user()->assignRole('department admin');
-
-        $data = new DepartmentResource($department);
+        $data = new DepartmentResource(Department::create($request->validated()));
 
         return $this->successResponse($data, 201);
     }
 
     public function show(Department $department)
     {
-        Gate::authorize('view', $department);
-
         $data = new DepartmentResource($department);
 
         return $this->successResponse($data);
     }
 
-    public function update(DepartmentRequest $request, Department $department)
+    public function update(UpdateDepartmentRequest $request, Department $department)
     {
-        Gate::authorize('update', $department);
-
-        $validated = $request->validated();
-
-        $department->update($validated);
+        $department->update($request->validated());
 
         $data = new DepartmentResource($department);
 
@@ -69,10 +41,8 @@ class DepartmentController extends BaseController
 
     public function destroy(Department $department)
     {
-        Gate::authorize('delete', Department::class);
-
         $department->delete();
 
-        return $this->noContentResponse();
+        return $this->successResponse([]);
     }
 }

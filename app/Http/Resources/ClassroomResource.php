@@ -14,6 +14,11 @@ class ClassroomResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'weekday' => $this->weekday,
+            'start_time' => $this->start_time,
+            'end_time' => $this->end_time,
+
+            'subject' => new SubjectResource($this->whenLoaded('subject')),
         ];
     }
 }

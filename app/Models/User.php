@@ -3,10 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -14,20 +12,14 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens, HasRoles;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     protected $fillable = [
-        'name',
-        'email',
-        'image_url',
-        'password',
-        'role_id',
-        'school_id',
-        'department_id'
+        'name', 'email', 'image_url', 'password',
     ];
 
     protected $attributes = [
-        'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg'
+        'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
     ];
 
     protected $hidden = [
@@ -40,37 +32,21 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'is_super_admin' => 'boolean',
         ];
-    }
-
-    public function school(): BelongsTo
-    {
-        return $this->belongsTo(School::class);
-    }
-
-    public function department(): BelongsTo
-    {
-        return $this->belongsTo(Department::class);
     }
 
     public function groups(): BelongsToMany
     {
-        return $this->belongsToMany(Group::class, 'group_student', 'student_id', 'group_id');
+        return $this->belongsToMany(Group::class, 'student_group', 'student_id', 'group_id');
     }
 
-    public function subjects(): BelongsToMany
+    public function userAffiliations(): HasMany
     {
-        return $this->belongsToMany(Subject::class, 'subject_teacher', 'teacher_id', 'subject_id');
+        return $this->hasMany(UserAffiliation::class, 'user_id');
     }
 
-    public function response(): HasOne
+    public function subjects(): HasMany
     {
-        return $this->hasOne(Response::class, 'user_id');
-    }
-
-    public function posts(): HasMany
-    {
-        return $this->hasMany(Post::class, 'user_id');
+        return $this->hasMany(Subject::class, 'teacher_id');
     }
 }

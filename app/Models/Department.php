@@ -2,32 +2,29 @@
 
 namespace App\Models;
 
+use App\Observers\DepartmentObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[ObservedBy(DepartmentObserver::class)]
 class Department extends Model
 {
-    protected $fillable = ['name', 'school_id', 'abbr', 'code'];
+    protected $fillable = ['code', 'faculty_id', 'name', 'image_url', 'abbr'];
 
     protected $attributes = [
-        'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx_DVDju34ygSyxCFLiCiat_DQoyUusJHXdw&s'
+        'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx_DVDju34ygSyxCFLiCiat_DQoyUusJHXdw&s',
     ];
 
-    public function subjects(): HasMany
+    public function faculty(): BelongsTo
     {
-        return $this->hasMany(Subject::class);
+        return $this->belongsTo(Faculty::class);
     }
 
-    public function school(): BelongsTo
+    public function userAffiliations(): HasMany
     {
-        return $this->belongsTo(School::class);
-    }
-
-    public function users(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(UserAffiliation::class, 'department_id');
     }
 
     public function groups(): HasMany

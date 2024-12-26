@@ -4,46 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Subject extends Model
 {
-    protected $fillable = ["name", 'department_id'];
+    protected $fillable = [
+        'group_id', 'teacher_id', 'name',
+    ];
 
-    public function classrooms(): BelongsToMany
+    public function group(): BelongsTo
     {
-        return $this->belongsToMany(Classroom::class)->withPivot('start_time', 'end_time');
+        return $this->belongsTo(Group::class);
     }
 
-    public function posts(): HasMany
+    public function classrooms(): HasMany
     {
-        return $this->hasMany(Post::class, 'subject_id');
+        return $this->hasMany(Classroom::class, 'subject_id');
     }
 
-    public function teacher($groupId): HasOne
+    public function teacher(): BelongsTo
     {
-        return $this->hasOne(Teacher::class, 'subject_id')->where('group_id', $groupId);
-    }
-
-    public function department(): BelongsTo
-    {
-        return $this->belongsTo(Department::class);
-    }
-
-    public function schedules(): HasMany
-    {
-        return $this->hasMany(Schedule::class, 'subject_id');
-    }
-
-    public function activities(): HasMany
-    {
-        return $this->hasMany(Activity::class, 'subject_id');
-    }
-
-    public function groups(): BelongsToMany
-    {
-        return $this->belongsToMany(Group::class);
+        return $this->belongsTo(User::class);
     }
 }

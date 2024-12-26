@@ -1,20 +1,23 @@
 <?php
 
+use App\Models\Department;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up(): void
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('department_id')->constrained()->cascadeOnDelete();
-            $table->string('code_id')->nullable();
+            $table->foreignIdFor(Department::class)->constrained();
+
             $table->string('name');
-            $table->enum('year', [1,2,3,4]);
-            $table->string('school_year');
-            $table->string('code');
+            $table->enum('year', [1, 2, 3, 4]);
+            $table->string('academic_year');
+            $table->integer('semester');
+
             $table->timestamps();
         });
     }
