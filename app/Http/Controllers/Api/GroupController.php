@@ -6,6 +6,7 @@ use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\GroupResource;
 use App\Models\Group;
+use Auth;
 
 class GroupController extends BaseController
 {
@@ -44,5 +45,12 @@ class GroupController extends BaseController
         $group->delete();
 
         return $this->successResponse([]);
+    }
+
+    public function findByUser()
+    {
+        $data = GroupResource::collection(Auth::user()->groups);
+
+        return $this->successResponse($data);
     }
 }
