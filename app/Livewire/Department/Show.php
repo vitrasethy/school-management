@@ -3,7 +3,7 @@
 namespace App\Livewire\Department;
 
 use App\Models\Department;
-use App\Models\School;
+use App\Models\Faculty;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
@@ -14,19 +14,19 @@ class Show extends Component
 {
     use WithPagination;
 
-    public $school_id;
-    public $schools;
+    public $faculty_id;
+    public $faculties;
     public $perPage = 10;
-    public School $school;
+    public Faculty $faculty;
 
     public function mount(): void
     {
-        $this->schools = Collect();
+        $this->faculties = Collect();
         $user = Auth::user();
         if ($user->hasRole('super admin')) {
-            $this->schools = School::all();
+            $this->faculties = Faculty::all();
         } elseif ($user->hasRole('school admin')) {
-            $this->school_id = $user->school_id;
+            $this->faculty_id = $user->userAffiliations()->first()->faculty_id;
         }
     }
 
@@ -37,14 +37,19 @@ class Show extends Component
 
     public function resetFilter(): void
     {
-        $this->school_id = "";
+        $this->faculty_id = "";
     }
 
     #[On('confirmed-delete')]
     public function delete($department_id): void
     {
         $department = Department::find($department_id);
-        $department->delete();
+        if ($department) {
+            $department->delete();
+            $this->dispatch('delete-department-success');
+        } else {
+            $this->dispatch('delete-department-failure');
+        }
     }
 
     #[On('refresh-departments')]
@@ -57,13 +62,13 @@ class Show extends Component
     {
         $query = Department::query();
 
-        if ($this->school_id) {
-            $query->where('school_id', $this->school_id);
+        if ($this->faculty_id) {
+            $query->where('faculty_id', $this->faculty_id);
         }
 
-        if ($this->school_id) {
-            $query->where('school_id', $this->school_id);
-            $this->school = School::find($this->school_id);
+        if ($this->faculty_id) {
+            $query->where('faculty_id', $this->faculty_id);
+            $this->faculty = Faculty::find($this->faculty_id);
         }
 
         return view('livewire.department.show', [

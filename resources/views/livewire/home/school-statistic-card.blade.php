@@ -2,7 +2,7 @@
     <div class="inner">
         <h3>{{$school_count}}</h3>
 
-        <p>Schools</p>
+        <p>Faculties</p>
     </div>
     <div class="icon">
         <i class="nav-icon fas fa-school"></i>

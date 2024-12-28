@@ -15,14 +15,14 @@ class SubjectForm extends Form
     #[Validate('required')]
     public $department_id = "";
 
-    public function setForm(Subject $subject)
+    public function setForm(Subject $subject): void
     {
         $this->subject = $subject;
         $this->name = $subject->name;
         $this->department_id = $subject->department_id;
     }
 
-    public function create()
+    public function create(): void
     {
         $this->validate();
         Subject::create([
@@ -33,7 +33,7 @@ class SubjectForm extends Form
         $this->reset(['name']);
     }
 
-    public function update()
+    public function update(): void
     {
         $this->validate();
         $this->subject->update($this->all());

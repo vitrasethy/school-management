@@ -4,7 +4,7 @@ namespace App\Livewire\Subject;
 
 use App\Livewire\Forms\SubjectForm;
 use App\Models\Department;
-use App\Models\School;
+use App\Models\Faculty;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -13,8 +13,8 @@ class SubjectCreateModal extends Component
 {
     public SubjectForm $form;
 
-    public $school_id;
-    public $schools;
+    public $faculty_id;
+    public $faculties;
     public $departments;
 
     public function mount(): void
@@ -23,17 +23,17 @@ class SubjectCreateModal extends Component
         $user = Auth::user();
 
         if ($user->hasRole('super admin')) {
-            $this->schools = School::all();
+            $this->faculties = Faculty::all();
         } elseif ($user->hasRole('school admin')) {
-            $this->departments = Department::where('school_id', $user->school_id)->get();
+            $this->departments = Department::where('faculty_id', $user->userAffiliations()->first()->faculty_id)->get();
         } elseif ($user->hasRole('department admin')) {
-            $this->form->department_id = $user->department_id;
+            $this->form->department_id = $user->userAffiliations()->first()->department_id;
         }
     }
 
-    public function updatedSchoolId(): void
+    public function updatedFacultyId(): void
     {
-        $this->departments = Department::where('school_id', $this->school_id)->get();
+        $this->departments = Department::where('faculty_id', $this->faculty_id)->get();
     }
 
     public function save(): void

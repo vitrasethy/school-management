@@ -14,7 +14,7 @@ class Department extends Model
     protected $fillable = ['code', 'faculty_id', 'name', 'image_url', 'abbr'];
 
     protected $attributes = [
-        'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx_DVDju34ygSyxCFLiCiat_DQoyUusJHXdw&s',
+        'image_url' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx_DVDju34ygSyxCFLiCiat_DQoyUusJHXdw&s',
     ];
 
     public function faculty(): BelongsTo

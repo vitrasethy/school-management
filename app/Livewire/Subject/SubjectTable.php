@@ -3,7 +3,7 @@
 namespace App\Livewire\Subject;
 
 use App\Models\Department;
-use App\Models\School;
+use App\Models\Faculty;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -15,30 +15,30 @@ class SubjectTable extends Component
 {
     use WithPagination;
 
-    public $school_id;
-    public $schools;
-    public $school;
+    public $faculty_id;
+    public $faculties;
+    public $faculty;
     public $department_id;
     public $departments;
     public $department;
     public $per_page = 10;
 
     public $filters = [
-        'school_id' => "",
+        'faculty_id' => "",
         'department_id' => ""
     ];
 
     public function mount(): void
     {
         $user = Auth::user();
-        $this->schools = Collect();
+        $this->faculties = Collect();
         $this->departments = Collect();
 
         if ($user->hasRole('super admin')) {
-            $this->schools = School::all();
+            $this->faculties = Faculty::all();
         } elseif ($user->hasRole('school admin')) {
-            $this->school_id = $user->school_id;
-            $this->departments = Department::where('school_id', $this->school_id)->get();
+            $this->faculty_id = $user->userAffiliations()->first()->faculty_id;
+            $this->departments = Department::where('faculty_id', $this->faculty_id)->get();
         } elseif ($user->hasRole('department admin')) {
             $this->department_id = $user->department_id;
         }
@@ -51,8 +51,8 @@ class SubjectTable extends Component
 
     public function removeFilter($filter): void
     {
-        if ($filter == 'school') {
-            $this->filters['school_id'] = "";
+        if ($filter == 'faculty') {
+            $this->filters['faculty_id'] = "";
         } elseif ($filter == 'department') {
             $this->filters['department_id'] = "";
         }
@@ -61,7 +61,7 @@ class SubjectTable extends Component
     public function resetFilters(): void
     {
         $this->filters = [
-            'school_id' => "",
+            'faculty_id' => "",
             'department_id' => ""
         ];
     }
@@ -83,9 +83,9 @@ class SubjectTable extends Component
     {
         $query = Subject::query();
 
-        if ($this->school_id) {
+        if ($this->faculty_id) {
             $query->whereHas('department', function ($query) {
-                $query->where('school_id', $this->school_id);
+                $query->where('$this->faculty_id', $this->faculty_id);
             });
         }
 
@@ -93,12 +93,12 @@ class SubjectTable extends Component
             $query->where('department_id', $this->department_id);
         }
 
-        if ($this->filters['school_id']) {
+        if ($this->filters['faculty_id']) {
             $query->whereHas('department', function ($query) {
-                $query->where('school_id', $this->filters['school_id']);
+                $query->where('faculty_id', $this->filters['faculty_id']);
             });
-            $this->departments = Department::where('school_id', $this->filters['school_id'])->get();
-            $this->school = School::find($this->filters['school_id']);
+            $this->departments = Department::where('faculty_id', $this->filters['faculty_id'])->get();
+            $this->faculty = Faculty::find($this->filters['faculty_id']);
         }
 
         if ($this->filters['department_id']) {

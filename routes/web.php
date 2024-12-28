@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->middleware('auth')->name('home');
 // School
-Route::get('/school', [SchoolController::class, 'show'])->middleware('auth')->name('super.school.show');
+Route::view('/faculty', 'faculty.faculty-index')->middleware('auth')->name('faculty.index');
 // Department
 Route::get('/department', [DepartmentController::class, 'show'])->middleware('auth')->name('department.show');
 // Group

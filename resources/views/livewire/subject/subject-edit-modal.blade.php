@@ -18,12 +18,12 @@
                             @if (Auth::user()->hasRole('super admin'))
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label>School</label>
-                                        <select wire:model.live="school_id" class="form-control">
-                                            <option value="">Select a School</option>
-                                            @foreach ($schools as $school)
-                                                <option wire:key="{{ $school->id }}" value="{{ $school->id }}">
-                                                    {{  $school->name }}
+                                        <label>Faculty</label>
+                                        <select wire:model.live="faculty_id" class="form-control">
+                                            <option value="">Select a Faculty</option>
+                                            @foreach ($faculties as $faculty)
+                                                <option wire:key="{{ $faculty->id }}" value="{{ $faculty->id }}">
+                                                    {{  $faculty->name }}
                                                 </option>
                                             @endforeach
                                         </select>

@@ -12,6 +12,10 @@ class Subject extends Model
         'department_id', 'name', 'abbr',
     ];
 
+    protected $attributes = [
+        'abbr' => 'N/A',
+    ];
+
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class)->withPivot('teacher_id');

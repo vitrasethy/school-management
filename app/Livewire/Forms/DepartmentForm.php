@@ -3,7 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Department;
-use App\Models\School;
+use App\Models\Faculty;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -14,7 +14,7 @@ class DepartmentForm extends Form
     #[Validate('required|min:1')]
     public $name = "";
     #[Validate('required|min:1')]
-    public $school_id = "";
+    public $faculty_id = "";
     #[Validate('required')]
     public $abbr = "";
 
@@ -22,13 +22,13 @@ class DepartmentForm extends Form
     {
         $this->department = $department;
         $this->name = $department->name;
-        $this->school_id = $department->school_id;
+        $this->faculty_id = $department->faculty_id;
         $this->abbr = $department->abbr;
     }
 
-    public function setSchoolId(School $school): void
+    public function setSchoolId(Faculty $faculty): void
     {
-        $this->school_id = $school->id;
+        $this->faculty_id = $faculty->id;
     }
 
     public function create(): void

@@ -4,7 +4,7 @@ namespace App\Livewire\Department;
 
 use App\Livewire\Forms\DepartmentForm;
 use App\Models\Department;
-use App\Models\School;
+use App\Models\Faculty;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -14,7 +14,7 @@ class EditDepartmentModal extends Component
     public DepartmentForm $form;
     public Department $department;
 
-    public $schools;
+    public $faculties;
     public $user;
 
     public function mount(Department $department): void
@@ -24,9 +24,9 @@ class EditDepartmentModal extends Component
         $this->user = Auth::user();
 
         if ($this->user->getRoleNames()->contains('super admin')) {
-            $this->schools = School::all();
+            $this->faculties = Faculty::all();
         } elseif ($this->user->getRoleNames()->contains('school admin')) {
-            $this->form->school_id = $this->user->school_id;
+            $this->form->faculty_id = $this->user->userAffiliations()->first()->faculty_id;
         }
     }
 

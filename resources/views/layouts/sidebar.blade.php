@@ -51,10 +51,10 @@
                 @endif --}}
                 @can('view all schools')
                     <li class="nav-item" id="school">
-                        <a href="{{route('super.school.show')}}" class="nav-link">
+                        <a href="{{route('faculty.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-school"></i>
                             <p>
-                                School
+                                Faculty
                             </p>
                         </a>
                         {{--                                                <a href="#" class="nav-link">--}}

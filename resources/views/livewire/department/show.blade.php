@@ -1,10 +1,10 @@
 <div class="card">
     <div class="card-header">
-        @if($school_id && Auth::user()->hasRole('super admin'))
+        @if($faculty_id && Auth::user()->hasRole('super admin'))
             <div class="mb-2">Applied Filters:
                 <span wire:key="filter-pill-gender"
                       class="badge badge-pill badge-info d-inline-flex align-items-center">
-                        School: {{$school->abbr}}
+                        Faculty: {{$faculty->abbr}}
                     </span>
                 <a href="#" wire:click.prevent="resetFilter" class="badge badge-pill badge-light">Clear</a>
             </div>
@@ -25,14 +25,14 @@
                         <li>
                             <div wire:key="filter-school" class="p-2">
                                 <label for="filter-school" class="mb-2">
-                                    School
+                                    Faculty
                                 </label>
-                                <select wire:model.live="school_id"
+                                <select wire:model.live="faculty_id"
                                         id="filter-school" class="form-control">
                                     <option value="">Any</option>
-                                    @foreach($schools as $school)
-                                        <option wire:key="{{$school->id}}"
-                                                value={{$school->id}}>{{$school->name}}</option>
+                                    @foreach($faculties as $faculty)
+                                        <option wire:key="{{$faculty->id}}"
+                                                value={{$faculty->id}}>{{$faculty->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -61,7 +61,7 @@
                     Name
                 </th>
                 <th>
-                    School
+                    Faculty
                 </th>
                 <th>Action</th>
             </tr>
@@ -71,7 +71,7 @@
                 <tr wire:key='{{ $department->id }}'>
                     <td>{{ $department->id }}</td>
                     <td>{{ $department->name }}</td>
-                    <td>{{ $department->school->name }}</td>
+                    <td>{{ $department->faculty->name }}</td>
                     <td>
                         <div class="d-flex align-items-center">
                             {{-- <a href="{{ route('department.index', $department->id) }}"
@@ -114,13 +114,22 @@
                 if (result.isConfirmed) {
                     Livewire.dispatch('confirmed-delete', {
                         department_id: event.detail.id
-                    })
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Department has been deleted.",
-                        icon: "success"
                     });
                 }
+            });
+        });
+        window.addEventListener("delete-department-success", () => {
+            Swal.fire({
+                title: "Deleted!",
+                text: "Department has been deleted.",
+                icon: "success"
+            });
+        });
+        window.addEventListener("delete-department-failure", () => {
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to delete department.",
+                icon: "error"
             });
         });
     </script>

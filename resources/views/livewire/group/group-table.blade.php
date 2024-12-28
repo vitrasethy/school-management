@@ -1,12 +1,12 @@
 <div class="card">
     <div class="card-header">
-        @if($filters['school_id'] || $filters['department_id'] || $filters['year'] || $filters['academic_year'])
+        @if($filters['faculty_id'] || $filters['department_id'] || $filters['year'] || $filters['academic_year'])
             <div class="mb-2">Applied Filters:
-                @if($filters['school_id'])
+                @if($filters['faculty_id'])
                     <span wire:key="filter-pill-gender"
                           class="badge badge-pill badge-info d-inline-flex align-items-center">
-                                School: {{$school->abbr}}
-                    <a href="#" wire:click.prevent="removeFilter('school')" class="text-white ml-2">
+                                Faculty: {{$faculty->abbr}}
+                    <a href="#" wire:click.prevent="removeFilter('faculty')" class="text-white ml-2">
                         <span class="sr-only">Remove filter option</span>
                         <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none"
                              viewBox="0 0 8 8">
@@ -77,14 +77,14 @@
                         <li>
                             <div wire:key="filter-school" class="p-2">
                                 <label for="filter-school" class="mb-2">
-                                    School
+                                    Faculty
                                 </label>
-                                <select wire:model.live="filters.school_id"
-                                        id="filter-school" class="form-control">
+                                <select wire:model.live="filters.faculty_id"
+                                        id="filter-faculty" class="form-control">
                                     <option value="">Any</option>
-                                    @foreach($schools as $school)
-                                        <option wire:key="{{$school->id}}"
-                                                value={{$school->id}}>{{$school->name}}</option>
+                                    @foreach($faculties as $faculty)
+                                        <option wire:key="{{$faculty->id}}"
+                                                value={{$faculty->id}}>{{$faculty->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -179,7 +179,7 @@
                     <td>{{ $group->id }}</td>
                     <td>{{ $group->name }}</td>
                     <td>
-                        {{ $group->department->school->name }}
+                        {{ $group->department->faculty->name }}
                     </td>
                     <td>{{ $group->department->name }}</td>
                     <td>{{ $group->year }}</td>
@@ -188,8 +188,8 @@
                         <div class="d-flex align-items-center">
                             <a href="{{ route('group.show', $group->id) }}" class="btn btn-sm btn-primary mr-2"><i
                                     class="fa fa-eye" aria-hidden="true"></i></a>
-                            <livewire:group.group-edit-modal :group="$group"
-                                                             :wire:key="'group-modal-'.$group->id"/>
+                            {{--                            <livewire:group.group-edit-modal :group="$group"--}}
+                            {{--                                                             :wire:key="'group-modal-'.$group->id"/>--}}
                             <button class="btn btn-sm btn-danger ml-2"
                                     wire:click="$dispatch('alert-delete', {id: {{ $group->id }}})"><i
                                     class="fa fa-trash"

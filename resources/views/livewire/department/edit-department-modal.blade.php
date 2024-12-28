@@ -40,15 +40,15 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>School</label>
-                                    <select wire:model="form.school_id" class="form-control">
+                                    <select wire:model="form.faculty_id" class="form-control">
                                         <option value="">Select a school</option>
-                                        @foreach ($schools as $school)
-                                            <option wire:key="{{ $school->id }}" value="{{ $school->id }}">
-                                                {{ $school->name }}
+                                        @foreach ($faculties as $faculty)
+                                            <option wire:key="{{ $faculty->id }}" value="{{ $faculty->id }}">
+                                                {{ $faculty->name }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('form.school_id')
+                                    @error('form.faculty_id')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

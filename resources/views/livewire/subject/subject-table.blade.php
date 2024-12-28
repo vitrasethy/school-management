@@ -1,12 +1,45 @@
 <div class="card">
     <div class="card-header">
-        @if($filters['school_id'] || $filters['department_id'])
+        {{--        @if($filters['school_id'] || $filters['department_id'])--}}
+        {{--            <div class="mb-2">Applied Filters:--}}
+        {{--                @if($filters['school_id'])--}}
+        {{--                    <span wire:key="filter-pill-gender"--}}
+        {{--                          class="badge badge-pill badge-info d-inline-flex align-items-center">--}}
+        {{--                                School: {{$faculty->abbr}}--}}
+        {{--                    <a href="#" wire:click.prevent="removeFilter('school')" class="text-white ml-2">--}}
+        {{--                        <span class="sr-only">Remove filter option</span>--}}
+        {{--                        <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none"--}}
+        {{--                             viewBox="0 0 8 8">--}}
+        {{--                            <path stroke-linecap="round" stroke-width="1.5"--}}
+        {{--                                  d="M1 1l6 6m0-6L1 7"></path>--}}
+        {{--                        </svg>--}}
+        {{--                    </a>--}}
+        {{--                </span>--}}
+        {{--                @endif--}}
+        {{--                @if($filters['department_id'])--}}
+        {{--                    <span wire:key="filter-pill-gender"--}}
+        {{--                          class="badge badge-pill badge-info d-inline-flex align-items-center">--}}
+        {{--                                Department: {{$department->abbr}}--}}
+        {{--                    <a href="#" wire:click.prevent="removeFilter('department')" class="text-white ml-2">--}}
+        {{--                        <span class="sr-only">Remove filter option</span>--}}
+        {{--                        <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none"--}}
+        {{--                             viewBox="0 0 8 8">--}}
+        {{--                            <path stroke-linecap="round" stroke-width="1.5"--}}
+        {{--                                  d="M1 1l6 6m0-6L1 7"></path>--}}
+        {{--                        </svg>--}}
+        {{--                    </a>--}}
+        {{--                </span>--}}
+        {{--                @endif--}}
+        {{--                <a href="#" wire:click.prevent="resetFilters" class="badge badge-pill badge-light">Clear</a>--}}
+        {{--            </div>--}}
+        {{--        @endif--}}
+        @if($filters['faculty_id'] || $filters['department_id'])
             <div class="mb-2">Applied Filters:
-                @if($filters['school_id'])
+                @if($filters['faculty_id'])
                     <span wire:key="filter-pill-gender"
                           class="badge badge-pill badge-info d-inline-flex align-items-center">
-                                School: {{$school->abbr}}
-                    <a href="#" wire:click.prevent="removeFilter('school')" class="text-white ml-2">
+                                Faculty: {{$faculty->abbr}}
+                    <a href="#" wire:click.prevent="removeFilter('faculty')" class="text-white ml-2">
                         <span class="sr-only">Remove filter option</span>
                         <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none"
                              viewBox="0 0 8 8">
@@ -48,16 +81,16 @@
                     <ul class="dropdown-menu w-100" x-bind:class="{'show' : open }" role="menu">
                         @role('super admin')
                         <li>
-                            <div wire:key="filter-school" class="p-2">
-                                <label for="filter-school" class="mb-2">
-                                    School
+                            <div wire:key="filter-faculty" class="p-2">
+                                <label for="filter-faculty" class="mb-2">
+                                    Faculty
                                 </label>
-                                <select wire:model.live="filters.school_id"
-                                        id="filter-school" class="form-control">
+                                <select wire:model.live="filters.faculty_id"
+                                        id="filter-faculty" class="form-control">
                                     <option value="">Any</option>
-                                    @foreach($schools as $school)
-                                        <option wire:key="{{$school->id}}"
-                                                value={{$school->id}}>{{$school->name}}</option>
+                                    @foreach($faculties as $faculty)
+                                        <option wire:key="{{$faculty->id}}"
+                                                value={{$faculty->id}}>{{$faculty->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -104,7 +137,7 @@
                     Name
                 </th>
                 <th>
-                    School
+                    Faculty
                 </th>
                 <th>
                     Department
@@ -118,7 +151,7 @@
                     <td>{{ $subject->id }}</td>
                     <td>{{ $subject->name }}</td>
                     <td>
-                        {{ $subject->department->school->name }}
+                        {{ $subject->department->faculty->name }}
                     </td>
                     <td>
                         {{ $subject->department->name }}

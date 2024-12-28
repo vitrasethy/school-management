@@ -14,6 +14,10 @@ class Faculty extends Model
         'name', 'abbr', 'image_url', 'code',
     ];
 
+    protected $attributes = [
+        'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
+    ];
+
     public function userAffiliations(): HasMany
     {
         return $this->hasMany(UserAffiliation::class, 'faculty_id');

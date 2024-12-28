@@ -20,9 +20,11 @@ class GroupForm extends Form
     public $school_year = "";
     #[Validate('required')]
     public $year = "";
+    #[Validate('required')]
+    public $semester = 0;
 
 
-    public function setForm(Group $group)
+    public function setForm(Group $group): void
     {
         $this->group = $group;
         $this->department_id = $group->department_id;
@@ -31,25 +33,21 @@ class GroupForm extends Form
         $this->year = $group->year;
     }
 
-    public function setDepartmentId(Department $department)
-    {
-        $this->department_id = $department->id;
-    }
-
-    public function create()
+    public function create(): void
     {
         $this->validate();
         Group::create([
             'department_id' => $this->department_id,
             'name' => $this->name,
-            'school_year' => $this->school_year,
+            'academic_year' => $this->school_year,
             'year' => $this->year,
             'code' => Str::random(10),
+            'semester' => $this->semester
         ]);
         $this->reset(['name', 'school_year', 'year']);
     }
 
-    public function update()
+    public function update(): void
     {
         $this->validate();
         $this->group->update($this->all());

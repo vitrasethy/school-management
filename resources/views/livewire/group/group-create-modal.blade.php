@@ -28,18 +28,15 @@
                             @if ($user->hasRole('super admin'))
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
-                                        <label>School</label>
-                                        <select wire:model.live="school_id" class="form-control">
-                                            <option value="">Select a School</option>
-                                            @foreach ($schools as $school)
+                                        <label>Faculty</label>
+                                        <select wire:model.live="faculty_id" class="form-control">
+                                            <option value="">Select a Faculty</option>
+                                            @foreach ($faculties as $school)
                                                 <option wire:key="{{ $school->id }}" value="{{ $school->id }}">
                                                     {{ $school->name }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('form.department_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                        @enderror
                                     </div>
                                 </div>
                             @endif
@@ -77,6 +74,16 @@
                                     <input wire:model="form.year" type="text" class="form-control"
                                            placeholder="Year">
                                     @error('form.year')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group">
+                                    <label>Semester</label>
+                                    <input wire:model="form.semester" type="text" class="form-control"
+                                           placeholder="Semester">
+                                    @error('form.semester')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
