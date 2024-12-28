@@ -14,10 +14,9 @@ class SubjectResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'abbr' => $this->abbr,
 
-            'teacher' => new UserResource($this->whenLoaded('teacher')),
-            'group' => new GroupResource($this->whenLoaded('group')),
-            'classrooms' => ClassroomResource::collection($this->whenLoaded('teacher')),
+            'department' => new DepartmentResource($this->whenLoaded('department')),
         ];
     }
 }

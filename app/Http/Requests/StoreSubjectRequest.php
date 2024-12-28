@@ -10,8 +10,8 @@ class StoreSubjectRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:250',
-            'group_id' => 'required|exists:groups,id',
-            'teacher_id' => 'required|exists:users,id',
+            'department_id' => 'required|exists:departments,id',
+            'abbr' => 'required|string|max:5',
         ];
     }
 }

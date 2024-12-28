@@ -28,8 +28,8 @@ class Group extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function subjects(): HasMany
+    public function subjects(): BelongsToMany
     {
-        return $this->hasMany(Subject::class, 'group_id');
+        return $this->belongsToMany(Subject::class)->withPivot('teacher_id');
     }
 }

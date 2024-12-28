@@ -4,26 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Subject extends Model
 {
     protected $fillable = [
-        'group_id', 'teacher_id', 'name',
+        'department_id', 'name', 'abbr',
     ];
 
-    public function group(): BelongsTo
+    public function groups(): BelongsToMany
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsToMany(Group::class)->withPivot('teacher_id');
     }
 
-    public function classrooms(): HasMany
+    public function department(): BelongsTo
     {
-        return $this->hasMany(Classroom::class, 'subject_id');
-    }
-
-    public function teacher(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Department::class);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Group;
+use App\Models\Department;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,10 +11,10 @@ return new class extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Group::class)->constrained();
-            $table->foreignId('teacher_id')->constrained('users');
+            $table->foreignIdFor(Department::class)->constrained();
 
             $table->string('name');
+            $table->string('abbr');
 
             $table->timestamps();
         });

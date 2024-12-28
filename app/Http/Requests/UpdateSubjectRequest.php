@@ -8,8 +8,8 @@ class UpdateSubjectRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|string|max:250',
-            'group_id' => 'sometimes|exists:groups,id',
-            'teacher_id' => 'sometimes|exists:users,id',
+            'department_id' => 'sometimes|exists:departments,id',
+            'abbr' => 'sometimes|string|max:5',
         ];
     }
 }
