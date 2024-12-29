@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SubjectController;
 use App\Livewire\Group\GroupShow;
 use Illuminate\Support\Facades\Auth;

@@ -2,27 +2,29 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\Department;
 use App\Models\Group;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
-use Illuminate\Support\Str;
 
 class GroupForm extends Form
 {
     public Group $group;
 
     #[Validate('required|min:1')]
-    public $department_id = "";
+    public $department_id = '';
+
     #[Validate('required|min:1')]
-    public $name = "";
+    public $name = '';
+
     #[Validate('required|min:1')]
-    public $school_year = "";
+    public $school_year = '';
+
     #[Validate('required')]
-    public $year = "";
+    public $year = '';
+
     #[Validate('required')]
     public $semester = 0;
-
 
     public function setForm(Group $group): void
     {
@@ -42,7 +44,7 @@ class GroupForm extends Form
             'academic_year' => $this->school_year,
             'year' => $this->year,
             'code' => Str::random(10),
-            'semester' => $this->semester
+            'semester' => $this->semester,
         ]);
         $this->reset(['name', 'school_year', 'year']);
     }

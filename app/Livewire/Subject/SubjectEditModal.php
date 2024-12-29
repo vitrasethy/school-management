@@ -13,9 +13,13 @@ use Livewire\Component;
 class SubjectEditModal extends Component
 {
     public SubjectForm $form;
+
     public Subject $subject;
+
     public $faculty_id;
+
     public $faculties;
+
     public $departments;
 
     public function mount(Subject $subject): void

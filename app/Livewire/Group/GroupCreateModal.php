@@ -14,8 +14,11 @@ class GroupCreateModal extends Component
     public GroupForm $form;
 
     public $faculty_id;
+
     public $user;
+
     public $faculties;
+
     public $departments;
 
     public function mount(): void

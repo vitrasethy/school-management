@@ -14,7 +14,9 @@ class SubjectCreateModal extends Component
     public SubjectForm $form;
 
     public $faculty_id;
+
     public $faculties;
+
     public $departments;
 
     public function mount(): void

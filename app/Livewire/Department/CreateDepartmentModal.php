@@ -13,6 +13,7 @@ class CreateDepartmentModal extends Component
     public DepartmentForm $form;
 
     public $faculties;
+
     public $user;
 
     public function mount(): void

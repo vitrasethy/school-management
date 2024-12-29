@@ -18,7 +18,7 @@ class SuperAdminStatistic extends Component
                 'school_count' => Faculty::count(),
                 'department_count' => Department::count(),
                 'group_count' => Group::count(),
-                'user_count' => User::count()
+                'user_count' => User::count(),
             ]
         );
     }

@@ -12,11 +12,13 @@ class DepartmentForm extends Form
     public Department $department;
 
     #[Validate('required|min:1')]
-    public $name = "";
+    public $name = '';
+
     #[Validate('required|min:1')]
-    public $faculty_id = "";
+    public $faculty_id = '';
+
     #[Validate('required')]
-    public $abbr = "";
+    public $abbr = '';
 
     public function setForm(Department $department): void
     {

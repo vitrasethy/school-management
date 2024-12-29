@@ -12,12 +12,14 @@ class FacultyForm extends Form
     public Faculty $faculty;
 
     #[Validate('required|min:1')]
-    public $name = "";
+    public $name = '';
+
     #[Validate('required|min:1')]
-    public $abbr = "";
+    public $abbr = '';
+
     public $image_url = null;
 
-    public $existing_image = "";
+    public $existing_image = '';
 
     public function setForm(Faculty $faculty): void
     {

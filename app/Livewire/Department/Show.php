@@ -15,8 +15,11 @@ class Show extends Component
     use WithPagination;
 
     public $faculty_id;
+
     public $faculties;
+
     public $perPage = 10;
+
     public Faculty $faculty;
 
     public function mount(): void
@@ -37,7 +40,7 @@ class Show extends Component
 
     public function resetFilter(): void
     {
-        $this->faculty_id = "";
+        $this->faculty_id = '';
     }
 
     #[On('confirmed-delete')]

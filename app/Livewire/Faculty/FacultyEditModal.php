@@ -13,6 +13,7 @@ class FacultyEditModal extends Component
     use WithFileUploads;
 
     public FacultyForm $form;
+
     public Faculty $faculty;
 
     public function mount(Faculty $faculty): void

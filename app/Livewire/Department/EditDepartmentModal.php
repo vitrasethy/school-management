@@ -12,9 +12,11 @@ use Livewire\Component;
 class EditDepartmentModal extends Component
 {
     public DepartmentForm $form;
+
     public Department $department;
 
     public $faculties;
+
     public $user;
 
     public function mount(Department $department): void

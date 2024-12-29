@@ -16,18 +16,24 @@ class GroupTable extends Component
     use WithPagination;
 
     public $faculty_id;
+
     public $faculties;
+
     public $faculty;
+
     public $department_id;
+
     public $departments;
+
     public $department;
+
     public $perPage = 10;
 
     public $filters = [
-        'faculty_id' => "",
-        'department_id' => "",
-        'year' => "",
-        'academic_year' => ""
+        'faculty_id' => '',
+        'department_id' => '',
+        'year' => '',
+        'academic_year' => '',
     ];
 
     public function mount(): void
@@ -54,23 +60,23 @@ class GroupTable extends Component
     public function removeFilter($filter): void
     {
         if ($filter == 'faculty') {
-            $this->filters['faculty_id'] = "";
+            $this->filters['faculty_id'] = '';
         } elseif ($filter == 'department') {
-            $this->filters['department_id'] = "";
+            $this->filters['department_id'] = '';
         } elseif ($filter == 'year') {
-            $this->filters['role_id'] = "";
+            $this->filters['role_id'] = '';
         } elseif ($filter == 'academic_year') {
-            $this->filters['academic_year'] = "";
+            $this->filters['academic_year'] = '';
         }
     }
 
     public function resetFilters(): void
     {
         $this->filters = [
-            'faculty_id' => "",
-            'department_id' => "",
-            'year' => "",
-            'academic_year' => ""
+            'faculty_id' => '',
+            'department_id' => '',
+            'year' => '',
+            'academic_year' => '',
         ];
     }
 
@@ -123,7 +129,7 @@ class GroupTable extends Component
         }
 
         return view('livewire.group.group-table', [
-            'groups' => $query->paginate($this->perPage)
+            'groups' => $query->paginate($this->perPage),
         ]);
     }
 }

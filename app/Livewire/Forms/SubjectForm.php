@@ -11,9 +11,10 @@ class SubjectForm extends Form
     public Subject $subject;
 
     #[Validate('required')]
-    public $name = "";
+    public $name = '';
+
     #[Validate('required')]
-    public $department_id = "";
+    public $department_id = '';
 
     public function setForm(Subject $subject): void
     {

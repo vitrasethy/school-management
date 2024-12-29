@@ -16,16 +16,22 @@ class SubjectTable extends Component
     use WithPagination;
 
     public $faculty_id;
+
     public $faculties;
+
     public $faculty;
+
     public $department_id;
+
     public $departments;
+
     public $department;
+
     public $per_page = 10;
 
     public $filters = [
-        'faculty_id' => "",
-        'department_id' => ""
+        'faculty_id' => '',
+        'department_id' => '',
     ];
 
     public function mount(): void
@@ -52,17 +58,17 @@ class SubjectTable extends Component
     public function removeFilter($filter): void
     {
         if ($filter == 'faculty') {
-            $this->filters['faculty_id'] = "";
+            $this->filters['faculty_id'] = '';
         } elseif ($filter == 'department') {
-            $this->filters['department_id'] = "";
+            $this->filters['department_id'] = '';
         }
     }
 
     public function resetFilters(): void
     {
         $this->filters = [
-            'faculty_id' => "",
-            'department_id' => ""
+            'faculty_id' => '',
+            'department_id' => '',
         ];
     }
 
@@ -107,7 +113,7 @@ class SubjectTable extends Component
         }
 
         return view('livewire.subject.subject-table', [
-            'subjects' => $query->paginate($this->per_page)
+            'subjects' => $query->paginate($this->per_page),
         ]);
     }
 }
