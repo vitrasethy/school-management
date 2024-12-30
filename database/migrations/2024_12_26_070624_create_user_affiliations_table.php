@@ -15,9 +15,9 @@ return new class extends Migration
         Schema::create('user_affiliations', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(Faculty::class)->constrained();
-            $table->foreignIdFor(Department::class)->constrained();
-            $table->foreignIdFor(Group::class)->constrained();
+            $table->foreignIdFor(Faculty::class)->nullable()->constrained();
+            $table->foreignIdFor(Department::class)->nullable()->constrained();
+            $table->foreignIdFor(Group::class)->nullable()->constrained();
 
             $table->timestamps();
         });
