@@ -37,7 +37,7 @@ class User extends Authenticatable
 
     public function groups(): BelongsToMany
     {
-        return $this->belongsToMany(Group::class, 'student_group', 'student_id', 'group_id');
+        return $this->belongsToMany(Group::class);
     }
 
     public function userAffiliations(): HasMany

@@ -18,9 +18,9 @@ class Group extends Model
         return $this->hasMany(UserAffiliation::class, 'group_id');
     }
 
-    public function students(): BelongsToMany
+    public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'student_group', 'group_id', 'student_id');
+        return $this->belongsToMany(User::class);
     }
 
     public function department(): BelongsTo

@@ -2,7 +2,6 @@
 
 use App\Models\Department;
 use App\Models\Faculty;
-use App\Models\Group;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,7 +16,6 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Faculty::class)->nullable()->constrained();
             $table->foreignIdFor(Department::class)->nullable()->constrained();
-            $table->foreignIdFor(Group::class)->nullable()->constrained();
 
             $table->timestamps();
         });

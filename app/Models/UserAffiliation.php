@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class UserAffiliation extends Model
 {
     protected $fillable = [
-        'user_id', 'faculty_id', 'department_id', 'group_id',
+        'user_id', 'faculty_id', 'department_id',
     ];
 
     public function user(): BelongsTo
