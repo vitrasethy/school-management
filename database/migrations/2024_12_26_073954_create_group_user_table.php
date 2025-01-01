@@ -12,7 +12,7 @@ return new class extends Migration
     {
         Schema::create('group_user', function (Blueprint $table) {
             $table->foreignIdFor(Group::class)->constrained();
-            $table->foreignId(User::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained();
         });
     }
 
