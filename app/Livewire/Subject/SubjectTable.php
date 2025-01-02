@@ -42,7 +42,7 @@ class SubjectTable extends Component
 
         if ($user->hasRole('super admin')) {
             $this->faculties = Faculty::all();
-        } elseif ($user->hasRole('school admin')) {
+        } elseif ($user->hasRole('faculty admin')) {
             $this->faculty_id = $user->userAffiliations()->first()->faculty_id;
             $this->departments = Department::where('faculty_id', $this->faculty_id)->get();
         } elseif ($user->hasRole('department admin')) {
@@ -91,7 +91,7 @@ class SubjectTable extends Component
 
         if ($this->faculty_id) {
             $query->whereHas('department', function ($query) {
-                $query->where('$this->faculty_id', $this->faculty_id);
+                $query->where('faculty_id', $this->faculty_id);
             });
         }
 

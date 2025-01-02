@@ -23,17 +23,22 @@
             </thead>
             <tbody>
             @foreach ($group->subjects as $subject)
-                <tr wire:key='{{ $loop->index }}'>
+                    <?php
+                    $teacher = \App\Models\User::find($subject->pivot->teacher_id);
+                    ?>
+                <tr wire:key='{{$group->id}}-{{$teacher->id}}-{{ $subject->id }}'>
                     <td>{{ $subject->name }}</td>
-                    <td>{{ $subject->teacher($group->id)->first()->user->name }}</td>
+                    <td>
+                        {{ $teacher ? $teacher->name : 'N/A' }}
+                    </td>
                     <td>
                         <div class="d-flex">
                             <livewire:group.edit-subject-modal :subject="$subject"
                                                                :group="$group"
-                                                               :teacher="$subject->teacher($group->id)->first()"
-                                                               :wire:key="'edit-group-subject-modal-'.$group->id.$loop->index"/>
+                                                               :teacher="$teacher"
+                                                               :wire:key="'edit-group-subject-modal-'.$group->id.$teacher->id.$subject->id"/>
                             <button
-                                wire:click="$dispatch('alert-delete', {id: {{ $subject->id }}})"
+                                wire:click="$dispatch('alert-delete', {id: {{ $subject->id }}, teacher_id: {{$teacher->id}}})"
                                 class="btn btn-sm btn-danger ml-2"><i class="fa fa-trash"
                                                                       aria-hidden="true"></i>
                             </button>
@@ -45,4 +50,3 @@
         </table>
     </div>
 </div>
-

@@ -4,9 +4,9 @@ namespace App\Livewire\User;
 
 use App\Livewire\Forms\UserForm;
 use App\Models\Department;
+use App\Models\Faculty;
 use App\Models\Group;
 use App\Models\Role;
-use App\Models\School;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -21,7 +21,7 @@ class UserEditModal extends Component
     public User $user;
 
     public $roles;
-    public $schools;
+    public $faculties;
     public $departments;
     public $groups;
 
@@ -29,30 +29,30 @@ class UserEditModal extends Component
     {
         $this->form->setForm($user);
         $this->roles = Role::all();
-        $this->schools = School::all();
+        $this->faculties = Faculty::all();
         $this->departments = collect();
         $this->groups = collect();
 
         $current_user = Auth::user();
 
         if ($current_user->hasRole('super admin')) {
-            $this->departments = Department::where('school_id', $this->form->school_id)->get();
+            $this->departments = Department::where('faculty_id', $this->form->faculty_id)->get();
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
-        } elseif ($current_user->hasRole('school admin')) {
-            $this->form->school_id = $current_user->school_id;
-            $this->departments = Department::where('school_id', $current_user->school_id)->get();
+        } elseif ($current_user->hasRole('faculty admin')) {
+            $this->form->faculty_id = $current_user->userAffiliations()->first()->faculty_id;
+            $this->departments = Department::where('faculty_id', $current_user->userAffiliations()->first()->faculty_id)->get();
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
         } elseif ($current_user->hasRole('department admin')) {
-            $this->form->school_id = $current_user->school_id;
-            $this->form->department_id = $current_user->department_id;
+            $this->form->faculty_id = $current_user->userAffiliations()->first()->faculty_id;
+            $this->form->department_id = $current_user->userAffiliations()->first()->department_id;
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
         }
     }
 
-    public function updatedFormSchoolId(): void
+    public function updatedFormFacultyId(): void
     {
         $this->form->department_id = 0;
-        $this->departments = Department::where('school_id', $this->form->school_id)->get();
+        $this->departments = Department::where('faculty_id', $this->form->faculty_id)->get();
     }
 
     public function updatedFormDepartmentId(): void
@@ -64,9 +64,9 @@ class UserEditModal extends Component
     public function updatedFormRole(): void
     {
         if ($this->form->role == 'super admin') {
-            $this->form->school_id = null;
+            $this->form->faculty_id = null;
             $this->form->department_id = null;
-        } elseif ($this->form->role == 'school admin') {
+        } elseif ($this->form->role == 'faculty admin') {
             $this->form->department_id = null;
         }
     }

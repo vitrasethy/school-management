@@ -29,22 +29,22 @@
                             @if ($user->hasRole('super admin'))
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
-                                        <label>School</label>
-                                        <select wire:model.live="school_id" class="form-control">
-                                            <option value="">Select a School</option>
-                                            @foreach ($schools as $school)
-                                                <option wire:key="{{ $school->id }}" value="{{ $school->id }}">
-                                                    {{ $school->name }}
+                                        <label>Faculty</label>
+                                        <select wire:model.live="faculty_id" class="form-control">
+                                            <option value="">Select a Faculty</option>
+                                            @foreach ($faculties as $faculty)
+                                                <option wire:key="{{ $faculty->id }}" value="{{ $faculty->id }}">
+                                                    {{ $faculty->name }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('form.department_id')
+                                        @error('faculty_id')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
                             @endif
-                            @if ($user->hasRole('super admin') || $user->hasRole('school admin'))
+                            @if ($user->hasRole('super admin') || $user->hasRole('faculty admin'))
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>Department</label>
@@ -68,6 +68,16 @@
                                     <input wire:model="form.school_year" type="text" class="form-control"
                                            placeholder="School Year">
                                     @error('form.school_year')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group">
+                                    <label>Semester</label>
+                                    <input wire:model="form.semester" type="text" class="form-control"
+                                           placeholder="Semester">
+                                    @error('form.semester')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

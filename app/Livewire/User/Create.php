@@ -4,9 +4,9 @@ namespace App\Livewire\User;
 
 use App\Livewire\Forms\UserForm;
 use App\Models\Department;
+use App\Models\Faculty;
 use App\Models\Group;
 use App\Models\Role;
-use App\Models\School;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -19,7 +19,7 @@ class Create extends Component
     public UserForm $form;
 
     public $roles;
-    public $schools;
+    public $faculties;
     public $departments;
     public $groups;
     public $user;
@@ -27,24 +27,24 @@ class Create extends Component
     public function mount(): void
     {
         $this->roles = Role::all();
-        $this->schools = School::all();
+        $this->faculties = Faculty::all();
         $this->user = Auth::user();
 
-        if ($this->user->getRoleNames()->contains('school admin')) {
-            $this->form->school_id = Auth::user()->school_id;
-            $this->departments = Department::where('school_id', Auth::user()->school_id)->get();
+        if ($this->user->getRoleNames()->contains('faculty admin')) {
+            $this->form->faculty_id = Auth::user()->userAffiliations()->first()->faculty_id;
+            $this->departments = Department::where('faculty_id', Auth::user()->userAffiliations()->first()->faculty_id)->get();
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
         } elseif ($this->user->getRoleNames()->contains('department admin')) {
-            $this->form->school_id = Auth::user()->school_id;
-            $this->form->department_id = Auth::user()->department_id;
+            $this->form->faculty_id = Auth::user()->userAffiliations()->first()->faculty_id;
+            $this->form->department_id = Auth::user()->userAffiliations()->first()->department_id;
             $this->groups = Group::where('department_id', $this->form->department_id)->get();
         }
     }
 
-    public function updatedFormSchoolId(): void
+    public function updatedFormFacultyId(): void
     {
         $this->form->department_id = 0;
-        $this->departments = Department::where('school_id', $this->form->school_id)->get();
+        $this->departments = Department::where('faculty_id', $this->form->faculty_id)->get();
     }
 
     public function updatedFormDepartmentId(): void
@@ -56,9 +56,9 @@ class Create extends Component
     public function updatedFormRole(): void
     {
         if ($this->form->role == 'super admin') {
-            $this->form->school_id = null;
+            $this->form->faculty_id = null;
             $this->form->department_id = null;
-        } elseif ($this->form->role == 'school admin') {
+        } elseif ($this->form->role == 'faculty admin') {
             $this->form->department_id = null;
         }
     }

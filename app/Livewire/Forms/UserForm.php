@@ -19,7 +19,7 @@ class UserForm extends Form
     #[Validate('nullable|string|min:8')]
     public $password = "";
     // #[Validate('required')]
-    public $school_id = null;
+    public $faculty_id = null;
     // #[Validate('required')]
     public $department_id = null;
     // #[Validate('required')]
@@ -35,8 +35,8 @@ class UserForm extends Form
         $this->user = $user;
         $this->name = $user->name;
         $this->email = $user->email;
-        $this->school_id = $user->school_id;
-        $this->department_id = $user->department_id ?? null;
+        $this->faculty_id = $user->userAffiliations()->first()->faculty_id;
+        $this->department_id = $user->userAffiliations()->first()->department_id ?? null;
         $this->group_id = $user->groups->isNotEmpty() ? $user->groups[0]->id : null;
         $this->group_id_list = $user->groups->pluck('id')->toArray();
         $this->role = $user->getRoleNames()[0];
@@ -47,8 +47,6 @@ class UserForm extends Form
     {
         $this->validate();
         $data = [
-            'school_id' => $this->school_id == 0 ? null : $this->school_id,
-            'department_id' => $this->department_id == 0 ? null : $this->department_id,
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
@@ -60,6 +58,10 @@ class UserForm extends Form
 
         $user = User::create($data);
         $user->assignRole($this->role);
+        $user->userAffiliations()->create([
+            'faculty_id' => $this->faculty_id == 0 ? null : $this->faculty_id,
+            'department_id' => $this->department_id == 0 ? null : $this->department_id,
+        ]);
         if (!empty($this->group_id_list)) {
             $user->groups()->attach($this->group_id_list);
         }
@@ -70,9 +72,8 @@ class UserForm extends Form
     public function update(): void
     {
         $this->validate();
-        $updateData = $this->only(['name', 'email', 'school_id']);
+        $updateData = $this->only(['name', 'email']);
 
-        $updateData['department_id'] = $this->department_id == 0 ? null : $this->department_id;
         // Only update the password if it is provided
         if ($this->password) {
             $updateData['password'] = Hash::make($this->password);
@@ -93,6 +94,10 @@ class UserForm extends Form
         $this->user->update($updateData);
         $this->existing_image = $data['image_url'] ?? $this->existing_image;
         $this->user->syncRoles($this->role);
+        $this->user->userAffiliations()->update([
+            'faculty_id' => $this->faculty_id == 0 ? null : $this->faculty_id,
+            'department_id' => $this->department_id == 0 ? null : $this->department_id
+        ]);
 
         if ($this->role == "super admin" || $this->role == "school admin" || $this->role == "department admin") {
             $this->user->groups()->detach();

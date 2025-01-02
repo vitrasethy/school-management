@@ -90,7 +90,7 @@
                             </div>
                         </li>
                         @endrole
-                        @role(['super admin', 'school admin'])
+                        @role(['super admin', 'faculty admin'])
                         <li>
                             <div wire:key="filter-department" class="p-2">
                                 <label for="filter-department" class="mb-2">
@@ -168,6 +168,9 @@
                     Year
                 </th>
                 <th>
+                    Semester
+                </th>
+                <th>
                     Academic Year
                 </th>
                 <th>Action</th>
@@ -183,13 +186,14 @@
                     </td>
                     <td>{{ $group->department->name }}</td>
                     <td>{{ $group->year }}</td>
-                    <td>{{ $group->school_year }}</td>
+                    <td>{{ $group->semester }}</td>
+                    <td>{{ $group->academic_year }}</td>
                     <td>
                         <div class="d-flex align-items-center">
                             <a href="{{ route('group.show', $group->id) }}" class="btn btn-sm btn-primary mr-2"><i
                                     class="fa fa-eye" aria-hidden="true"></i></a>
-                            {{--                            <livewire:group.group-edit-modal :group="$group"--}}
-                            {{--                                                             :wire:key="'group-modal-'.$group->id"/>--}}
+                            <livewire:group.group-edit-modal :group="$group"
+                                                             :wire:key="'group-modal-'.$group->id"/>
                             <button class="btn btn-sm btn-danger ml-2"
                                     wire:click="$dispatch('alert-delete', {id: {{ $group->id }}})"><i
                                     class="fa fa-trash"

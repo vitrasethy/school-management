@@ -4,7 +4,7 @@
     @role('super admin')
     <livewire:home.super-admin-statistic/>
     @endrole
-    @role('school admin')
+    @role('faculty admin')
     <livewire:home.school-admin-statistic/>
     @endrole
     @role('department admin')

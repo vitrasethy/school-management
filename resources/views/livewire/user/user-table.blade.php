@@ -1,12 +1,12 @@
 <div class="card">
     <div class="card-header">
-        @if($filters['school_id'] || $filters['department_id'] || $filters['role_id'])
+        @if($filters['faculty_id'] || $filters['department_id'] || $filters['role_id'])
             <div class="mb-2">Applied Filters:
-                @if($filters['school_id'])
+                @if($filters['faculty_id'])
                     <span wire:key="filter-pill-gender"
                           class="badge badge-pill badge-info d-inline-flex align-items-center">
-                                School: {{$school->abbr}}
-                    <a href="#" wire:click.prevent="removeFilter('school')" class="text-white ml-2">
+                                Faculty: {{$faculty->abbr}}
+                    <a href="#" wire:click.prevent="removeFilter('faculty')" class="text-white ml-2">
                         <span class="sr-only">Remove filter option</span>
                         <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none"
                              viewBox="0 0 8 8">
@@ -61,22 +61,22 @@
                     <ul class="dropdown-menu w-100" x-bind:class="{'show' : open }" role="menu">
                         @role('super admin')
                         <li>
-                            <div wire:key="filter-school" class="p-2">
-                                <label for="filter-school" class="mb-2">
-                                    School
+                            <div wire:key="filter-faculty" class="p-2">
+                                <label for="filter-faculty" class="mb-2">
+                                    Faculty
                                 </label>
-                                <select wire:model.live="filters.school_id"
-                                        id="filter-school" class="form-control">
+                                <select wire:model.live="filters.faculty_id"
+                                        id="filter-faculty" class="form-control">
                                     <option value="">Any</option>
-                                    @foreach($schools as $school)
-                                        <option wire:key="{{$school->id}}"
-                                                value={{$school->id}}>{{$school->name}}</option>
+                                    @foreach($faculties as $faculty)
+                                        <option wire:key="{{$faculty->id}}"
+                                                value={{$faculty->id}}>{{$faculty->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </li>
                         @endrole
-                        @role(['super admin', 'school admin'])
+                        @role(['super admin', 'faculty admin'])
                         <li>
                             <div wire:key="filter-department" class="p-2">
                                 <label for="filter-department" class="mb-2">
@@ -128,13 +128,13 @@
                     Name
                 </th>
                 <th>
-                    School
+                    Role
+                </th>
+                <th>
+                    Faculty
                 </th>
                 <th>
                     Department
-                </th>
-                <th>
-                    Role
                 </th>
                 <th>Action</th>
             </tr>
@@ -146,13 +146,13 @@
                              class="rounded-circle mr-2"
                              style="width: 30px; height: 30px; object-fit: cover;"
                              alt="school-logo"/> {{ $user->name }}</td>
-                    <td>
-                        {{ $user->school ? $user->school->name : 'N/A' }}
-                    </td>
-                    <td>
-                        {{ $user->department ? $user->department->name : 'N/A' }}
-                    </td>
                     <td>{{ $user->getRoleNames()[0] }}</td>
+                    <td>
+                        {{ $user->userAffiliations->first()->faculty->name ?? 'N/A' }}
+                    </td>
+                    <td>
+                        {{$user->userAffiliations->first()->department->name ?? 'N/A'}}
+                    </td>
                     <td>
                         <div class="d-flex align-items-center">
                             <a href="{{ route('home', $user->id) }}" class="btn btn-sm btn-primary mr-2"> <i

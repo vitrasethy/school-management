@@ -22,7 +22,7 @@ class CreateDepartmentModal extends Component
 
         if ($this->user->hasRole('super admin')) {
             $this->faculties = Faculty::all();
-        } elseif ($this->user->hasRole('school admin')) {
+        } elseif ($this->user->hasRole('faculty admin')) {
             $this->form->faculty_id = $this->user->userAffiliations()->first()->faculty_id;
         }
     }

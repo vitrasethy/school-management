@@ -26,7 +26,7 @@ class SubjectCreateModal extends Component
 
         if ($user->hasRole('super admin')) {
             $this->faculties = Faculty::all();
-        } elseif ($user->hasRole('school admin')) {
+        } elseif ($user->hasRole('faculty admin')) {
             $this->departments = Department::where('faculty_id', $user->userAffiliations()->first()->faculty_id)->get();
         } elseif ($user->hasRole('department admin')) {
             $this->form->department_id = $user->userAffiliations()->first()->department_id;

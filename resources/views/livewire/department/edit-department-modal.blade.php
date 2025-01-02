@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                             @endrole
-                            @role('school admin')
+                            @role('faculty admin')
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Name</label>

@@ -3,7 +3,6 @@
 namespace App\Livewire\Group;
 
 use App\Models\Group;
-use App\Models\Teacher;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -27,13 +26,10 @@ class GroupSubjectTable extends Component
     }
 
     #[On('confirmed-delete')]
-    public function delete($subject_group_id): void
+    public function delete($subject_group_id, $teacher_group_id): void
     {
         $this->group->subjects()->detach($subject_group_id);
-        Teacher::query()
-            ->where('group_id', $this->group->id)
-            ->where('subject_id', $subject_group_id)
-            ->delete();
+        $this->group->users()->detach($teacher_group_id);
     }
 
     public function render(): View

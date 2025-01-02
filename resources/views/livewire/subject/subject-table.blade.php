@@ -70,7 +70,7 @@
             <div class="d-flex align-items-center">
                 <input wire:model.live.debounce.500ms="search" type="text" class="form-control"
                        placeholder="Search Subject"/>
-                @role(['super admin', 'school admin'])
+                @role(['super admin', 'faculty admin'])
                 <div x-data="{ open: false }" x-on:keydown.escape.stop="open = false" x-on:mousedown.away="open = false"
                      class="btn-group d-block d-md-inline">
                     <button x-on:click="open = !open" type="button"
@@ -96,7 +96,7 @@
                             </div>
                         </li>
                         @endrole
-                        @role(['super admin', 'school admin'])
+                        @role(['super admin', 'faculty admin'])
                         <li>
                             <div wire:key="filter-department" class="p-2">
                                 <label for="filter-department" class="mb-2">

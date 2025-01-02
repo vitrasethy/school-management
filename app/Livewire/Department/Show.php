@@ -28,7 +28,7 @@ class Show extends Component
         $user = Auth::user();
         if ($user->hasRole('super admin')) {
             $this->faculties = Faculty::all();
-        } elseif ($user->hasRole('school admin')) {
+        } elseif ($user->hasRole('faculty admin')) {
             $this->faculty_id = $user->userAffiliations()->first()->faculty_id;
         }
     }
