@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,6 +16,8 @@ class SubjectResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'abbr' => $this->abbr,
+
+            'teacher' => new UserResource(User::find($this->pivot->teacher_id)),
 
             'department' => new DepartmentResource($this->whenLoaded('department')),
         ];
