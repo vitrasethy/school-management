@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Attributes\GetCurrentUserOperation;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends BaseController
@@ -13,6 +14,11 @@ class UserController extends BaseController
     {
         $user = $request->user();
 
+        return $this->successResponse(new UserResource($user));
+    }
+
+    public function show(User $user)
+    {
         return $this->successResponse(new UserResource($user));
     }
 }

@@ -27,6 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('user', [UserController::class, 'getCurrentUser']);
 
+    Route::get('user/{user}', [UserController::class, 'show']);
+
     Route::post('join-group', [GroupCodeController::class, 'join']);
 
     Route::get('groups/user', [GroupController::class, 'findByUser']);
