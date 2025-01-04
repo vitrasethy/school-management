@@ -31,7 +31,7 @@ class GroupController extends BaseController
         $data = new GroupResource($group);
 
         return $this->successResponse(
-            $data->load(['subjects', 'userAffiliations', 'department', 'users'])
+            $data->load(['subjects', 'department', 'users'])
         );
     }
 
