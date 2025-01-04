@@ -28,11 +28,9 @@ class GroupController extends BaseController
 
     public function show(Group $group)
     {
-        $data = new GroupResource($group);
+        $data = new GroupResource($group->load(['subjects', 'department', 'users']));
 
-        return $this->successResponse(
-            $data->load(['subjects', 'department', 'users'])
-        );
+        return $this->successResponse($data);
     }
 
     public function update(UpdateGroupRequest $request, Group $group)
