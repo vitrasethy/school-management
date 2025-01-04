@@ -5,18 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Group extends Model
 {
     protected $fillable = [
         'department_id', 'name', 'year', 'academic_year', 'semester',
     ];
-
-    public function userAffiliations(): HasMany
-    {
-        return $this->hasMany(UserAffiliation::class, 'group_id');
-    }
 
     public function users(): BelongsToMany
     {

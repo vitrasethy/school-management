@@ -13,7 +13,7 @@ class GroupController extends BaseController
     public function index()
     {
         $data = GroupResource::collection(
-            Group::with(['subjects', 'userAffiliations', 'department', 'users'])->get()
+            Group::with(['subjects', 'department', 'users'])->get()
         );
 
         return $this->successResponse($data);
