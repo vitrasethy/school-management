@@ -17,8 +17,6 @@ class SubjectResource extends JsonResource
             'name' => $this->name,
             'abbr' => $this->abbr,
 
-            'teacher' => new UserResource(User::find($this->pivot->teacher_id)),
-
             'department' => new DepartmentResource($this->whenLoaded('department')),
         ];
     }
