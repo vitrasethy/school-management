@@ -3,8 +3,8 @@
 namespace App\Livewire\User;
 
 use App\Models\Department;
+use App\Models\Faculty;
 use App\Models\Role;
-use App\Models\School;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -16,9 +16,9 @@ class UserTable extends Component
 {
     use WithPagination;
 
-    public $school_id;
-    public $schools;
-    public $school;
+    public $faculty_id;
+    public $faculties;
+    public $faculty;
     public $department_id;
     public $departments;
     public $department;
@@ -27,7 +27,7 @@ class UserTable extends Component
     public $perPage = 10;
 
     public $filters = [
-        'school_id' => "",
+        'faculty_id' => "",
         'department_id' => "",
         'role_id' => ""
     ];
@@ -35,20 +35,20 @@ class UserTable extends Component
     public function mount(): void
     {
         $user = Auth::user();
-        $this->schools = Collect();
+        $this->faculties = Collect();
         $this->departments = Collect();
         $this->roles = Collect();
 
         if ($user->hasRole('super admin')) {
-            $this->schools = School::all();
+            $this->faculties = Faculty::all();
             $this->roles = Role::all();
-        } elseif ($user->hasRole('school admin')) {
-            $this->school_id = $user->school_id;
-            $this->departments = Department::where('school_id', $this->school_id)->get();
+        } elseif ($user->hasRole('faculty admin')) {
+            $this->faculty_id = $user->userAffiliations()->first()->faculty_id;
+            $this->departments = Department::where('faculty_id', $this->faculty_id)->get();
             $this->roles = Role::where('name', '!=', 'super admin')->get();
         } elseif ($user->hasRole('department admin')) {
-            $this->department_id = $user->department_id;
-            $this->roles = Role::whereNotIn('name', ['super admin', 'school admin'])->get();
+            $this->department_id = $user->userAffiliations()->first()->department_id;
+            $this->roles = Role::whereNotIn('name', ['super admin', 'faculty admin'])->get();
         }
     }
 
@@ -59,8 +59,8 @@ class UserTable extends Component
 
     public function removeFilter($filter): void
     {
-        if ($filter == 'school') {
-            $this->filters['school_id'] = "";
+        if ($filter == 'faculty') {
+            $this->filters['faculty_id'] = "";
         } elseif ($filter == 'department') {
             $this->filters['department_id'] = "";
         } elseif ($filter == 'role') {
@@ -71,7 +71,7 @@ class UserTable extends Component
     public function resetFilters(): void
     {
         $this->filters = [
-            'school_id' => "",
+            'faculty_id' => "",
             'department_id' => "",
             'role_id' => ""
         ];
@@ -89,6 +89,7 @@ class UserTable extends Component
     {
         $user = User::find($user_id);
         $user->groups()->detach();
+        $user->userAffiliations()->delete();
         $user->delete();
     }
 
@@ -96,22 +97,30 @@ class UserTable extends Component
     {
         $query = User::query();
 
-        if ($this->school_id) {
-            $query->where('school_id', $this->school_id);
+        if ($this->faculty_id) {
+            $query->whereHas('userAffiliations', function ($query) {
+                $query->where('faculty_id', $this->faculty_id);
+            })->get();
         }
 
         if ($this->department_id) {
-            $query->where('department_id', $this->department_id);
+            $query->whereHas('userAffiliations', function ($query) {
+                $query->where('department_id', $this->department_id);
+            })->get();
         }
 
-        if ($this->filters['school_id']) {
-            $query->where('school_id', $this->filters['school_id']);
-            $this->departments = Department::where('school_id', $this->filters['school_id'])->get();
-            $this->school = School::find($this->filters['school_id']);
+        if ($this->filters['faculty_id']) {
+            $query->whereHas('userAffiliations', function ($query) {
+                $query->where('faculty_id', $this->filters['faculty_id']);
+            })->get();
+            $this->departments = Department::where('faculty_id', $this->filters['faculty_id'])->get();
+            $this->faculty = Faculty::find($this->filters['faculty_id']);
         }
 
         if ($this->filters['department_id']) {
-            $query->where('department_id', $this->filters['department_id']);
+            $query->whereHas('userAffiliations', function ($query) {
+                $query->where('department_id', $this->filters['department_id']);
+            })->get();
             $this->department = Department::find($this->filters['department_id']);
         }
 

@@ -31,7 +31,8 @@ class GroupForm extends Form
         $this->group = $group;
         $this->department_id = $group->department_id;
         $this->name = $group->name;
-        $this->school_year = $group->school_year;
+        $this->semester = $group->semester;
+        $this->school_year = $group->academic_year;
         $this->year = $group->year;
     }
 
@@ -46,7 +47,7 @@ class GroupForm extends Form
             'code' => Str::random(10),
             'semester' => $this->semester,
         ]);
-        $this->reset(['name', 'school_year', 'year']);
+        $this->reset(['name', 'school_year', 'year', 'semester']);
     }
 
     public function update(): void

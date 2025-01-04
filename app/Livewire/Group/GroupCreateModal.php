@@ -27,7 +27,7 @@ class GroupCreateModal extends Component
         $this->departments = collect();
         if ($this->user->hasRole('super admin')) {
             $this->faculties = Faculty::all();
-        } elseif ($this->user->hasRole('school admin')) {
+        } elseif ($this->user->hasRole('faculty admin')) {
             $this->departments = Department::where('faculty_id', $this->user->userAffiliations()->first()->faculty_id)->get();
         } elseif ($this->user->hasRole('department admin')) {
             $this->form->department_id = $this->user->userAffiliations()->first()->department_id;

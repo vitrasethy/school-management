@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                             @endif
-                            @if ($user->hasRole('super admin') || $user->hasRole('school admin'))
+                            @if ($user->hasRole('super admin') || $user->hasRole('faculty admin'))
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>Department</label>

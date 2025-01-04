@@ -7,12 +7,12 @@
         @role('super admin')
         <span class="brand-text font-weight-light">AdminLTE</span>
         @endrole
-        @role('school admin')
-        <span class="brand-text font-weight-light">{{Auth::user()->school->abbr}}</span>
+        @role('faculty admin')
+        <span class="brand-text font-weight-light">{{ Auth::user()->userAffiliations()->first()->faculty->abbr }}</span>
         @endrole
         @role('department admin')
         <span
-            class="brand-text font-weight-light">{{Auth::user()->school->abbr.' - '.Auth::user()->department->abbr}}</span>
+            class="brand-text font-weight-light">{{Auth::user()->userAffiliations()->first()->faculty->abbr.' - '.Auth::user()->userAffiliations()->first()->department->abbr}}</span>
         @endrole
     </a>
 
@@ -74,7 +74,7 @@
                         {{--                        </ul>--}}
                     </li>
                 @endcan
-                @if (Auth::user()->hasRole('super admin') || Auth::user()->hasRole('school admin'))
+                @if (Auth::user()->hasRole('super admin') || Auth::user()->hasRole('faculty admin'))
                     <li class="nav-item" id="department">
                         <a href="{{route('department.show')}}" class="nav-link">
                             <i class="nav-icon fa fa-building"></i>

@@ -44,11 +44,11 @@ class GroupTable extends Component
 
         if ($user->hasRole('super admin')) {
             $this->faculties = Faculty::all();
-        } elseif ($user->hasRole('school admin')) {
+        } elseif ($user->hasRole('faculty admin')) {
             $this->faculty_id = $user->userAffiliations()->first()->faculty_id;
-            $this->departments = Department::where('school_id', $this->school_id)->get();
+            $this->departments = Department::where('faculty_id', $this->faculty_id)->get();
         } elseif ($user->hasRole('department admin')) {
-            $this->department_id = $user->department_id;
+            $this->department_id = $user->userAffiliations()->first()->department_id;
         }
     }
 

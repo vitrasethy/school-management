@@ -24,6 +24,9 @@
             </thead>
             <tbody>
             @foreach ($group->users as $user)
+                @if($user->hasRole('teacher'))
+                    @continue
+                @endif
                 <tr wire:key='{{ $user->id }}'>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->getRoleNames()[0] }}</td>

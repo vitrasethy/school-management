@@ -33,7 +33,7 @@ class SubjectEditModal extends Component
             $this->faculties = Faculty::all();
             $this->faculty_id = $subject->department->faculty_id;
             $this->departments = Department::where('faculty_id', $this->faculty_id)->get();
-        } elseif ($user->hasRole('school admin')) {
+        } elseif ($user->hasRole('faculty admin')) {
             $this->departments = Department::where('faculty_id', $user->userAffiliations()->first()->faculty_id)->get();
         } elseif ($user->hasRole('department admin')) {
             $this->form->department_id = $user->department_id;

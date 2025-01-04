@@ -1,9 +1,9 @@
 <div>
     <button type="button" class="btn btn-sm btn-warning text-white" data-toggle="modal"
-            data-target="#editGroupSubjectModal-{{ $subject->id }}">
+            data-target="#editGroupSubjectModal-{{ $subject->id }}-{{$teacher->id}}">
         <i class="fa fa-pen" aria-hidden="true"></i>
     </button>
-    <div class="modal fade" id="editGroupSubjectModal-{{ $subject->id }}" wire:ignore.self>
+    <div class="modal fade" id="editGroupSubjectModal-{{ $subject->id }}-{{$teacher->id}}" wire:ignore.self>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -14,11 +14,11 @@
                 </div>
                 <form wire:submit.prevent="save">
                     <div class="modal-body">
-                        {{--                        @if (session()->has('message'))--}}
-                        {{--                            <div class="alert alert-{{ session('alert-type', 'info') }} text-white">--}}
-                        {{--                                {{ session('message') }}--}}
-                        {{--                            </div>--}}
-                        {{--                        @endif--}}
+                        @if (session()->has('message'))
+                            <div class="alert alert-{{ session('alert-type', 'info') }} text-white">
+                                {{ session('message') }}
+                            </div>
+                        @endif
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">

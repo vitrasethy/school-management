@@ -20,14 +20,16 @@ class SchoolAdminStatistic extends Component
     public function mount(): void
     {
         $user = Auth::user();
-        $this->department_count = Department::where('school_id', $user->school_id)->count();
+        $this->department_count = Department::where('faculty_id', $user->userAffiliations()->first()->faculty_id)->count();
         $this->subject_count = Subject::whereHas('department', function ($query) use ($user) {
-            $query->where('school_id', $user->school_id);
+            $query->where('faculty_id', $user->userAffiliations()->first()->faculty_id);
         })->count();
         $this->group_count = Group::whereHas('department', function ($query) use ($user) {
-            $query->where('school_id', $user->school_id);
+            $query->where('faculty_id', $user->userAffiliations()->first()->faculty_id);
         })->count();
-        $this->user_count = User::where('school_id', $user->school_id)->count();
+        $this->user_count = User::whereHas('userAffiliations', function ($query) use ($user) {
+            return $query->where('faculty_id', $user->userAffiliations()->first()->faculty_id);
+        })->count();
     }
 
     public function render(): View

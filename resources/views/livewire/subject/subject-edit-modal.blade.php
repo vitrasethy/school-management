@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
                             @endif
-                            @if (Auth::user()->hasRole('school admin'))
+                            @if (Auth::user()->hasRole('faculty admin'))
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Department</label>

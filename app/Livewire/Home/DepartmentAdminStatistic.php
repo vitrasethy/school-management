@@ -19,10 +19,14 @@ class DepartmentAdminStatistic extends Component
     public function mount(): void
     {
         $user = Auth::user();
-        $this->subject_count = Subject::where('department_id', $user->department_id)->count();
-        $this->group_count = Group::where('department_id', $user->department_id)->count();
-        $this->teacher_count = User::role('teacher')->where('department_id', $user->department_id)->count();
-        $this->student_count = User::role('student')->where('department_id', $user->department_id)->count();
+        $this->subject_count = Subject::where('department_id', $user->userAffiliations()->first()->department_id)->count();
+        $this->group_count = Group::where('department_id', $user->userAffiliations()->first()->department_id)->count();
+        $this->teacher_count = User::role('teacher')->whereHas('userAffiliations', function ($query) use ($user) {
+            return $query->where('department_id', $user->userAffiliations()->first()->department_id);
+        })->count();
+        $this->student_count = User::role('student')->whereHas('userAffiliations', function ($query) use ($user) {
+            return $query->where('department_id', $user->userAffiliations()->first()->department_id);
+        })->count();
     }
 
     public function render(): View

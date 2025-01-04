@@ -38,16 +38,16 @@
                             @role('super admin')
                             <div class="col-12 col-lg-6">
                                 <div class="form-group">
-                                    <label>School</label>
-                                    <select wire:model.live="form.school_id" class="form-control">
-                                        <option value="">Select a school</option>
-                                        @foreach ($schools as $school)
-                                            <option wire:key="{{ $school->id }}" value="{{ $school->id }}">
-                                                {{ $school->name }}
+                                    <label>Faculty</label>
+                                    <select wire:model.live="form.faculty_id" class="form-control">
+                                        <option value="">Select a faculty</option>
+                                        @foreach ($faculties as $faculty)
+                                            <option wire:key="{{ $faculty->id }}" value="{{ $faculty->id }}">
+                                                {{ $faculty->name }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('form.school_id')
+                                    @error('form.faculty_id')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -72,10 +72,10 @@
                                     @enderror
                                 </div>
                             </div>
-                            @role(['super admin', 'school admin'])
+                            @role(['super admin', 'faculty admin'])
                             @if (
                                 ($form->role == 'department admin' || $form->role == 'teacher' || $form->role == 'student') &&
-                                    $form->school_id != 0)
+                                    $form->faculty_id != 0)
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label>Department</label>

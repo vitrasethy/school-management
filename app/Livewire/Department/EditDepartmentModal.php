@@ -27,7 +27,7 @@ class EditDepartmentModal extends Component
 
         if ($this->user->getRoleNames()->contains('super admin')) {
             $this->faculties = Faculty::all();
-        } elseif ($this->user->getRoleNames()->contains('school admin')) {
+        } elseif ($this->user->getRoleNames()->contains('faculty admin')) {
             $this->form->faculty_id = $this->user->userAffiliations()->first()->faculty_id;
         }
     }

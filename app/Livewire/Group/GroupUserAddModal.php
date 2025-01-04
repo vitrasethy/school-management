@@ -30,9 +30,11 @@ class GroupUserAddModal extends Component
         $this->students = $query->where('name', 'like', '%' . $this->search_term . '%')
             ->role('student')
             ->whereDoesntHave('groups', function ($query) {
-                $query->where('groups.id', $this->group->id);
+                $query->where('group_id', $this->group->id);
             })
-            ->where('department_id', $this->group->department_id)
+            ->whereHas('userAffiliations', function ($query) {
+                return $query->where('department_id', $this->group->department_id);
+            })
             ->get();
     }
 
