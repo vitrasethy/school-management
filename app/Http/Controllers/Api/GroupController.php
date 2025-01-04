@@ -6,14 +6,34 @@ use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\GroupResource;
 use App\Models\Group;
+use App\Models\User;
 use Auth;
 
 class GroupController extends BaseController
 {
     public function index()
     {
+        $groups = Group::with(['subjects', 'department', 'users'])->get();
+
+        $groups->map(function (Group $group) {
+            $group->subjects->map(function ($subject) {
+                // Get teacher_id from the pivot
+                $teacherId = $subject->pivot->teacher_id;
+
+                // Find the user by teacher_id
+                $teacher = User::find($teacherId);
+
+                // Add a new attribute to the subject model
+                $subject->teacher = $teacher;
+
+                return $subject;
+            });
+
+            return $group;
+        });
+
         $data = GroupResource::collection(
-            Group::with(['subjects', 'department', 'users'])->get()
+            $groups
         );
 
         return $this->successResponse($data);
