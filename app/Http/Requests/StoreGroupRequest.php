@@ -15,7 +15,7 @@ class StoreGroupRequest extends FormRequest
             'academic_year' => ['required', 'string', 'regex:/^\d{4}-\d{4}$/'],
             'year' => ['required', Rule::enum(GroupYear::class)],
             'semester' => ['required', 'integer'],
-            'department_id' => ['required', 'exists:departments'],
+            'department_id' => ['required', 'exists:departments,id'],
         ];
     }
 }

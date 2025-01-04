@@ -3,10 +3,13 @@
 namespace App\Http\Resources;
 
 use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin Subject */
+/** @mixin Subject
+ * @property mixed $pivot
+ */
 class SubjectResource extends JsonResource
 {
     public function toArray(Request $request): array
@@ -16,6 +19,9 @@ class SubjectResource extends JsonResource
             'name' => $this->name,
             'abbr' => $this->abbr,
 
+            'teacher' => $this->whenPivotLoaded('group_subject', function () {
+                return new UserResource(User::find($this->pivot->teacher_id));
+            }),
             'department' => new DepartmentResource($this->whenLoaded('department')),
         ];
     }

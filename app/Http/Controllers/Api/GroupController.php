@@ -71,7 +71,9 @@ class GroupController extends BaseController
 
     public function findByUser()
     {
-        $data = GroupResource::collection(Auth::user()->groups);
+        $data = GroupResource::collection(
+            Auth::user()->groups->load(['subjects', 'department', 'users'])
+        );
 
         return $this->successResponse($data);
     }
