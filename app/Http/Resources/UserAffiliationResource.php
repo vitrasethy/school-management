@@ -13,10 +13,9 @@ class UserAffiliationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'faculty_id' => $this->faculty_id,
-            'department_id' => $this->department_id,
-            'group_id' => $this->group_id,
+            'user' => new UserResource($this->whenLoaded('user')),
+            'faculty' => new FacultyResource($this->whenLoaded('faculty')),
+            'department' => new DepartmentResource($this->whenLoaded('faculty')),
         ];
     }
 }

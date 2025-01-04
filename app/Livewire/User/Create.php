@@ -19,9 +19,13 @@ class Create extends Component
     public UserForm $form;
 
     public $roles;
+
     public $faculties;
+
     public $departments;
+
     public $groups;
+
     public $user;
 
     public function mount(): void

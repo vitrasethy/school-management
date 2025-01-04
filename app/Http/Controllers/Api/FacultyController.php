@@ -11,7 +11,9 @@ class FacultyController extends BaseController
 {
     public function index()
     {
-        $data = FacultyResource::collection(Faculty::all());
+        $data = FacultyResource::collection(
+            Faculty::with(['userAffiliations', 'departments'])->get()
+        );
 
         return $this->successResponse($data);
     }
@@ -27,7 +29,9 @@ class FacultyController extends BaseController
     {
         $data = new FacultyResource($faculty);
 
-        return $this->successResponse($data);
+        return $this->successResponse(
+            $data->load(['userAffiliations', 'departments'])
+        );
     }
 
     public function update(UpdateFacultyRequest $request, Faculty $faculty)

@@ -11,7 +11,9 @@ class UserAffiliationController extends BaseController
 {
     public function index()
     {
-        $data = UserAffiliationResource::collection(UserAffiliation::all());
+        $data = UserAffiliationResource::collection(
+            UserAffiliation::with(['user', 'faculty', 'department'])->get()
+        );
 
         return $this->successResponse($data);
     }
@@ -27,7 +29,9 @@ class UserAffiliationController extends BaseController
     {
         $data = new UserAffiliationResource($faculty);
 
-        return $this->successResponse($data);
+        return $this->successResponse(
+            $data->load(['user', 'faculty', 'department'])
+        );
     }
 
     public function update(UpdateUserAffiliationRequest $request, UserAffiliation $faculty)

@@ -12,13 +12,17 @@ use Livewire\Component;
 class AddSubjectModal extends Component
 {
     #[Validate('required')]
-    public $subject_id = "";
+    public $subject_id = '';
+
     #[Validate('required')]
-    public $teacher_id = "";
-    public $group_id = "";
+    public $teacher_id = '';
+
+    public $group_id = '';
 
     public $group;
+
     public $subjects;
+
     public $teachers;
 
     public function mount(Group $group): void
@@ -39,6 +43,7 @@ class AddSubjectModal extends Component
         if ($this->group->subjects()->where('subject_id', $this->subject_id)->exists()) {
             session()->flash('message', 'Subject is already added to the group');
             session()->flash('alert-type', 'warning');
+
             return;
         }
 
@@ -46,6 +51,7 @@ class AddSubjectModal extends Component
         if ($this->group->users()->where('id', $this->teacher_id)->exists()) {
             session()->flash('message', 'Teacher is already assigned');
             session()->flash('alert-type', 'warning');
+
             return;
         }
 

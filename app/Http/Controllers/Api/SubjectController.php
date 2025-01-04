@@ -11,7 +11,9 @@ class SubjectController extends BaseController
 {
     public function index()
     {
-        $data = SubjectResource::collection(Subject::all());
+        $data = SubjectResource::collection(
+            Subject::with(['groups', 'department'])->get()
+        );
 
         return $this->successResponse($data);
     }
@@ -27,7 +29,9 @@ class SubjectController extends BaseController
     {
         $data = new SubjectResource($faculty);
 
-        return $this->successResponse($data);
+        return $this->successResponse(
+            $data->load(['groups', 'department'])
+        );
     }
 
     public function update(UpdateSubjectRequest $request, Subject $faculty)

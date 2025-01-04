@@ -18,11 +18,15 @@ class UserEditModal extends Component
     use WithFileUploads;
 
     public UserForm $form;
+
     public User $user;
 
     public $roles;
+
     public $faculties;
+
     public $departments;
+
     public $groups;
 
     public function mount(User $user): void

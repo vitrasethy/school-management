@@ -20,7 +20,7 @@ class GroupResource extends JsonResource
 
             'department' => new DepartmentResource($this->whenLoaded('department')),
             'user_affiliations' => UserAffiliationResource::collection($this->whenLoaded('userAffiliations')),
-            'students' => UserResource::collection($this->whenLoaded('students')),
+            'users' => UserResource::collection($this->whenLoaded('users')),
             'subjects' => SubjectResource::collection($this->whenLoaded('subjects')),
         ];
     }

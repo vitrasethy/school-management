@@ -11,7 +11,9 @@ class DepartmentController extends BaseController
 {
     public function index()
     {
-        $data = DepartmentResource::collection(Department::all());
+        $data = DepartmentResource::collection(
+            Department::with(['faculty', 'userAffiliations', 'groups'])->get()
+        );
 
         return $this->successResponse($data);
     }
@@ -27,7 +29,9 @@ class DepartmentController extends BaseController
     {
         $data = new DepartmentResource($department);
 
-        return $this->successResponse($data);
+        return $this->successResponse(
+            $data->load(['faculty', 'userAffiliations', 'groups'])
+        );
     }
 
     public function update(UpdateDepartmentRequest $request, Department $department)

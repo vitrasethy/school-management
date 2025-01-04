@@ -10,7 +10,9 @@ use Livewire\Component;
 class GroupUserAddModal extends Component
 {
     public $group;
+
     public $search_term;
+
     public $students = [];
 
     public function mount(Group $group): void
@@ -22,12 +24,13 @@ class GroupUserAddModal extends Component
     {
         if (empty($this->search_term)) {
             $this->students = [];
+
             return;
         }
 
         $query = User::query();
 
-        $this->students = $query->where('name', 'like', '%' . $this->search_term . '%')
+        $this->students = $query->where('name', 'like', '%'.$this->search_term.'%')
             ->role('student')
             ->whereDoesntHave('groups', function ($query) {
                 $query->where('group_id', $this->group->id);

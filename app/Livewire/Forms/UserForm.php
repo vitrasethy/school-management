@@ -13,22 +13,31 @@ class UserForm extends Form
     public User $user;
 
     #[Validate('required')]
-    public $name = "";
+    public $name = '';
+
     #[Validate('required')]
-    public $email = "";
+    public $email = '';
+
     #[Validate('nullable|string|min:8')]
-    public $password = "";
+    public $password = '';
+
     // #[Validate('required')]
     public $faculty_id = null;
+
     // #[Validate('required')]
     public $department_id = null;
+
     // #[Validate('required')]
     public $group_id = 0;
+
     public $group_id_list = [];
+
     #[Validate('required')]
-    public $role = "";
+    public $role = '';
+
     public $image_url = null;
-    public $existing_image = "";
+
+    public $existing_image = '';
 
     public function setForm(User $user): void
     {
@@ -62,7 +71,7 @@ class UserForm extends Form
             'faculty_id' => $this->faculty_id == 0 ? null : $this->faculty_id,
             'department_id' => $this->department_id == 0 ? null : $this->department_id,
         ]);
-        if (!empty($this->group_id_list)) {
+        if (! empty($this->group_id_list)) {
             $user->groups()->attach($this->group_id_list);
         }
 
@@ -96,14 +105,14 @@ class UserForm extends Form
         $this->user->syncRoles($this->role);
         $this->user->userAffiliations()->update([
             'faculty_id' => $this->faculty_id == 0 ? null : $this->faculty_id,
-            'department_id' => $this->department_id == 0 ? null : $this->department_id
+            'department_id' => $this->department_id == 0 ? null : $this->department_id,
         ]);
 
-        if ($this->role == "super admin" || $this->role == "school admin" || $this->role == "department admin") {
+        if ($this->role == 'super admin' || $this->role == 'school admin' || $this->role == 'department admin') {
             $this->user->groups()->detach();
         } else {
             // Update the related groups
-            if (!empty($this->group_id_list)) {
+            if (! empty($this->group_id_list)) {
                 $this->user->groups()->sync($this->group_id_list);
             } else {
                 $this->user->groups()->detach();

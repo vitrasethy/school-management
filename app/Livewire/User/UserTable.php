@@ -17,19 +17,27 @@ class UserTable extends Component
     use WithPagination;
 
     public $faculty_id;
+
     public $faculties;
+
     public $faculty;
+
     public $department_id;
+
     public $departments;
+
     public $department;
+
     public $roles;
+
     public $role;
+
     public $perPage = 10;
 
     public $filters = [
-        'faculty_id' => "",
-        'department_id' => "",
-        'role_id' => ""
+        'faculty_id' => '',
+        'department_id' => '',
+        'role_id' => '',
     ];
 
     public function mount(): void
@@ -60,20 +68,20 @@ class UserTable extends Component
     public function removeFilter($filter): void
     {
         if ($filter == 'faculty') {
-            $this->filters['faculty_id'] = "";
+            $this->filters['faculty_id'] = '';
         } elseif ($filter == 'department') {
-            $this->filters['department_id'] = "";
+            $this->filters['department_id'] = '';
         } elseif ($filter == 'role') {
-            $this->filters['role_id'] = "";
+            $this->filters['role_id'] = '';
         }
     }
 
     public function resetFilters(): void
     {
         $this->filters = [
-            'faculty_id' => "",
-            'department_id' => "",
-            'role_id' => ""
+            'faculty_id' => '',
+            'department_id' => '',
+            'role_id' => '',
         ];
     }
 
@@ -132,7 +140,7 @@ class UserTable extends Component
         }
 
         return view('livewire.user.user-table', [
-            'users' => $query->withoutRole('super admin')->latest()->paginate($this->perPage)
+            'users' => $query->withoutRole('super admin')->latest()->paginate($this->perPage),
         ]);
     }
 }

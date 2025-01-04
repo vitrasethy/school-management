@@ -25,9 +25,4 @@ class UserAffiliation extends Model
     {
         return $this->belongsTo(Department::class);
     }
-
-    public function group(): BelongsTo
-    {
-        return $this->belongsTo(Group::class);
-    }
 }

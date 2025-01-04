@@ -17,8 +17,11 @@ class GroupEditModal extends Component
     public Group $group;
 
     public $faculty_id;
+
     public $user;
+
     public $faculties;
+
     public $departments;
 
     public function mount(Group $group): void

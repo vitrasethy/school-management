@@ -12,14 +12,19 @@ use Livewire\Component;
 class EditSubjectModal extends Component
 {
     #[Validate('required')]
-    public $subject_id = "";
+    public $subject_id = '';
+
     #[Validate('required')]
-    public $user_id = "";
+    public $user_id = '';
 
     public Subject $subject;
+
     public User $teacher;
+
     public $group;
+
     public $subjects;
+
     public $teachers;
 
     public function mount(Subject $subject, Group $group, User $teacher): void
@@ -32,7 +37,7 @@ class EditSubjectModal extends Component
         $this->subjects = Subject::where('department_id', $subject->department_id)->get();
         $this->teachers = User::whereHas('userAffiliations', function ($query) {
             return $query->where('department_id', $this->subject->department_id);
-        })->role("teacher")->get();
+        })->role('teacher')->get();
     }
 
     public function save(): void
@@ -42,9 +47,10 @@ class EditSubjectModal extends Component
         $subjectChanged = $this->subject->id != $this->subject_id;
         $teacherChanged = $this->teacher->id != $this->user_id;
 
-        if (!$subjectChanged && !$teacherChanged) {
+        if (! $subjectChanged && ! $teacherChanged) {
             session()->flash('message', 'Nothing changed');
             session()->flash('alert-type', 'warning');
+
             return;
         }
 
@@ -53,12 +59,14 @@ class EditSubjectModal extends Component
             if ($this->group->subjects()->where('subject_id', $this->subject_id)->exists()) {
                 session()->flash('message', 'Subject is already added to the group');
                 session()->flash('alert-type', 'warning');
+
                 return;
             }
             // Check duplicate teacher
             if ($this->group->users()->where('user_id', $this->user_id)->exists()) {
                 session()->flash('message', 'Teacher is already assigned');
                 session()->flash('alert-type', 'warning');
+
                 return;
             }
             // Detach the old subject from the group
@@ -74,6 +82,7 @@ class EditSubjectModal extends Component
             if ($this->group->users()->where('user_id', $this->user_id)->exists()) {
                 session()->flash('message', 'Teacher is already assigned');
                 session()->flash('alert-type', 'warning');
+
                 return;
             }
             // Detach the old subject from the group

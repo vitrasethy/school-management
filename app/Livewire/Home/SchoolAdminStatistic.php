@@ -13,8 +13,11 @@ use Livewire\Component;
 class SchoolAdminStatistic extends Component
 {
     public $department_count;
+
     public $subject_count;
+
     public $group_count;
+
     public $user_count;
 
     public function mount(): void
