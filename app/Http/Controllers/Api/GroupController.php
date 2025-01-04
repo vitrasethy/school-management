@@ -12,7 +12,7 @@ class GroupController extends BaseController
 {
     public function index()
     {
-        $data = GroupResource::collection(Group::all());
+        $data = GroupResource::collection(Group::with('subjects')->get());
 
         return $this->successResponse($data);
     }
@@ -28,7 +28,7 @@ class GroupController extends BaseController
     {
         $data = new GroupResource($group);
 
-        return $this->successResponse($data);
+        return $this->successResponse($data->load('subjects'));
     }
 
     public function update(UpdateGroupRequest $request, Group $group)
