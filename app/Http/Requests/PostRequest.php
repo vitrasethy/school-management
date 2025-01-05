@@ -10,7 +10,7 @@ class PostRequest extends FormRequest
     {
         return [
             'caption' => ['required', 'string'],
-            'subject_id' => ['required', 'exists:subjects']
+            'subject_id' => ['required', 'exists:subjects,id'],
         ];
     }
 }

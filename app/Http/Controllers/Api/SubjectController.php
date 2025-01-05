@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
 use App\Http\Resources\SubjectResource;
+use App\Models\Group;
 use App\Models\Subject;
 
 class SubjectController extends BaseController
@@ -25,28 +26,35 @@ class SubjectController extends BaseController
         return $this->successResponse($data, 201);
     }
 
-    public function show(Subject $faculty)
+    public function show(Subject $subject)
     {
-        $data = new SubjectResource($faculty);
-
-        return $this->successResponse(
-            $data->load(['groups', 'department'])
-        );
-    }
-
-    public function update(UpdateSubjectRequest $request, Subject $faculty)
-    {
-        $faculty->update($request->validated());
-
-        $data = new SubjectResource($faculty);
+        $data = new SubjectResource($subject->load(['groups', 'department']));
 
         return $this->successResponse($data);
     }
 
-    public function destroy(Subject $faculty)
+    public function update(UpdateSubjectRequest $request, Subject $subject)
     {
-        $faculty->delete();
+        $subject->update($request->validated());
+
+        $data = new SubjectResource($subject);
+
+        return $this->successResponse($data);
+    }
+
+    public function destroy(Subject $subject)
+    {
+        $subject->delete();
 
         return $this->successResponse([]);
+    }
+
+    public function showByGroup(Group $group, Subject $subject)
+    {
+        $filteredSubject = $subject->groups()->where('id', $group->id)->get();
+
+        return $this->successResponse(
+            new SubjectResource($filteredSubject)
+        );
     }
 }
