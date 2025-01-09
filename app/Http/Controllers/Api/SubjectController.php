@@ -53,8 +53,10 @@ class SubjectController extends BaseController
     {
         $filteredSubject = $subject->groups()->where('id', $group->id)->get();
 
+        //return $filteredSubject;
+
         return $this->successResponse(
-            new SubjectResource($filteredSubject)
+            SubjectResource::collection($filteredSubject)
         );
     }
 }
