@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateSubjectRequest;
 use App\Http\Resources\SubjectResource;
 use App\Models\Group;
 use App\Models\Subject;
+use App\Models\User;
 
 class SubjectController extends BaseController
 {
@@ -51,12 +52,21 @@ class SubjectController extends BaseController
 
     public function showByGroup(Group $group, Subject $subject)
     {
-        $filteredSubject = $subject->groups()->where('id', $group->id)->get();
-
-        //return $filteredSubject;
+        $filteredSubject = $subject->load('posts')->groups()->where('id', $group->id)->first();
 
         return $this->successResponse(
-            SubjectResource::collection($filteredSubject)
+            new SubjectResource($filteredSubject)
+        );
+    }
+
+    public function indexByTeacher(User $teacher)
+    {
+        $subjects = Subject::withWhereHas('groups', function ($query) use ($teacher) {
+            $query->wherePivot('teacher_id', $teacher->id);
+        })->get();
+
+        return $this->successResponse(
+            SubjectResource::collection($subjects)
         );
     }
 }
