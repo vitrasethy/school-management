@@ -78,9 +78,9 @@ class GroupController extends BaseController
         return $this->successResponse($data);
     }
 
-    public function indexByStudent(User $student)
+    public function indexByStudent()
     {
-        $groups = Group::with('subjects')->whereRelation('users', 'id', $student->id)->get();
+        $groups = Group::with('subjects')->whereRelation('users', 'id', auth()->id())->get();
 
         return $this->successResponse(
             GroupResource::collection($groups)

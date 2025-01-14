@@ -7,7 +7,8 @@ use App\Http\Requests\UpdateSubjectRequest;
 use App\Http\Resources\SubjectResource;
 use App\Models\Group;
 use App\Models\Subject;
-use App\Models\User;
+
+use function auth;
 
 class SubjectController extends BaseController
 {
@@ -59,10 +60,10 @@ class SubjectController extends BaseController
         );
     }
 
-    public function indexByTeacher(User $teacher)
+    public function indexByTeacher()
     {
-        $subjects = Subject::withWhereHas('groups', function ($query) use ($teacher) {
-            $query->wherePivot('teacher_id', $teacher->id);
+        $subjects = Subject::withWhereHas('groups', function ($query) {
+            $query->wherePivot('teacher_id', auth()->id());
         })->get();
 
         return $this->successResponse(
