@@ -19,6 +19,7 @@ class SubjectResource extends JsonResource
             'name' => $this->name,
             'abbr' => $this->abbr,
 
+            'groups' => GroupResource::collection($this->whenLoaded('groups')),
             'posts' => PostResource::collection($this->whenLoaded('posts')),
             'teacher' => $this->whenPivotLoaded('group_subject', function () {
                 return new UserResource(User::find($this->pivot->teacher_id));

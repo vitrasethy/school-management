@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('groups/student', [GroupController::class, 'indexByStudent']);
 
-    Route::get('subjects/teacher', [SubjectController::class, 'indexByTeacher']);
+    Route::get('groups/teacher', [GroupController::class, 'indexByTeacher']);
 
     Route::get('groups/{group}/subjects/{subject}', [SubjectController::class, 'showByGroup']);
 

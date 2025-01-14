@@ -60,14 +60,16 @@ class SubjectController extends BaseController
         );
     }
 
-    public function indexByTeacher()
-    {
-        $subjects = Subject::withWhereHas('groups', function ($query) {
-            $query->where('group_subject.teacher_id', auth()->id());
-        })->get();
-
-        return $this->successResponse(
-            SubjectResource::collection($subjects)
-        );
-    }
+    //public function indexByTeacher()
+    //{
+    //    $subjects = Subject::whereHas('groups', function ($query) {
+    //        $query->where('group_subject.teacher_id', auth()->id());
+    //    })
+    //        ->with('groups')
+    //        ->get();
+    //
+    //    return $this->successResponse(
+    //        SubjectResource::collection($subjects)
+    //    );
+    //}
 }

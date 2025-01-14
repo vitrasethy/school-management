@@ -6,6 +6,7 @@ use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\GroupResource;
 use App\Models\Group;
+use App\Models\Subject;
 use App\Models\User;
 use Auth;
 
@@ -81,6 +82,19 @@ class GroupController extends BaseController
     public function indexByStudent()
     {
         $groups = Group::with('subjects')->whereRelation('users', 'id', auth()->id())->get();
+
+        return $this->successResponse(
+            GroupResource::collection($groups)
+        );
+    }
+
+    public function indexByTeacher()
+    {
+        $groups = Group::with('subjects')
+            ->whereHas('subjects', function ($query) {
+                $query->where('group_subject.teacher_id', auth()->id());
+            })
+            ->get();
 
         return $this->successResponse(
             GroupResource::collection($groups)
