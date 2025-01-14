@@ -91,7 +91,7 @@ class GroupController extends BaseController
 
     public function indexByTeacher()
     {
-        $groups = Group::with(['subjects' => function (Builder $query) {
+        $groups = Group::with(['subjects' => function ($query) {
             $query->where('group_subject.teacher_id', auth()->id());
         }])
             ->whereHas('subjects', function ($query) {
