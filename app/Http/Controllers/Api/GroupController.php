@@ -9,6 +9,7 @@ use App\Models\Group;
 use App\Models\Subject;
 use App\Models\User;
 use Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class GroupController extends BaseController
 {
@@ -90,7 +91,9 @@ class GroupController extends BaseController
 
     public function indexByTeacher()
     {
-        $groups = Group::with('subjects')
+        $groups = Group::with(['subjects' => function (Builder $query) {
+            $query->where('group_subject.teacher_id', auth()->id());
+        }])
             ->whereHas('subjects', function ($query) {
                 $query->where('group_subject.teacher_id', auth()->id());
             })
