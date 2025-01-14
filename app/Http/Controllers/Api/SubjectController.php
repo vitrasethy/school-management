@@ -63,7 +63,7 @@ class SubjectController extends BaseController
     public function indexByTeacher()
     {
         $subjects = Subject::withWhereHas('groups', function ($query) {
-            $query->wherePivot('teacher_id', auth()->id());
+            $query->where('group_subject.teacher_id', auth()->id());
         })->get();
 
         return $this->successResponse(
