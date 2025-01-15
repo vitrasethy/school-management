@@ -11,6 +11,7 @@ class PostRequest extends FormRequest
         return [
             'caption' => ['required', 'string'],
             'subject_id' => ['required', 'exists:subjects,id'],
+            'group_id' => ['required', 'exists:groups,id'],
         ];
     }
 }

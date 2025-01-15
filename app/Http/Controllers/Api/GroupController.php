@@ -9,7 +9,6 @@ use App\Models\Group;
 use App\Models\Subject;
 use App\Models\User;
 use Auth;
-use Illuminate\Database\Eloquent\Builder;
 
 class GroupController extends BaseController
 {

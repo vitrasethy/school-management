@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('subject_id')->constrained('subjects')->cascadeOnDelete();
+            $table->foreignId('group_id')->constrained('groups')->cascadeOnDelete();
             $table->string('caption');
             $table->timestamps();
         });
