@@ -53,7 +53,14 @@ class SubjectController extends BaseController
 
     public function showByGroup(Group $group, Subject $subject)
     {
-        $filteredSubject = $subject->load('posts')->groups()->where('id', $group->id)->first();
+        $filteredSubject = $subject->load([
+            'posts' => function ($query) use ($group, $subject) {
+                $query->where([
+                    ['subject_id', $subject->id],
+                    ['group_id', $group->id],
+                ]);
+            },
+        ])->groups()->where('id', $group->id)->first();
 
         return $this->successResponse(
             new SubjectResource($filteredSubject)
