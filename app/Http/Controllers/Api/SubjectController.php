@@ -60,6 +60,7 @@ class SubjectController extends BaseController
                     ['group_id', $group->id],
                 ]);
             },
+            'groups.users',
         ])->groups()->where('id', $group->id)->first();
 
         return $this->successResponse(
