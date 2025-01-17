@@ -8,8 +8,6 @@ use App\Http\Resources\SubjectResource;
 use App\Models\Group;
 use App\Models\Subject;
 
-use function auth;
-
 class SubjectController extends BaseController
 {
     public function index()
@@ -60,6 +58,7 @@ class SubjectController extends BaseController
                     ['group_id', $group->id],
                 ]);
             },
+            'posts.user',
             'groups.users' => function ($query) use ($group) {
                 $query->where('id', $group->id);
             },
@@ -69,17 +68,4 @@ class SubjectController extends BaseController
             new SubjectResource($filteredSubject)
         );
     }
-
-    //public function indexByTeacher()
-    //{
-    //    $subjects = Subject::whereHas('groups', function ($query) {
-    //        $query->where('group_subject.teacher_id', auth()->id());
-    //    })
-    //        ->with('groups')
-    //        ->get();
-    //
-    //    return $this->successResponse(
-    //        SubjectResource::collection($subjects)
-    //    );
-    //}
 }
