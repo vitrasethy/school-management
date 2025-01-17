@@ -60,8 +60,10 @@ class SubjectController extends BaseController
                     ['group_id', $group->id],
                 ]);
             },
-            'groups.users',
-        ])->groups()->where('id', $group->id)->first();
+            'groups.users' => function ($query) use ($group) {
+                $query->where('id', $group->id);
+            },
+        ]);
 
         return $this->successResponse(
             new SubjectResource($filteredSubject)
