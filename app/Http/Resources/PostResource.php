@@ -18,6 +18,8 @@ class PostResource extends JsonResource
             'user' => new UserResource($this->whenLoaded('user')),
             'subject' => new SubjectResource($this->whenLoaded('subject')),
             'group' => new GroupResource($this->whenLoaded('group')),
+
+            'created_at' => $this->created_at,
         ];
     }
 }

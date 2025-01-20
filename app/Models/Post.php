@@ -11,6 +11,13 @@ class Post extends Model
         'user_id', 'subject_id', 'caption', 'group_id',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'datetime',
+        ];
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
