@@ -59,9 +59,10 @@ class SubjectController extends BaseController
                 ]);
             },
             'posts.user',
-            'groups.users' => function ($query) use ($group) {
+            'groups' => function ($query) use ($group) {
                 $query->where('id', $group->id);
             },
+            'groups.users',
         ]);
 
         return $this->successResponse(
