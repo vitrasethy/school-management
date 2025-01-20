@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             UserSeeder::class,
             //GroupSeeder::class,
-            //SubjectSeeder::class,
+            SubjectSeeder::class,
         ]);
     }
 }
