@@ -21,7 +21,9 @@
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
-            <h1 class="h1 m-0"><b>Admin</b>LTE</h1>
+            <img src="{{asset('vendor/adminlte/dist/img/school-logo.png')}}" alt="school-logo"
+                 style="width: 120px; height: 120px;"/>
+            <h1 class="h1 m-0 mt-2"><b>PPTU</b></h1>
         </div>
         <div class="card-body">
             <p class="login-box-msg">LOGIN TO CONTINUE</p>

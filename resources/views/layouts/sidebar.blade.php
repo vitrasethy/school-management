@@ -1,11 +1,11 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-        <img src="{{ Auth::user()->school->image ?? asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}" alt="Logo"
+        <img src="{{ Auth::user()->school->image ?? asset('vendor/adminlte/dist/img/school-logo.png') }}" alt="Logo"
              class="brand-image img-circle elevation-3"
              style="object-fit: cover; opacity: .8;">
         @role('super admin')
-        <span class="brand-text font-weight-light">AdminLTE</span>
+        <span class="brand-text font-weight-light">PPTU</span>
         @endrole
         @role('faculty admin')
         <span class="brand-text font-weight-light">{{ Auth::user()->userAffiliations()->first()->faculty->abbr }}</span>
