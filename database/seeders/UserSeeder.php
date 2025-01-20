@@ -11,9 +11,12 @@ class UserSeeder extends Seeder
     {
         User::factory(1)
             ->create([
-                'email' => 'admin@admin.com'
+                'email' => 'admin@admin.com',
             ]);
 
         User::find(1)->assignRole('super admin');
+
+        User::factory(50)->create()->assignRole('student');
+        User::factory(30)->create()->assignRole('teacher');
     }
 }
