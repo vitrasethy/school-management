@@ -16,7 +16,11 @@ class UserSeeder extends Seeder
 
         User::find(1)->assignRole('super admin');
 
-        User::factory(50)->create()->assignRole('student');
-        User::factory(30)->create()->assignRole('teacher');
+        User::factory(50)->create()->each(function (User $user) {
+            return $user->assignRole('student');
+        });
+        User::factory(30)->create()->each(function (User $user) {
+            return $user->assignRole('teacher');
+        });
     }
 }
