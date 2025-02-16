@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up(): void
     {
         Schema::create('questions', function (Blueprint $table) {
@@ -13,6 +14,8 @@ return new class extends Migration {
             $table->string('name');
             $table->string('type');
             $table->boolean('is_required');
+            $table->text('correct_answer');
+            $table->integer('points');
             $table->timestamps();
         });
     }

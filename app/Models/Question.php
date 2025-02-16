@@ -13,6 +13,7 @@ class Question extends Model
         'name',
         'type',
         'is_required',
+        'correct_answer', 'points',
     ];
 
     public function form(): BelongsTo
