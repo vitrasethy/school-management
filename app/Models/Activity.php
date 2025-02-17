@@ -29,4 +29,9 @@ class Activity extends Model
     {
         return $this->hasMany(Form::class, 'activity_id');
     }
+
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(Group::class);
+    }
 }

@@ -14,8 +14,7 @@ class OptionResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-
-            'question' => new QuestionResource($this->whenLoaded('question')),
+            'is_correct' => $this->is_correct,
         ];
     }
 }

@@ -13,8 +13,8 @@ class ActivityResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'score' => $this->score,
 
+            'group' => new GroupResource($this->whenLoaded('group')),
             'subject' => new SubjectResource($this->whenLoaded('subject')),
             'activityType' => new ActivityTypeResource($this->whenLoaded('activityType')),
         ];

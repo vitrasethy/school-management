@@ -16,8 +16,8 @@ class QuestionResource extends JsonResource
             'name' => $this->name,
             'type' => $this->type,
             'is_required' => $this->is_required,
-
-            'form' => new FormResource($this->whenLoaded('form')),
+            'correct_answer' => $this->correct_answer,
+            'options' => OptionResource::collection($this->whenLoaded('options')),
         ];
     }
 }

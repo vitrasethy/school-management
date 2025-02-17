@@ -30,7 +30,7 @@ class FormController extends BaseController
 
     public function show(Form $form)
     {
-        $data = new FormResource($form);
+        $data = new FormResource($form->load('questions.options'));
 
         return $this->successResponse($data);
     }

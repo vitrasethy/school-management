@@ -16,6 +16,7 @@ class FormResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
 
+            'questions' => QuestionResource::collection($this->whenLoaded('questions')),
             'activity' => new ActivityResource($this->whenLoaded('activity')),
         ];
     }
