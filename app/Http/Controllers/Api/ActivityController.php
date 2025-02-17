@@ -45,11 +45,13 @@ class ActivityController extends BaseController
             ]);
 
             if ($question['options']) {
-                Option::create([
-                    'question_id' => $q->id,
-                    'name' => $question['options']['name'],
-                    'is_correct' => $question['options']['is_correct'],
-                ]);
+                foreach ($question['options'] as $option) {
+                    Option::create([
+                        'question_id' => $q->id,
+                        'name' => $option['name'],
+                        'is_correct' => $option['is_correct'],
+                    ]);
+                }
             }
         }
 
