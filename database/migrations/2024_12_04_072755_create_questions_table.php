@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('type');
             $table->boolean('is_required');
-            $table->text('correct_answer');
+            $table->text('correct_answer')->nullable();
             $table->integer('points');
             $table->timestamps();
         });
