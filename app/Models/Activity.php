@@ -12,6 +12,7 @@ class Activity extends Model
         'score',
         'subject_id',
         'activity_type_id',
+        'group_id',
     ];
 
     public function subject(): BelongsTo
