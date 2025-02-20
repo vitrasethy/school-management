@@ -8,14 +8,23 @@ use App\Models\Activity;
 use App\Models\Form;
 use App\Models\Option;
 use App\Models\Question;
+use Illuminate\Http\Request;
 
 class ActivityController extends BaseController
 {
-    public function index()
+    public function index(Request $request)
     {
-        $activities = Activity::all();
+        $activities = Activity::query();
 
-        $data = ActivityResource::collection($activities);
+        if ($request->input('groupId')) {
+            $activities->whereRelation('group', 'id', $request->input('groupId'));
+        }
+
+        if ($request->input('activityTypeId')) {
+            $activities->whereRelation('activityType', 'id', $request->input('activityTypeId'));
+        }
+
+        $data = ActivityResource::collection($activities->get());
 
         return $this->successResponse($data);
     }
