@@ -11,6 +11,21 @@ class GroupResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
+        if ($request->routeIs('group.show')) {
+            return [
+                'id' => $this->id,
+                'name' => $this->name,
+                'year' => $this->year,
+                'academic_year' => $this->academic_year,
+                'semester' => $this->semester,
+
+                'department' => new DepartmentResource($this->whenLoaded('department')),
+                'user_affiliations' => UserAffiliationResource::collection($this->whenLoaded('userAffiliations')),
+                'users' => UserResource::collection($this->whenLoaded('users')),
+                'subjects' => SubjectStudentResource::collection($this->whenLoaded('subjects')),
+            ];
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
