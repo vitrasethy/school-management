@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Activity extends Model
 {
@@ -25,9 +25,9 @@ class Activity extends Model
         return $this->belongsTo(ActivityType::class);
     }
 
-    public function forms(): HasMany
+    public function form(): HasOne
     {
-        return $this->hasMany(Form::class, 'activity_id');
+        return $this->hasOne(Form::class, 'activity_id');
     }
 
     public function group(): BelongsTo
