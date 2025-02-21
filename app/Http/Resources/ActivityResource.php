@@ -14,7 +14,7 @@ class ActivityResource extends JsonResource
         return [
             'id' => $this->id,
 
-            'forms' => new FormResource($this->whenLoaded('forms')),
+            'forms' => new FormResource($this->whenLoaded('form')),
             'group' => new GroupResource($this->whenLoaded('group')),
             'subject' => new SubjectResource($this->whenLoaded('subject')),
             'activityType' => new ActivityTypeResource($this->whenLoaded('activityType')),
