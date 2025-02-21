@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\Subject;
 use App\Models\User;
+use Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -26,6 +27,7 @@ class SubjectResource extends JsonResource
                 })->get()
             ),
             'groups' => GroupResource::collection($this->whenLoaded('groups')),
+            'group_user' => new GroupResource($this->groups()->whereRelation('users', 'id', Auth::id())->first()),
             'posts' => PostResource::collection($this->whenLoaded('posts')),
             'teacher' => $this->whenPivotLoaded('group_subject', function () {
                 return new UserResource(User::find($this->pivot->teacher_id));

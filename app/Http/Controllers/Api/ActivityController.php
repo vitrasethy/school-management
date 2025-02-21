@@ -71,7 +71,7 @@ class ActivityController extends BaseController
 
     public function show(Activity $activity)
     {
-        $data = new ActivityResource($activity);
+        $data = new ActivityResource($activity->load(['form.questions.options']));
 
         return $this->successResponse($data);
     }
