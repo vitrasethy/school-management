@@ -11,7 +11,7 @@ class GroupResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        if ($request->routeIs('group.show')) {
+        if ($request->routeIs('groups.show')) {
             return [
                 'id' => $this->id,
                 'name' => $this->name,
