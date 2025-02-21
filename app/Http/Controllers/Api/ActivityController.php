@@ -14,7 +14,7 @@ class ActivityController extends BaseController
 {
     public function index(Request $request)
     {
-        $activities = Activity::with('forms');
+        $activities = Activity::with('form');
 
         if ($request->input('groupId')) {
             $activities->whereRelation('group', 'id', $request->input('groupId'));
