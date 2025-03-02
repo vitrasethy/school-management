@@ -8,16 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Answer extends Model
 {
     protected $fillable = [
-        'response_id',
-        'question_id',
-        'option_id',
-        'text',
+        'user_id', 'question_id', 'option_id', 'text',
     ];
-
-    public function response(): BelongsTo
-    {
-        return $this->belongsTo(Response::class);
-    }
 
     public function question(): BelongsTo
     {
@@ -27,5 +19,10 @@ class Answer extends Model
     public function option(): BelongsTo
     {
         return $this->belongsTo(Option::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

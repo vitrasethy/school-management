@@ -15,9 +15,9 @@ class AnswerResource extends JsonResource
             'id' => $this->id,
             'text' => $this->text,
 
-            'response' => new ResponseResource($this->whenLoaded('response')),
             'question' => new QuestionResource($this->whenLoaded('question')),
             'option' => new OptionResource($this->whenLoaded('option')),
+            'student' => new UserResource($this->whenLoaded('user')),
         ];
     }
 }

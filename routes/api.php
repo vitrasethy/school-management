@@ -41,6 +41,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
 
+    Route::post('answers/bulk', [AnswerController::class, 'bulkStore']);
+
     Route::apiResources([
         'user-affiliations' => UserAffiliationController::class,
         'faculties' => FacultyController::class,
