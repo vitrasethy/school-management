@@ -14,6 +14,13 @@ class Option extends Model
         'is_correct',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'is_correct' => 'boolean',
+        ];
+    }
+
     public function question(): BelongsTo
     {
         return $this->belongsTo(Question::class);

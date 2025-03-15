@@ -6,6 +6,7 @@ use App\Http\Requests\AnswerRequest;
 use App\Http\Requests\BulkStoreAnswerRequest;
 use App\Http\Resources\AnswerResource;
 use App\Models\Answer;
+use App\Models\Question;
 
 class AnswerController extends BaseController
 {
@@ -34,11 +35,42 @@ class AnswerController extends BaseController
         $studentId = $request->input('user_id');
 
         foreach ($request->input('answers') as $answer) {
+            $question = Question::find($answer['question_id']);
+
+            if ($question->type === 'single_choice') {
+                $options = $question
+                    ->options()
+                    ->where('id', $answer['option_ids'][0])
+                    ->first();
+
+                if ($options->is_correct) {
+                    $score = $question->points;
+                } else {
+                    $score = 0;
+                }
+            } elseif ($question->type === 'multiple_choice') {
+                $optionCorrectCount = $question
+                    ->options()
+                    ->where('is_correct', true)
+                    ->count();
+
+                $answerCorrectCount = $question
+                    ->options()
+                    ->whereIn('id', $answer['option_ids'])
+                    ->where('is_correct', true)
+                    ->count();
+
+                $score = ($answerCorrectCount * $question->points) / $optionCorrectCount;
+            } else {
+                $score = null;
+            }
+
             Answer::create([
                 'user_id' => $studentId,
                 'question_id' => $answer['question_id'],
                 'option_id' => $answer['option_id'],
                 'text' => $answer['text'],
+                'score' => $score,
             ]);
         }
 

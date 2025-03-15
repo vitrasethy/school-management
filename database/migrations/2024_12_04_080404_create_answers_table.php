@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreignId('question_id')->constrained('questions');
             $table->foreignId('option_id')->nullable()->constrained('options');
             $table->string('text')->nullable();
+            $table->float('score')->nullable();
             $table->timestamps();
         });
     }
