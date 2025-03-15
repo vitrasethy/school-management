@@ -9,6 +9,7 @@ use App\Models\Group;
 use App\Models\Subject;
 use App\Models\User;
 use Auth;
+use Illuminate\Http\Request;
 
 class GroupController extends BaseController
 {
@@ -101,5 +102,25 @@ class GroupController extends BaseController
         return $this->successResponse(
             GroupResource::collection($groups)
         );
+    }
+
+    public function storePassScore(Request $request)
+    {
+        $request->validate([
+            'pass_score' => 'required|numeric',
+            'group_id' => 'required|exists:groups,id',
+            'subject_id' => 'required|exists:subjects,id',
+        ]);
+
+        Group::find($request->input('group_id'))
+            ->subjects()
+            ->sync([
+                $request->input('subject_id') => [
+                    'teacher_id' => Auth::id(),
+                    'pass_score' => $request->input('pass_score'),
+                ],
+            ]);
+
+        return $this->successResponse([]);
     }
 }

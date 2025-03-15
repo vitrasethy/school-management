@@ -21,7 +21,7 @@ class Subject extends Model
     {
         return $this
             ->belongsToMany(Group::class)
-            ->withPivot('teacher_id');
+            ->withPivot(['teacher_id', 'pass_score']);
     }
 
     public function department(): BelongsTo

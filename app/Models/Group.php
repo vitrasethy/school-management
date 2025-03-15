@@ -26,6 +26,6 @@ class Group extends Model
     {
         return $this
             ->belongsToMany(Subject::class)
-            ->withPivot('teacher_id');
+            ->withPivot(['teacher_id', 'pass_score']);
     }
 }
