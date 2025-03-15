@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreignIdFor(Group::class)->constrained();
             $table->foreignIdFor(Subject::class)->constrained();
             $table->foreignId('teacher_id')->constrained('users');
+            $table->float('pass_score')->nullable();
         });
     }
 
