@@ -43,6 +43,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('answers/bulk', [AnswerController::class, 'bulkStore']);
 
+    Route::post('pass-score', [GroupController::class, 'storePassScore']);
+
     Route::apiResources([
         'user-affiliations' => UserAffiliationController::class,
         'faculties' => FacultyController::class,
