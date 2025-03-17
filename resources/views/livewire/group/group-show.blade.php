@@ -16,13 +16,13 @@
                                 <b class="d-block">{{ $group->department->name }}</b>
                             </p>
                             <p class="text-sm mr-4">Year
-                                <b class="d-block">{{ $group->year }}</b>
+                                <b class="d-block">{{ $group->year->name }}</b>
                             </p>
                             <p class="text-sm mr-4">Semester
-                                <b class="d-block">{{ $group->semester }}</b>
+                                <b class="d-block">{{ $group->semester->name }}</b>
                             </p>
                             <p class="text-sm">Academic Year
-                                <b class="d-block">{{ $group->academic_year }}</b>
+                                <b class="d-block">{{ $group->schoolYear->name }}</b>
                             </p>
                         </div>
                     </div>
@@ -34,7 +34,8 @@
                                         <span class="info-box-text text-center text-muted">Total Student</span>
                                         <span class="info-box-number text-center text-muted mb-0">
                                             {{ $group->users->reject(function ($user) {
-                                                return $user->hasRole('teacher');})->count() }}
+                                                    return $user->hasRole('teacher');
+                                                })->count() }}
                                         </span>
                                     </div>
                                 </div>
@@ -55,10 +56,10 @@
             <div class="col-12">
                 <div class="row">
                     <div class="col-12 col-md-6">
-                        <livewire:group.group-subject-table :group="$group"/>
+                        <livewire:group.group-subject-table :group="$group" />
                     </div>
                     <div class="col-12 col-md-6">
-                        <livewire:group.group-user-table :group="$group"/>
+                        <livewire:group.group-user-table :group="$group" />
                     </div>
                 </div>
             </div>
@@ -68,7 +69,7 @@
 
 @section('js')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $("#sidebar li a").removeClass("active");
             $("#group>a").addClass("active");
             $("#group").addClass("menu-open");
@@ -119,7 +120,8 @@
             });
         });
         window.addEventListener('close-modal', (event) => {
-            $('#editGroupSubjectModal-' + event.detail[0].subject_id + '-' + event.detail[0].teacher_id).modal('hide');
+            $('#editGroupSubjectModal-' + event.detail[0].subject_id + '-' + event.detail[0].teacher_id).modal(
+                'hide');
         });
     </script>
 @endsection

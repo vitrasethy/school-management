@@ -22,4 +22,6 @@ Route::view('/user/student', 'user.student-index')->middleware('auth')->name('st
 Route::view('/user/teacher', 'user.teacher-index')->middleware('auth')->name('teacher.index');
 Route::view('/user', 'user.staff-index')->middleware('auth')->name('staff.index');
 
+Route::view('/activity', 'activity.index')->middleware('auth')->name('activity.index');
+
 Auth::routes();

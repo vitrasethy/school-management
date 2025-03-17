@@ -5,6 +5,8 @@ namespace App\Livewire\Group;
 use App\Models\Department;
 use App\Models\Faculty;
 use App\Models\Group;
+use App\Models\SchoolYear;
+use App\Models\Year;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
@@ -27,13 +29,17 @@ class GroupTable extends Component
 
     public $department;
 
+    public $year;
+
+    public $school_year;
+
     public $perPage = 10;
 
     public $filters = [
         'faculty_id' => '',
         'department_id' => '',
-        'year' => '',
-        'academic_year' => '',
+        'year_id' => '',
+        'school_year_id' => '',
     ];
 
     public function mount(): void
@@ -63,10 +69,10 @@ class GroupTable extends Component
             $this->filters['faculty_id'] = '';
         } elseif ($filter == 'department') {
             $this->filters['department_id'] = '';
-        } elseif ($filter == 'year') {
-            $this->filters['role_id'] = '';
-        } elseif ($filter == 'academic_year') {
-            $this->filters['academic_year'] = '';
+        } elseif ($filter == 'year_id') {
+            $this->filters['year_id'] = '';
+        } elseif ($filter == 'school_year_id') {
+            $this->filters['school_year_id'] = '';
         }
     }
 
@@ -75,8 +81,8 @@ class GroupTable extends Component
         $this->filters = [
             'faculty_id' => '',
             'department_id' => '',
-            'year' => '',
-            'academic_year' => '',
+            'year_id' => '',
+            'school_year_id' => '',
         ];
     }
 
@@ -120,16 +126,20 @@ class GroupTable extends Component
             $this->department = Department::find($this->filters['department_id']);
         }
 
-        if ($this->filters['year']) {
-            $query->where('year', $this->filters['year']);
+        if ($this->filters['year_id']) {
+            $query->where('year_id', $this->filters['year_id']);
+            $this->year = Year::find($this->filters['year_id']);
         }
 
-        if ($this->filters['academic_year']) {
-            $query->where('school_year', $this->filters['academic_year']);
+        if ($this->filters['school_year_id']) {
+            $query->where('school_year_id', $this->filters['school_year_id']);
+            $this->school_year = SchoolYear::find($this->filters['school_year_id']);
         }
 
         return view('livewire.group.group-table', [
             'groups' => $query->paginate($this->perPage),
+            'years' => Year::all(),
+            'school_years' => SchoolYear::all()
         ]);
     }
 }
