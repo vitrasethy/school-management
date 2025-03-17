@@ -28,4 +28,19 @@ class Group extends Model
             ->belongsToMany(Subject::class)
             ->withPivot(['teacher_id', 'pass_score']);
     }
+
+    public function schoolYear(): BelongsTo
+    {
+        return $this->belongsTo(SchoolYear::class);
+    }
+
+    public function semester(): BelongsTo
+    {
+        return $this->belongsTo(Semester::class);
+    }
+
+    public function year(): BelongsTo
+    {
+        return $this->belongsTo(Year::class);
+    }
 }
