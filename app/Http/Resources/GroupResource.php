@@ -15,9 +15,18 @@ class GroupResource extends JsonResource
             return [
                 'id' => $this->id,
                 'name' => $this->name,
-                'year' => $this->year,
-                'academic_year' => $this->academic_year,
-                'semester' => $this->semester,
+                'year' => [
+                    'id' => $this->year->id,
+                    'name' => $this->year->name,
+                ],
+                'academic_year' => [
+                    'id' => $this->year->id,
+                    'name' => $this->year->name,
+                ],
+                'semester' => [
+                    'id' => $this->year->id,
+                    'name' => $this->year->name,
+                ],
 
                 'department' => new DepartmentResource($this->whenLoaded('department')),
                 'user_affiliations' => UserAffiliationResource::collection($this->whenLoaded('userAffiliations')),
@@ -29,9 +38,18 @@ class GroupResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'year' => $this->year,
-            'academic_year' => $this->academic_year,
-            'semester' => $this->semester,
+            'year' => [
+                'id' => $this->year->id,
+                'name' => $this->year->name,
+            ],
+            'academic_year' => [
+                'id' => $this->year->id,
+                'name' => $this->year->name,
+            ],
+            'semester' => [
+                'id' => $this->year->id,
+                'name' => $this->year->name,
+            ],
 
             'department' => new DepartmentResource($this->whenLoaded('department')),
             'user_affiliations' => UserAffiliationResource::collection($this->whenLoaded('userAffiliations')),
