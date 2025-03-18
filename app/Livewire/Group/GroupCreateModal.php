@@ -53,7 +53,7 @@ class GroupCreateModal extends Component
         return view('livewire.group.group-create-modal', [
             'years' => Year::all(),
             'semesters' => Semester::all(),
-            'school_years' => SchoolYear::all()
+            'school_years' => SchoolYear::all(),
         ]);
     }
 }

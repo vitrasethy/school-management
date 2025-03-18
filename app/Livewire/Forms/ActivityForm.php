@@ -11,7 +11,7 @@ class ActivityForm extends Form
     public ActivityType $activityType;
 
     #[Validate('required|min:1')]
-    public $name = "";
+    public $name = '';
 
     public function setForm(ActivityType $activityType)
     {
@@ -24,11 +24,10 @@ class ActivityForm extends Form
         $this->validate();
 
         $insertData = [
-            'name' => $this->name
+            'name' => $this->name,
         ];
 
         ActivityType::create($insertData);
         $this->reset(['name']);
     }
 }
- 

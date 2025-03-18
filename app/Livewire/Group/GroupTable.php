@@ -139,7 +139,7 @@ class GroupTable extends Component
         return view('livewire.group.group-table', [
             'groups' => $query->paginate($this->perPage),
             'years' => Year::all(),
-            'school_years' => SchoolYear::all()
+            'school_years' => SchoolYear::all(),
         ]);
     }
 }
