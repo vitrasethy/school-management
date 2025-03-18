@@ -23,9 +23,9 @@ use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('groups/student', [GroupController::class, 'indexByStudent']);
+    Route::get('student/groups', [GroupController::class, 'indexByStudent']);
 
-    Route::get('groups/teacher', [GroupController::class, 'indexByTeacher']);
+    Route::get('teacher/groups', [GroupController::class, 'indexByTeacher']);
 
     Route::get('groups/{group}/subjects/{subject}', [SubjectController::class, 'showByGroup']);
 
