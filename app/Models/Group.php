@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Group extends Model
 {
     protected $fillable = [
-        'department_id', 'name', 'year', 'academic_year', 'semester',
+        'department_id', 'name', 'year_id', 'school_year_id', 'semester_id',
     ];
 
     public function users(): BelongsToMany

@@ -5,6 +5,9 @@ namespace App\Livewire\Group;
 use App\Livewire\Forms\GroupForm;
 use App\Models\Department;
 use App\Models\Faculty;
+use App\Models\SchoolYear;
+use App\Models\Semester;
+use App\Models\Year;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -47,6 +50,10 @@ class GroupCreateModal extends Component
 
     public function render(): View
     {
-        return view('livewire.group.group-create-modal');
+        return view('livewire.group.group-create-modal', [
+            'years' => Year::all(),
+            'semesters' => Semester::all(),
+            'school_years' => SchoolYear::all()
+        ]);
     }
 }
