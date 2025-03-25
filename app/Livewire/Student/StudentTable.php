@@ -13,7 +13,9 @@ class StudentTable extends Component
     use WithPagination;
 
     public $school_id;
+
     public $department_id;
+
     public $per_page = 10;
 
     public function mount()

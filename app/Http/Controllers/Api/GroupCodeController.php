@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\JoinGroupRequest;
 use App\Models\Group;
 use Auth;
+
 use function abort;
 
 class GroupCodeController extends BaseController

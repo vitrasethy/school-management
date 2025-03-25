@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Attributes\RegisterOperation;
 use App\Http\Controllers\Api\BaseController;
-use App\Http\Controllers\Controller;
 use App\Http\Resources\AuthResource;
-use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

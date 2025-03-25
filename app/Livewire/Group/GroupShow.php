@@ -13,6 +13,7 @@ class GroupShow extends Component
     use WithPagination;
 
     public Group $group;
+
     public $group_id;
 
     public function mount(Group $group): void

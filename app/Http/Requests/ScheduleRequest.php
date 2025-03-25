@@ -13,7 +13,7 @@ class ScheduleRequest extends FormRequest
         return [
             'weekdays' => ['required', Rule::enum(Weekdays::class)],
             'time' => ['required', 'date_format:H:i:s'],
-            'subject_id' => ['required', 'exists:subjects']
+            'subject_id' => ['required', 'exists:subjects'],
         ];
     }
 }

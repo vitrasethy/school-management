@@ -14,11 +14,15 @@ use Livewire\Component;
 class StudentEditModal extends Component
 {
     public UserForm $form;
+
     public User $student;
 
     public $roles;
+
     public $schools;
+
     public $departments;
+
     public $groups;
 
     public function mount(User $student)

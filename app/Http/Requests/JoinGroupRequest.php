@@ -10,7 +10,7 @@ class JoinGroupRequest extends FormRequest
     {
         return [
             'code' => ['required', 'string', 'max:6'],
-            'group_id' => ['required', 'exists:groups']
+            'group_id' => ['required', 'exists:groups'],
         ];
     }
 }

@@ -11,11 +11,13 @@ class StudentForm extends Form
     public User $user;
 
     #[Validate('required|min:1')]
-    public $name = "";
+    public $name = '';
+
     #[Validate('required|min:1')]
-    public $email = "";
+    public $email = '';
+
     #[Validate('required|min:1')]
-    public $password = "";
+    public $password = '';
 
     public function setGroupId(User $user)
     {

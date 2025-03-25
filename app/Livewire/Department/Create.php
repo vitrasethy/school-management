@@ -19,7 +19,7 @@ class Create extends Component
     public function save(): void
     {
         $this->form->create();
-        $this->form->name = "";
+        $this->form->name = '';
         $this->dispatch('created-department');
     }
 

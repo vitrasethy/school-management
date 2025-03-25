@@ -10,7 +10,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *
  *  @property string token
  *  @property string expires
- *
  */
 class AuthResource extends JsonResource
 {
@@ -21,7 +20,7 @@ class AuthResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'token' => $this->token,
-            'expires' => $this->expires
+            'expires' => $this->expires,
         ];
     }
 }

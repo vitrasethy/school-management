@@ -13,6 +13,7 @@ class SchoolEditModal extends Component
     use WithFileUploads;
 
     public SchoolForm $form;
+
     public School $school;
 
     public function mount(School $school): void

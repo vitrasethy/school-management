@@ -6,11 +6,9 @@ use App\Attributes\LoginOperation;
 use App\Attributes\LogoutOperation;
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Resources\AuthResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use function dd;
 
 class AuthenticatedSessionController extends BaseController
 {

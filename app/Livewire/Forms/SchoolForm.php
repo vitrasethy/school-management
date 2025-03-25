@@ -12,12 +12,14 @@ class SchoolForm extends Form
     public School $school;
 
     #[Validate('required|min:1')]
-    public $name = "";
+    public $name = '';
+
     #[Validate('required|min:1')]
-    public $abbr = "";
+    public $abbr = '';
+
     public $image = null;
 
-    public $existing_image = "";
+    public $existing_image = '';
 
     public function setForm(School $school): void
     {

@@ -9,7 +9,7 @@ class TeacherRequest extends FormRequest
         return [
             'user_id' => 'required|exists:users,id',
             'subject_id' => 'required|exists:subjects,id',
-            'group_id' => 'required|exists:groups,id'
+            'group_id' => 'required|exists:groups,id',
         ];
     }
 }

@@ -11,17 +11,17 @@ class SchoolSeeder extends Seeder
     {
         School::insert([
             [
-                'name' => 'Massachusetts Institute of Technology', 
+                'name' => 'Massachusetts Institute of Technology',
                 'abbr' => 'MIT',
                 'code' => '1',
             ],
             [
-                'name' => 'Royal University of Phnom Penh', 
+                'name' => 'Royal University of Phnom Penh',
                 'abbr' => 'RUPP',
                 'code' => '2',
             ],
             [
-                'name' => 'University of Oxford', 
+                'name' => 'University of Oxford',
                 'abbr' => 'Oxon',
                 'code' => '3',
             ],
