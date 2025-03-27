@@ -14,12 +14,14 @@ class TeacherController extends BaseController
 {
     public function dashboard()
     {
-        $teacherGroups = Group::with('teacher')
+        $teacherGroups = Group::with(['teacher', 'department', 'users'])
             ->whereHas('schoolYear', function (Builder $query) {
                 $query
                     ->whereDate('started_at', '<=', today('Asia/Phnom_Penh'))
                     ->whereDate('finished_at', '>=', today('Asia/Phnom_Penh'));
-            })->get();
+            })
+            ->latest()
+            ->get();
 
         $teacherGroupIds = $teacherGroups->pluck('id');
 
@@ -38,11 +40,21 @@ class TeacherController extends BaseController
             ->whereDate('finished_at', '>=', today('Asia/Phnom_Penh'))
             ->first();
 
+        $groupData = [];
+        for ($i = 0; $i < $teacherGroups->count() && $i < 3; $i++) {
+            $groupData[] = [
+                'id' => $teacherGroups[$i]['id'],
+                'name' => $teacherGroups[$i]['name'],
+                'department' => $teacherGroups[$i]['department']['name'],
+                'total_students' => $teacherGroups[$i]['users']->count(),
+            ];
+        }
+
         return $this->successResponse([
             'total_groups' => $totalGroups,
             'total_students' => $totalStudents,
             'current_semester' => $currentSemester,
-            'groups' => $teacherGroups,
+            'groups' => $groupData,
         ]);
     }
 
