@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Auth;
 
 class Group extends Model
 {
@@ -42,5 +43,13 @@ class Group extends Model
     public function year(): BelongsTo
     {
         return $this->belongsTo(Year::class);
+    }
+
+    public function teacher(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany(Subject::class)
+            ->withPivot(['teacher_id', 'pass_score'])
+            ->wherePivot('teacher_id', Auth::id());
     }
 }

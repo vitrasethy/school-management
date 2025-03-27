@@ -20,7 +20,14 @@ use App\Http\Controllers\Api\SchoolController;
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserAffiliationController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\V2\TeacherController;
 use Illuminate\Support\Facades\Route;
+
+Route::middleware('auth:sanctum')->prefix('v2')->group(function () {
+    Route::get('teacher/dashboard', [TeacherController::class, 'dashboard']);
+
+    Route::get('teacher/groups', [TeacherController::class, 'getGroups']);
+});
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('student/groups', [GroupController::class, 'indexByStudent']);
