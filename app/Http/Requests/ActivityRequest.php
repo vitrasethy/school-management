@@ -9,6 +9,8 @@ class ActivityRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'duration' => ['nullable', 'integer'],
+            'due_at' => ['required', 'date_format:Y-m-d H:i'],
             'subject_id' => ['required', 'exists:subjects,id'],
             'group_id' => ['required', 'exists:groups,id'],
             'activity_type_id' => ['required', 'exists:activity_types,id'],

@@ -13,6 +13,9 @@ class Activity extends Model
         'subject_id',
         'activity_type_id',
         'group_id',
+        'duration',
+        'due_at',
+        'teacher_id',
     ];
 
     public function subject(): BelongsTo

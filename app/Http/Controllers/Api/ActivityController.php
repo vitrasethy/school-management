@@ -9,6 +9,7 @@ use App\Models\Form;
 use App\Models\Option;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ActivityController extends BaseController
 {
@@ -35,6 +36,9 @@ class ActivityController extends BaseController
             'subject_id' => $request->input('subject_id'),
             'activity_type_id' => $request->input('activity_type_id'),
             'group_id' => $request->input('group_id'),
+            'duration' => $request->input('duration'),
+            'due_at' => $request->input('due_at'),
+            'teacher_id' => Auth::id(),
         ]);
 
         $form = Form::create([

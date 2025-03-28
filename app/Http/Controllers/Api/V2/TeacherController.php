@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api\V2;
 
 use App\Http\Controllers\Api\BaseController;
+use App\Models\Activity;
 use App\Models\Group;
 use App\Models\SchoolYear;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use function today;
 
@@ -84,6 +87,48 @@ class TeacherController extends BaseController
                 'year' => $group->year->name,
                 'semester' => $group->semester->name,
                 'school_year' => $group->schoolYear->name,
+            ];
+        }
+
+        return $this->successResponse($data);
+    }
+
+    public function getActivities(Request $request)
+    {
+        $departmentId = $request->query('department');
+        $schoolYearId = $request->query('schoolYear');
+        $yearId = $request->query('year');
+        $groupName = $request->query('groupName');
+
+        $activities = Activity::with(['form', 'subject', 'group' => ['year', 'schoolYear', 'semester']])
+            ->where('teacher_id', Auth::id())
+            ->whereHas('group', function (Builder $query) use ($groupName, $schoolYearId, $yearId, $departmentId) {
+                if ($departmentId) {
+                    $query->where('department_id', $departmentId);
+                }
+                if ($schoolYearId) {
+                    $query->where('school_year_id', $schoolYearId);
+                }
+                if ($yearId) {
+                    $query->where('year_id', $yearId);
+                }
+                if ($groupName) {
+                    $query->where('name', 'ILIKE', "%$groupName%");
+                }
+            })->get();
+
+        $data = [];
+        foreach ($activities as $activity) {
+            $data[] = [
+                'id' => $activity->id,
+                'title' => $activity->form->title,
+                'due_at' => $activity->due_at,
+                'duration' => $activity->duration,
+                'subject' => $activity->subject->name,
+                'group' => $activity->group->name,
+                'year' => $activity->group->year->name,
+                'semester' => $activity->group->semester->name,
+                'school_year' => $activity->group->schoolYear->name,
             ];
         }
 

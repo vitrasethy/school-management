@@ -13,6 +13,9 @@ return new class extends Migration
             $table->foreignId('subject_id')->constrained('subjects');
             $table->foreignId('group_id')->constrained('groups');
             $table->foreignId('activity_type_id')->constrained('activity_types');
+            $table->integer('duration')->nullable();
+            $table->dateTime('due_at');
+            $table->foreignId('teacher_id')->constrained('users', 'id');
             $table->timestamps();
         });
     }
