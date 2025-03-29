@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Form extends Model
@@ -11,13 +10,7 @@ class Form extends Model
     protected $fillable = [
         'title',
         'description',
-        'activity_id',
     ];
-
-    public function activity(): BelongsTo
-    {
-        return $this->belongsTo(Activity::class);
-    }
 
     public function responses(): HasMany
     {

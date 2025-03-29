@@ -134,4 +134,52 @@ class TeacherController extends BaseController
 
         return $this->successResponse($data);
     }
+
+    public function getOneActivity(Activity $activity)
+    {
+        $questions = [];
+        foreach ($activity->form->questions as $question) {
+            $options = [];
+            foreach ($question->options as $option) {
+                $options[] = [
+                    'id' => $option->id,
+                    'name' => $option->name,
+                    'is_correct' => $option->is_correct,
+                ];
+            }
+
+            $questions[] = [
+                'id' => $question->id,
+                'name' => $question->name,
+                'type' => $question->type,
+                'is_require' => $question->is_required,
+                'points' => $question->points,
+                'options' => $options,
+            ];
+        }
+
+        return [
+            'id' => $activity->id,
+            'duration' => $activity->duration,
+            'due_at' => $activity->due_at,
+            'group' => [
+                'id' => $activity->group->id,
+                'name' => $activity->group->name,
+                'school_year' => $activity->group->schoolYear,
+                'year' => $activity->group->year,
+                'semester' => $activity->group->semester,
+            ],
+            'subject' => [
+                'id' => $activity->subject->id,
+                'name' => $activity->subject->name,
+            ],
+            'activity_type' => [
+                'id' => $activity->activity_type_id,
+                'name' => $activity->activityType->name,
+            ],
+            'title' => $activity->form->title,
+            'description' => $activity->form->description,
+            'questions' => $questions,
+        ];
+    }
 }

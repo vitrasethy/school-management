@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Activity extends Model
 {
@@ -16,6 +15,7 @@ class Activity extends Model
         'duration',
         'due_at',
         'teacher_id',
+        'form_id',
     ];
 
     public function subject(): BelongsTo
@@ -28,9 +28,9 @@ class Activity extends Model
         return $this->belongsTo(ActivityType::class);
     }
 
-    public function form(): HasOne
+    public function form(): BelongsTo
     {
-        return $this->hasOne(Form::class, 'activity_id');
+        return $this->belongsTo(Form::class);
     }
 
     public function group(): BelongsTo

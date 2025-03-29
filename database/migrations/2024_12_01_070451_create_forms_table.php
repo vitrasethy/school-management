@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->foreignId('activity_id')->constrained('activities');
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\ActivityRequest;
+use App\Http\Requests\UpdateActivityRequest;
 use App\Http\Resources\ActivityResource;
 use App\Models\Activity;
 use App\Models\Form;
@@ -33,44 +34,44 @@ class ActivityController extends BaseController
 
     public function store(ActivityRequest $request)
     {
+        $form = Form::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+        ]);
+
+        foreach ($request->input('questions') as $question) {
+            $q = Question::create([
+                'form_id' => $form->id,
+                'name' => $question['name'],
+                'type' => $question['type'],
+                'is_required' => $question['is_require'],
+                'correct_answer' => $question['correct_answer'],
+                'points' => $question['points'],
+            ]);
+
+            if ($question['options']) {
+                foreach ($question['options'] as $option) {
+                    Option::create([
+                        'question_id' => $q->id,
+                        'name' => $option['name'],
+                        'is_correct' => $option['is_correct'],
+                    ]);
+                }
+            }
+        }
+
         foreach ($request->input('group_ids') as $item) {
             $subject = Group::find($item)->subjects->first();
 
-            $activity = Activity::create([
+            Activity::create([
                 'subject_id' => $subject->id,
                 'activity_type_id' => $request->input('activity_type_id'),
                 'group_id' => $item,
                 'duration' => $request->input('duration'),
                 'due_at' => $request->input('due_at'),
                 'teacher_id' => Auth::id(),
+                'form_id' => $form->id,
             ]);
-
-            $form = Form::create([
-                'title' => $request->input('title'),
-                'description' => $request->input('description'),
-                'activity_id' => $activity->id,
-            ]);
-
-            foreach ($request->input('questions') as $question) {
-                $q = Question::create([
-                    'form_id' => $form->id,
-                    'name' => $question['name'],
-                    'type' => $question['type'],
-                    'is_required' => $question['is_require'],
-                    'correct_answer' => $question['correct_answer'],
-                    'points' => $question['points'],
-                ]);
-
-                if ($question['options']) {
-                    foreach ($question['options'] as $option) {
-                        Option::create([
-                            'question_id' => $q->id,
-                            'name' => $option['name'],
-                            'is_correct' => $option['is_correct'],
-                        ]);
-                    }
-                }
-            }
         }
 
         return $this->successResponse([], 201);
@@ -83,15 +84,44 @@ class ActivityController extends BaseController
         return $this->successResponse($data);
     }
 
-    public function update(ActivityRequest $request, Activity $activity)
+    public function update(UpdateActivityRequest $request, Activity $activity)
     {
-        $validated = $request->validated();
+        // update form
+        $activity->form->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+        ]);
 
-        $activity->update($validated);
+        // update question
+        foreach ($request->input('questions') as $question) {
+            $ques = Question::find($question['id']);
+            $ques->update([
+                'name' => $question['name'],
+                'type' => $question['type'],
+                'is_required' => $question['is_require'],
+                'correct_answer' => $question['correct_answer'],
+                'points' => $question['points'],
+            ]);
 
-        $data = new ActivityResource($activity);
+            // update option if it has
+            if ($question['options']) {
+                foreach ($question['options'] as $option) {
+                    $op = Option::find($option['id']);
+                    $op->update([
+                        'name' => $option['name'],
+                        'is_correct' => $option['is_correct'],
+                    ]);
+                }
+            }
+        }
 
-        return $this->successResponse($data);
+        // update activity
+        $activity->update([
+            'duration' => $request->input('duration'),
+            'due_at' => $request->input('due_at'),
+        ]);
+
+        return $this->successResponse([]);
     }
 
     public function destroy(Activity $activity)
