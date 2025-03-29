@@ -29,6 +29,8 @@ Route::middleware('auth:sanctum')->prefix('v2')->group(function () {
     Route::get('teacher/groups', [TeacherController::class, 'getGroups']);
 
     Route::get('teacher/activities', [TeacherController::class, 'getActivities']);
+
+    Route::post('teacher/activities', [ActivityController::class, 'store']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
