@@ -158,17 +158,25 @@ class TeacherController extends BaseController
             ];
         }
 
+        $formId = $activity->form->id;
+
+        $groups = Group::whereHas('activities.form', function (Builder $query) use ($formId) {
+            $query->where('id', $formId);
+        })->get()->transform(function (Group $group) {
+            return [
+                'id' => $group->id,
+                'name' => $group->name,
+                'school_year' => $group->schoolYear->name,
+                'year' => $group->year->name,
+                'semester' => $group->semester->name,
+            ];
+        });
+
         return [
             'id' => $activity->id,
             'duration' => $activity->duration,
             'due_at' => $activity->due_at,
-            'group' => [
-                'id' => $activity->group->id,
-                'name' => $activity->group->name,
-                'school_year' => $activity->group->schoolYear,
-                'year' => $activity->group->year,
-                'semester' => $activity->group->semester,
-            ],
+            'groups' => $groups,
             'subject' => [
                 'id' => $activity->subject->id,
                 'name' => $activity->subject->name,
