@@ -40,9 +40,5 @@ class UserSeeder extends Seeder
                 'department_id' => fake()->randomElement($departmentIds),
             ]);
         });
-
-        User::factory()->create([
-            'email' => 'testteacher@gmail.com',
-        ])->assignRole('teacher');
     }
 }
