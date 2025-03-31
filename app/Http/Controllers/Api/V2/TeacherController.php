@@ -153,6 +153,7 @@ class TeacherController extends BaseController
                 'name' => $question->name,
                 'type' => $question->type,
                 'is_require' => $question->is_required,
+                'correct_answer' => $question->correct_answer,
                 'points' => $question->points,
                 'options' => $options,
             ];
