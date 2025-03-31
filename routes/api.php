@@ -35,12 +35,14 @@ Route::middleware('auth:sanctum')->prefix('v2')->group(function () {
     Route::get('teacher/activities/{activity}', [TeacherController::class, 'getOneActivity']);
 
     Route::put('teacher/activities/{activity}', [ActivityController::class, 'update']);
+
+    Route::get('teacher/groups', [GroupController::class, 'indexByTeacher']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('student/groups', [GroupController::class, 'indexByStudent']);
 
-    Route::get('teacher/groups', [GroupController::class, 'indexByTeacher']);
+
 
     Route::get('groups/{group}/subjects/{subject}', [SubjectController::class, 'showByGroup']);
 
