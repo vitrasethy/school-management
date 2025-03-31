@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateActivityRequest;
 use App\Http\Resources\ActivityResource;
 use App\Models\Activity;
 use App\Models\Form;
-use App\Models\Group;
 use App\Models\Option;
 use App\Models\Question;
 use Illuminate\Http\Request;
@@ -60,19 +59,14 @@ class ActivityController extends BaseController
             }
         }
 
-        foreach ($request->input('group_ids') as $item) {
-            $subject = Group::find($item)->subjects->first();
-
-            Activity::create([
-                'subject_id' => $subject->id,
-                'activity_type_id' => $request->input('activity_type_id'),
-                'group_id' => $item,
-                'duration' => $request->input('duration'),
-                'due_at' => $request->input('due_at'),
-                'teacher_id' => Auth::id(),
-                'form_id' => $form->id,
-            ]);
-        }
+        Activity::create([
+            'subject_id' => $request->input('subject'),
+            'activity_type_id' => $request->input('activity_type_id'),
+            'duration' => $request->input('duration'),
+            'due_at' => $request->input('due_at'),
+            'teacher_id' => Auth::id(),
+            'form_id' => $form->id,
+        ])->groups()->attach($request->input('group_ids'));
 
         return $this->successResponse([], 201);
     }
@@ -95,6 +89,28 @@ class ActivityController extends BaseController
         // update question
         foreach ($request->input('questions') as $question) {
             $ques = Question::find($question['id']);
+
+            if (! $ques) {
+                $q = Question::create([
+                    'form_id' => $activity->form_id,
+                    'name' => $question['name'],
+                    'type' => $question['type'],
+                    'is_required' => $question['is_require'],
+                    'correct_answer' => $question['correct_answer'],
+                    'points' => $question['points'],
+                ]);
+
+                if ($question['options']) {
+                    foreach ($question['options'] as $option) {
+                        Option::create([
+                            'question_id' => $q->id,
+                            'name' => $option['name'],
+                            'is_correct' => $option['is_correct'],
+                        ]);
+                    }
+                }
+            }
+
             $ques->update([
                 'name' => $question['name'],
                 'type' => $question['type'],

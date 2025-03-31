@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('subject_id')->constrained('subjects');
-            $table->foreignId('group_id')->constrained('groups');
             $table->foreignId('activity_type_id')->constrained('activity_types');
             $table->integer('duration')->nullable();
             $table->dateTime('due_at');

@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 
 class Group extends Model
@@ -54,8 +53,8 @@ class Group extends Model
             ->wherePivot('teacher_id', Auth::id());
     }
 
-    public function activities(): HasMany
+    public function activities(): BelongsToMany
     {
-        return $this->hasMany(Activity::class, 'group_id');
+        return $this->belongsToMany(Activity::class, 'activity_group', 'group_id', 'activity_id');
     }
 }
