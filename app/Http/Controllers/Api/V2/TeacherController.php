@@ -125,10 +125,7 @@ class TeacherController extends BaseController
                 'due_at' => $activity->due_at,
                 'duration' => $activity->duration,
                 'subject' => $activity->subject->name,
-                'group' => $activity->group->name,
-                'year' => $activity->group->year->name,
-                'semester' => $activity->group->semester->name,
-                'school_year' => $activity->group->schoolYear->name,
+                'groups' => $activity->groups,
             ];
         }
 
