@@ -102,7 +102,7 @@ class TeacherController extends BaseController
 
         $activities = Activity::with(['form', 'subject', 'group' => ['year', 'schoolYear', 'semester']])
             ->where('teacher_id', Auth::id())
-            ->whereHas('group', function (Builder $query) use ($groupName, $schoolYearId, $yearId, $departmentId) {
+            ->whereHas('groups', function (Builder $query) use ($groupName, $schoolYearId, $yearId, $departmentId) {
                 if ($departmentId) {
                     $query->where('department_id', $departmentId);
                 }
