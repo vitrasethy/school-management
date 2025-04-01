@@ -42,8 +42,6 @@ Route::middleware('auth:sanctum')->prefix('v2')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('student/groups', [GroupController::class, 'indexByStudent']);
 
-
-
     Route::get('groups/{group}/subjects/{subject}', [SubjectController::class, 'showByGroup']);
 
     Route::get('departments/{department}/groups', [GroupController::class, 'indexByDepartment']);

@@ -60,7 +60,7 @@ class ActivityController extends BaseController
         }
 
         Activity::create([
-            'subject_id' => $request->input('subject'),
+            'subject_id' => $request->input('subject_id'),
             'activity_type_id' => $request->input('activity_type_id'),
             'duration' => $request->input('duration'),
             'due_at' => $request->input('due_at'),
