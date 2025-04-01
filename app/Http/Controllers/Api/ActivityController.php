@@ -86,11 +86,13 @@ class ActivityController extends BaseController
             'description' => $request->input('description'),
         ]);
 
+        // update groups
+        $activity->groups()->attach($request->input('group_ids'));
+
         // update question
         foreach ($request->input('questions') as $question) {
-            $ques = Question::find($question['id']);
 
-            if (! $ques) {
+            if (! $question['id']) {
                 $q = Question::create([
                     'form_id' => $activity->form_id,
                     'name' => $question['name'],
@@ -110,6 +112,8 @@ class ActivityController extends BaseController
                     }
                 }
             }
+
+            $ques = Question::find($question['id']);
 
             $ques->update([
                 'name' => $question['name'],
