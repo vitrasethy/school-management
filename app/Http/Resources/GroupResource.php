@@ -43,12 +43,12 @@ class GroupResource extends JsonResource
                 'name' => $this->year->name,
             ],
             'academic_year' => [
-                'id' => $this->year->id,
-                'name' => $this->year->name,
+                'id' => $this->schoolYear->id,
+                'name' => $this->schoolYear->name,
             ],
             'semester' => [
-                'id' => $this->year->id,
-                'name' => $this->year->name,
+                'id' => $this->semester->id,
+                'name' => $this->semester->name,
             ],
 
             'department' => new DepartmentResource($this->whenLoaded('department')),
