@@ -111,17 +111,18 @@ class ActivityController extends BaseController
                         ]);
                     }
                 }
+            } else {
+
+                $ques = Question::find($question['id']);
+
+                $ques->update([
+                    'name' => $question['name'],
+                    'type' => $question['type'],
+                    'is_required' => $question['is_require'],
+                    'correct_answer' => $question['correct_answer'],
+                    'points' => $question['points'],
+                ]);
             }
-
-            $ques = Question::find($question['id']);
-
-            $ques->update([
-                'name' => $question['name'],
-                'type' => $question['type'],
-                'is_required' => $question['is_require'],
-                'correct_answer' => $question['correct_answer'],
-                'points' => $question['points'],
-            ]);
 
             // update option if it has
             if ($question['options']) {
