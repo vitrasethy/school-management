@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function now;
 use function today;
 
 class TeacherController extends BaseController
@@ -101,6 +102,7 @@ class TeacherController extends BaseController
         $groupName = $request->query('groupName');
 
         $activities = Activity::with(['form', 'subject', 'groups' => ['year', 'schoolYear', 'semester']])
+            ->where('due_at', '>=', now('Asia/Phnom_Penh'))
             ->where('teacher_id', Auth::id())
             ->whereHas('groups', function (Builder $query) use ($groupName, $schoolYearId, $yearId, $departmentId) {
                 if ($departmentId) {

@@ -127,11 +127,19 @@ class ActivityController extends BaseController
             // update option if it has
             if ($question['options']) {
                 foreach ($question['options'] as $option) {
-                    $op = Option::find($option['id']);
-                    $op->update([
-                        'name' => $option['name'],
-                        'is_correct' => $option['is_correct'],
-                    ]);
+                    if ($option['id']) {
+                        $op = Option::find($option['id']);
+                        $op->update([
+                            'name' => $option['name'],
+                            'is_correct' => $option['is_correct'],
+                        ]);
+                    } else {
+                        Option::create([
+                            'question_id' => $question['id'],
+                            'name' => $option['name'],
+                            'is_correct' => $option['is_correct'],
+                        ]);
+                    }
                 }
             }
         }
