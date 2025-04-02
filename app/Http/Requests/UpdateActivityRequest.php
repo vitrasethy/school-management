@@ -21,7 +21,7 @@ class UpdateActivityRequest extends FormRequest
             'questions.*.correct_answer' => ['nullable', 'string'],
             'questions.*.points' => ['required', 'integer'],
             'questions.*.options' => ['nullable', 'array'],
-            'questions.*.options.*.id' => ['required', 'exists:options,id'],
+            'questions.*.options.*.id' => ['nullable', 'exists:options,id'],
             'questions.*.options.*.name' => ['required', 'string'],
             'questions.*.options.*.is_correct' => ['required', 'boolean'],
         ];
