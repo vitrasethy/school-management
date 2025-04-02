@@ -112,7 +112,6 @@ class ActivityController extends BaseController
                     }
                 }
             } else {
-
                 $ques = Question::find($question['id']);
 
                 $ques->update([
@@ -122,23 +121,23 @@ class ActivityController extends BaseController
                     'correct_answer' => $question['correct_answer'],
                     'points' => $question['points'],
                 ]);
-            }
 
-            // update option if it has
-            if ($question['options']) {
-                foreach ($question['options'] as $option) {
-                    if ($option['id']) {
-                        $op = Option::find($option['id']);
-                        $op->update([
-                            'name' => $option['name'],
-                            'is_correct' => $option['is_correct'],
-                        ]);
-                    } else {
-                        Option::create([
-                            'question_id' => $question['id'],
-                            'name' => $option['name'],
-                            'is_correct' => $option['is_correct'],
-                        ]);
+                // update option if it has
+                if ($question['options']) {
+                    foreach ($question['options'] as $option) {
+                        if ($option['id']) {
+                            $op = Option::find($option['id']);
+                            $op->update([
+                                'name' => $option['name'],
+                                'is_correct' => $option['is_correct'],
+                            ]);
+                        } else {
+                            Option::create([
+                                'question_id' => $question['id'],
+                                'name' => $option['name'],
+                                'is_correct' => $option['is_correct'],
+                            ]);
+                        }
                     }
                 }
             }
