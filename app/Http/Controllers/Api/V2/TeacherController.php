@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V2;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Models\Activity;
+use App\Models\Answer;
 use App\Models\Group;
 use App\Models\SchoolYear;
 use App\Models\User;
@@ -188,6 +189,41 @@ class TeacherController extends BaseController
             'title' => $activity->form->title,
             'description' => $activity->form->description,
             'questions' => $questions,
+        ];
+    }
+
+    public function getOneActivityDashboard(Activity $activity)
+    {
+        $questionIds = $activity->form->questions->pluck('id');
+        $totalSubmitted = Answer::whereIn('question_id', $questionIds)->count();
+        $avgScore = Answer::whereIn('question_id', $questionIds)->avg('score');
+        $teacherGroupIds = Group::with('teacher')->pluck('id');
+        $students = User::whereHas('groups', function (Builder $query) use ($teacherGroupIds) {
+            $query->whereIn('id', $teacherGroupIds);
+        })->get();
+        $studentsArr = [];
+        foreach ($students as $student) {
+            $answer = Answer::where('user_id', $student->id)->first();
+            $studentsArr[] = [
+                'id' => $student->id,
+                'name' => $student->name,
+                'status' => $answer ? 'submitted' : 'not submitted',
+                'score' => $answer->score,
+                'submit_date' => $answer->created_at,
+                'group' => $student->groups()->whereIn('id', $teacherGroupIds)->first()->name,
+            ];
+        }
+
+        return [
+            'id' => $activity->id,
+            'title' => $activity->form->title,
+            'description' => $activity->form->description,
+            'subject' => $activity->subject,
+            'due_at' => $activity->due_at,
+            'duration' => $activity->duration,
+            'total_submitted' => $totalSubmitted,
+            'avg_scores' => $avgScore,
+            'students' => $studentsArr,
         ];
     }
 }

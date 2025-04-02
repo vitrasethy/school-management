@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Answer extends Model
 {
     protected $fillable = [
-        'user_id', 'question_id', 'option_id', 'text',
+        'user_id', 'question_id', 'option_id', 'text', 'score',
     ];
 
     public function question(): BelongsTo
