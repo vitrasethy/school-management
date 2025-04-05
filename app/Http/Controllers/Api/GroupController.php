@@ -108,16 +108,18 @@ class GroupController extends BaseController
         );
     }
 
-    public function showByTeacher(Group $group)
+    public function showByTeacher(Subject $subject, Group $group)
     {
-        return [
+        $data = [
             'id' => $group->id,
             'name' => $group->name,
             'total_students' => $group->users->count(),
             'posts' => $group->posts,
-            'activities' => $group->activities,
+            'activities' => $group->activities()->where('subject_id', $subject->id)->get(),
             'students' => $group->users,
         ];
+
+        return $this->successResponse($data);
     }
 
     public function storePassScore(Request $request)

@@ -38,7 +38,7 @@ Route::middleware('auth:sanctum')->prefix('v2')->group(function () {
 
     Route::get('teacher/groups', [GroupController::class, 'indexByTeacher']);
 
-    Route::get('teacher/groups/{group}', [GroupController::class, 'showByTeacher']);
+    Route::get('teacher/subjects/{subject}/groups/{group}', [GroupController::class, 'showByTeacher']);
 
     Route::get('teacher/activities/{activity}/dashboard', [TeacherController::class, 'getOneActivityDashboard']);
 });
