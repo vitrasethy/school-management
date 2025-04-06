@@ -115,7 +115,7 @@ class GroupController extends BaseController
             'name' => $group->name,
             'total_students' => $group->users->count(),
             'posts' => $group->posts,
-            'activities' => $group->activities()->where('subject_id', $subject->id)->get(),
+            'activities' => $group->activities()->where('subject_id', $subject->id)->distinct()->get(),
             'students' => $group->users,
         ];
 
