@@ -197,7 +197,7 @@ class TeacherController extends BaseController
         $questionIds = $activity->form->questions->pluck('id');
         $totalSubmitted = Answer::whereIn('question_id', $questionIds)->count();
         $avgScore = Answer::whereIn('question_id', $questionIds)->avg('score');
-        $teacherGroupIds = Group::with('teacher')->pluck('id');
+        $teacherGroupIds = Group::with('teacher')->whereRelation('activities', 'id', $activity->id)->pluck('id');
         $students = User::whereHas('groups', function (Builder $query) use ($teacherGroupIds) {
             $query->whereIn('id', $teacherGroupIds);
         })->get();
