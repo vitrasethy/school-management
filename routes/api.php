@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\SchoolController;
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserAffiliationController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\V2\StudentController;
 use App\Http\Controllers\Api\V2\TeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,8 @@ Route::middleware('auth:sanctum')->prefix('v2')->group(function () {
     Route::get('teacher/subjects/{subject}/groups/{group}', [GroupController::class, 'showByTeacher']);
 
     Route::get('teacher/activities/{activity}/dashboard', [TeacherController::class, 'getOneActivityDashboard']);
+
+    Route::get('student/dashboard', [StudentController::class, 'dashboard']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
