@@ -89,4 +89,14 @@ class StudentController extends BaseController
 
         return $this->successResponse($data);
     }
+
+    public function showActivity(Activity $activity)
+    {
+        return $this->successResponse([
+            'id' => $activity->id,
+            'form' => $activity->form,
+            'subject' => $activity->subject,
+            'full_score' => $activity->form->questions->sum('points'),
+        ]);
+    }
 }
