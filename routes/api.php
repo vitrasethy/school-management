@@ -44,6 +44,10 @@ Route::middleware('auth:sanctum')->prefix('v2')->group(function () {
     Route::get('teacher/activities/{activity}/dashboard', [TeacherController::class, 'getOneActivityDashboard']);
 
     Route::get('student/dashboard', [StudentController::class, 'dashboard']);
+
+    Route::get('student/groups', [StudentController::class, 'indexByStudent']);
+
+    Route::get('student/activities', [StudentController::class, 'getActivities']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
