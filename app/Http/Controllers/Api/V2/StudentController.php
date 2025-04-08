@@ -97,6 +97,8 @@ class StudentController extends BaseController
             'form' => $activity->form,
             'subject' => $activity->subject,
             'full_score' => $activity->form->questions->sum('points'),
+            'due_at' => $activity->due_at,
+            'duration' => $activity->duration,
         ]);
     }
 }
