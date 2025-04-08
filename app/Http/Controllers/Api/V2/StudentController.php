@@ -34,6 +34,9 @@ class StudentController extends BaseController
     public function indexByStudent(Request $request)
     {
         $groups = Group::with(['subjects'])
+            ->whereHas('users', function ($query) {
+                $query->where('id', Auth::id());
+            })
             ->when($request->query('name'), function (Builder $subQuery, $name) {
                 $subQuery->whereLike('name', '%'.$name.'%');
             })
