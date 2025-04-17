@@ -10,6 +10,7 @@ use App\Models\SchoolYear;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 use function today;
@@ -134,7 +135,7 @@ class TeacherController extends BaseController
                 'duration' => $activity->duration,
                 'subject' => $activity->subject->name,
                 'groups' => $activity->groups,
-                'is_past_due' => $activity->due_at->setTimezone('Asia/Phnom_Penh')->isPast(),
+                'is_past_due' => Carbon::parse($activity->due_at, 'Asia/Phnom_Penh')->isPast(),
             ];
         }
 
