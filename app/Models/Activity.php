@@ -19,6 +19,13 @@ class Activity extends Model
         'form_id',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'due_at' => 'datetime',
+        ];
+    }
+
     public function subject(): BelongsTo
     {
         return $this->belongsTo(Subject::class);

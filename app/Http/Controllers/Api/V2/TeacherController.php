@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use function now;
 use function today;
 
 class TeacherController extends BaseController
@@ -101,18 +100,9 @@ class TeacherController extends BaseController
         $schoolYearId = $request->query('schoolYear');
         $yearId = $request->query('year');
         $groupName = $request->query('groupName');
-        $dueType = $request->query('dueType');
 
         $query = Activity::with(['form', 'subject', 'groups' => ['year', 'schoolYear', 'semester']])
             ->where('teacher_id', Auth::id());
-
-        if ($dueType) {
-            if ($dueType === 'upcoming') {
-                $query->where('due_at', '>=', now('Asia/Phnom_Penh'));
-            } elseif ($dueType === 'pastDue') {
-                $query->where('due_at', '<=', now('Asia/Phnom_Penh'));
-            }
-        }
 
         if ($departmentId || $schoolYearId || $yearId || $groupName) {
             $query->whereHas('groups', function (Builder $query) use ($groupName, $schoolYearId, $yearId, $departmentId) {
@@ -131,7 +121,9 @@ class TeacherController extends BaseController
             });
         }
 
-        $activities = $query->get();
+        $activities = $query
+            ->latest('due_at')
+            ->get();
 
         $data = [];
         foreach ($activities as $activity) {
@@ -142,6 +134,7 @@ class TeacherController extends BaseController
                 'duration' => $activity->duration,
                 'subject' => $activity->subject->name,
                 'groups' => $activity->groups,
+                'is_past_due' => $activity->due_at->setTimezone('Asia/Phnom_Penh')->isPast(),
             ];
         }
 
