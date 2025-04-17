@@ -101,10 +101,18 @@ class TeacherController extends BaseController
         $schoolYearId = $request->query('schoolYear');
         $yearId = $request->query('year');
         $groupName = $request->query('groupName');
+        $dueType = $request->query('dueType');
 
         $query = Activity::with(['form', 'subject', 'groups' => ['year', 'schoolYear', 'semester']])
-            ->where('due_at', '>=', now('Asia/Phnom_Penh'))
             ->where('teacher_id', Auth::id());
+
+        if ($dueType) {
+            if ($dueType === 'upcoming') {
+                $query->where('due_at', '>=', now('Asia/Phnom_Penh'));
+            } elseif ($dueType === 'pastDue') {
+                $query->where('due_at', '<=', now('Asia/Phnom_Penh'));
+            }
+        }
 
         if ($departmentId || $schoolYearId || $yearId || $groupName) {
             $query->whereHas('groups', function (Builder $query) use ($groupName, $schoolYearId, $yearId, $departmentId) {
