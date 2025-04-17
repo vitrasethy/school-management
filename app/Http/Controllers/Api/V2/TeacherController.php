@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function dd;
 use function now;
 use function today;
 
@@ -102,10 +103,12 @@ class TeacherController extends BaseController
         $yearId = $request->query('year');
         $groupName = $request->query('groupName');
 
-        $activities = Activity::with(['form', 'subject', 'groups' => ['year', 'schoolYear', 'semester']])
+        $query = Activity::with(['form', 'subject', 'groups' => ['year', 'schoolYear', 'semester']])
             ->where('due_at', '>=', now('Asia/Phnom_Penh'))
-            ->where('teacher_id', Auth::id())
-            ->whereHas('groups', function (Builder $query) use ($groupName, $schoolYearId, $yearId, $departmentId) {
+            ->where('teacher_id', Auth::id());
+
+        if ($departmentId || $schoolYearId || $yearId || $groupName) {
+            $query->whereHas('groups', function (Builder $query) use ($groupName, $schoolYearId, $yearId, $departmentId) {
                 if ($departmentId) {
                     $query->where('department_id', $departmentId);
                 }
@@ -118,7 +121,10 @@ class TeacherController extends BaseController
                 if ($groupName) {
                     $query->where('name', 'ILIKE', "%$groupName%");
                 }
-            })->get();
+            });
+        }
+
+        $activities = $query->get();
 
         $data = [];
         foreach ($activities as $activity) {
