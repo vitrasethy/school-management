@@ -60,7 +60,7 @@ class SubjectController extends BaseController
             },
             'posts.user',
             'groups' => function ($query) use ($group) {
-                $query->where('id', $group->id);
+                $query->where('id', $group->id)->with('activities.form.questions');
             },
         ]);
 
