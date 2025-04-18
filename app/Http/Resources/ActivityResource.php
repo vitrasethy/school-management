@@ -13,6 +13,14 @@ class ActivityResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'due_at' => $this->due_at,
+            'subject_id' => $this->subject_id,
+            'duration' => $this->duration,
+            'teacher_id' => $this->teacher_id,
+            'form_id' => $this->form_id,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'groups_count' => $this->groups_count,
 
             'forms' => new FormResource($this->whenLoaded('form')),
             'group' => new GroupResource($this->whenLoaded('group')),
