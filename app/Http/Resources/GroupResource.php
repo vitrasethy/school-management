@@ -52,6 +52,7 @@ class GroupResource extends JsonResource
             ],
 
             'department' => new DepartmentResource($this->whenLoaded('department')),
+            'activities' => ActivityResource::collection($this->whenLoaded('activities')),
             'user_affiliations' => UserAffiliationResource::collection($this->whenLoaded('userAffiliations')),
             'users' => UserResource::collection($this->whenLoaded('users')),
             'subject' => new SubjectResource($this->whenLoaded('subjects', function () {
