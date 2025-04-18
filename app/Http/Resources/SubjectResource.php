@@ -26,7 +26,7 @@ class SubjectResource extends JsonResource
                     $builder->whereIn('id', $this->groups->pluck('id'));
                 })->get()
             ),
-            'groups' => GroupResource::collection($this->whenLoaded('groups')),
+            'activities' => ActivityResource::collection($this->groups->first()->activities->load('form')),
             'group_user' => new GroupResource($this->groups()->whereRelation('users', 'id', Auth::id())->first()),
             'posts' => PostResource::collection($this->whenLoaded('posts')),
             'teacher' => $this->whenPivotLoaded('group_subject', function () {
