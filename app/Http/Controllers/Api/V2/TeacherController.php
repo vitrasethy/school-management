@@ -7,6 +7,7 @@ use App\Models\Activity;
 use App\Models\Answer;
 use App\Models\Group;
 use App\Models\SchoolYear;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -232,5 +233,47 @@ class TeacherController extends BaseController
             'avg_scores' => $avgScore,
             'students' => $studentsArr,
         ];
+    }
+
+    public function getScoresBySubjectGroup(Group $group, Subject $subject)
+    {
+        $users = User::whereHas('groups', function ($query) use ($group, $subject) {
+            $query->where('id', $group->id)
+                ->whereHas('subjects', function ($query, $subject) {
+                    $query->where('id', $subject);
+                });
+        })->with([
+            'groups' => function ($query) use ($group, $subject) {
+                $query->where('id', $group->id)
+                    ->whereHas('subjects', function ($query, $subject) {
+                        $query->where('id', $subject);
+                    })->with('activities.form.questions.answers');
+            },
+        ])->get();
+
+        $data = [];
+        foreach ($users as $user) {
+            $activities = [];
+            foreach ($user->groups->first()->activities as $activity) {
+                $sum = 0;
+                foreach ($activity->form->questions as $question) {
+                    $sum += $question->answers->where('user_id', $user->id)->first()->score;
+                }
+
+                $activities[] = [
+                    'id' => $activity->id,
+                    'name' => $activity->form->title,
+                    'scores' => $sum,
+                ];
+            }
+
+            $data[] = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'activities' => $activities,
+            ];
+        }
+
+        return $this->successResponse($data);
     }
 }

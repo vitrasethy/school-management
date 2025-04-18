@@ -41,6 +41,8 @@ Route::middleware('auth:sanctum')->prefix('v2')->group(function () {
 
     Route::get('teacher/subjects/{subject}/groups/{group}', [GroupController::class, 'showByTeacher']);
 
+    Route::get('teacher/subjects/{subject}/groups/{group}/scores', [TeacherController::class, 'getScoresBySubjectGroup']);
+
     Route::get('teacher/activities/{activity}/dashboard', [TeacherController::class, 'getOneActivityDashboard']);
 
     Route::get('student/dashboard', [StudentController::class, 'dashboard']);
@@ -50,6 +52,8 @@ Route::middleware('auth:sanctum')->prefix('v2')->group(function () {
     Route::get('student/activities', [StudentController::class, 'getActivities']);
 
     Route::get('student/activities/{activity}', [StudentController::class, 'showActivity']);
+
+    Route::get('student/groups/{group}/subjects', [StudentController::class, 'getSubjectsByGroup']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {

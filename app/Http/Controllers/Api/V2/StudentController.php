@@ -9,6 +9,7 @@ use App\Models\Group;
 use App\Models\SchoolYear;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 use function now;
@@ -49,31 +50,14 @@ class StudentController extends BaseController
 
     public function getActivities(Request $request)
     {
-        $departmentId = $request->query('department');
-        $schoolYearId = $request->query('schoolYear');
-        $yearId = $request->query('year');
-        $groupName = $request->query('groupName');
+        //$departmentId = $request->query('department');
+        //$schoolYearId = $request->query('schoolYear');
+        //$yearId = $request->query('year');
+        //$groupName = $request->query('groupName');
 
         $activities = Activity::with(['form', 'subject', 'groups' => ['year', 'schoolYear', 'semester']])
-            ->where('due_at', '>=', now('Asia/Phnom_Penh'))
-            ->whereHas('groups', function (Builder $query) use ($groupName, $schoolYearId, $yearId, $departmentId) {
-                $query->whereHas('users', function ($query) {
-                    $query->where('id', Auth::id());
-                });
-
-                if ($departmentId) {
-                    $query->where('department_id', $departmentId);
-                }
-                if ($schoolYearId) {
-                    $query->where('school_year_id', $schoolYearId);
-                }
-                if ($yearId) {
-                    $query->where('year_id', $yearId);
-                }
-                if ($groupName) {
-                    $query->where('name', 'ILIKE', "%$groupName%");
-                }
-            })->get();
+            ->latest('due_at')
+            ->get();
 
         $data = [];
         foreach ($activities as $activity) {
@@ -84,6 +68,7 @@ class StudentController extends BaseController
                 'duration' => $activity->duration,
                 'subject' => $activity->subject->name,
                 'groups' => $activity->groups,
+                'is_past_due' => Carbon::parse($activity->due_at, 'Asia/Phnom_Penh')->isPast(),
             ];
         }
 
@@ -100,5 +85,10 @@ class StudentController extends BaseController
             'due_at' => $activity->due_at,
             'duration' => $activity->duration,
         ]);
+    }
+
+    public function getSubjectsByGroup(Group $group)
+    {
+        return $this->successResponse($group->subjects);
     }
 }
