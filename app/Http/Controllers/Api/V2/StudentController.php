@@ -79,7 +79,7 @@ class StudentController extends BaseController
     {
         return $this->successResponse([
             'id' => $activity->id,
-            'form' => $activity->form,
+            'form' => $activity->form->load('questions.options'),
             'subject' => $activity->subject,
             'full_score' => $activity->form->questions->sum('points'),
             'due_at' => $activity->due_at,
