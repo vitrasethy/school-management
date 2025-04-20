@@ -84,6 +84,9 @@ class StudentController extends BaseController
             'full_score' => $activity->form->questions->sum('points'),
             'due_at' => $activity->due_at,
             'duration' => $activity->duration,
+            'is_submitted' => $activity->form->questions()->whereHas('answers', function ($query) {
+                $query->where('user_id', Auth::id());
+            })->exists(),
         ]);
     }
 
