@@ -12,7 +12,7 @@ class BulkStoreAnswerRequest extends FormRequest
             'answers.*.option_ids' => ['nullable', 'array'],
             'answers.*.option_ids.*' => ['required', 'exists:options,id'],
             'answers.*.text' => ['nullable', 'string'],
-            'user_id' => ['required', 'exists:users'],
+            //'user_id' => ['required', 'exists:users'],
         ];
     }
 }

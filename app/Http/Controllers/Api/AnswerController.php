@@ -7,6 +7,7 @@ use App\Http\Requests\BulkStoreAnswerRequest;
 use App\Http\Resources\AnswerResource;
 use App\Models\Answer;
 use App\Models\Question;
+use Illuminate\Support\Facades\Auth;
 
 class AnswerController extends BaseController
 {
@@ -32,7 +33,7 @@ class AnswerController extends BaseController
 
     public function bulkStore(BulkStoreAnswerRequest $request)
     {
-        $studentId = $request->input('user_id');
+        $studentId = Auth::id();
 
         foreach ($request->input('answers') as $answer) {
             $question = Question::find($answer['question_id']);
