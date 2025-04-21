@@ -11,6 +11,13 @@ class Answer extends Model
         'user_id', 'question_id', 'option_ids', 'text', 'score',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'option_ids' => 'array',
+        ];
+    }
+
     public function question(): BelongsTo
     {
         return $this->belongsTo(Question::class);
