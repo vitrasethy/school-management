@@ -69,7 +69,7 @@ class AnswerController extends BaseController
             Answer::create([
                 'user_id' => $studentId,
                 'question_id' => $answer['question_id'],
-                'option_id' => $answer['option_id'],
+                'option_ids' => $answer['option_ids'],
                 'text' => $answer['text'],
                 'score' => $score,
             ]);

@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('question_id')->constrained('questions');
-            $table->foreignId('option_id')->nullable()->constrained('options');
+            $table->json('option_ids')->nullable();
             $table->string('text')->nullable();
             $table->float('score')->nullable();
             $table->timestamps();
