@@ -235,7 +235,7 @@ class TeacherController extends BaseController
         ];
     }
 
-    public function getScoresBySubjectGroup(Group $group, Subject $subject)
+    public function getScoresBySubjectGroup(Subject $subject, Group $group)
     {
         $users = User::whereHas('groups', function ($query) use ($group, $subject) {
             $query->where('id', $group->id)
