@@ -10,6 +10,7 @@ class ActivityRequest extends FormRequest
     {
         return [
             'duration' => ['nullable', 'integer'],
+            'weight' => ['required', 'integer'],
             'subject_id' => ['required', 'exists:subjects,id'],
             'due_at' => ['required', 'date_format:Y-m-d H:i'],
             'group_ids' => ['required', 'array'],

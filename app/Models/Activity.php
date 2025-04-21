@@ -17,6 +17,7 @@ class Activity extends Model
         'due_at',
         'teacher_id',
         'form_id',
+        'weight',
     ];
 
     public function subject(): BelongsTo

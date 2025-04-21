@@ -66,6 +66,7 @@ class ActivityController extends BaseController
             'due_at' => $request->input('due_at'),
             'teacher_id' => Auth::id(),
             'form_id' => $form->id,
+            'weight' => $request->input('weight'),
         ])->groups()->attach($request->input('group_ids'));
 
         return $this->successResponse([], 201);

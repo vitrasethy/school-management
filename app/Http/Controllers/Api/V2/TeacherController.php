@@ -256,14 +256,16 @@ class TeacherController extends BaseController
             $activities = [];
             foreach ($user->groups->first()->activities as $activity) {
                 $sum = 0;
+                $fullScore = 0;
                 foreach ($activity->form->questions as $question) {
+                    $fullScore += $question->points;
                     $sum += $question->answers->where('user_id', $user->id)->first()->score ?? 0;
                 }
 
                 $activities[] = [
                     'id' => $activity->id,
                     'name' => $activity->form->title,
-                    'scores' => $sum,
+                    'scores' => $sum / $fullScore * $activity->weight,
                 ];
             }
 

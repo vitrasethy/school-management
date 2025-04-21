@@ -16,6 +16,7 @@ return new class extends Migration
             $table->dateTime('due_at');
             $table->foreignId('teacher_id')->constrained('users', 'id');
             $table->foreignId('form_id')->constrained('forms', 'id');
+            $table->integer('weight');
             $table->timestamps();
         });
     }
