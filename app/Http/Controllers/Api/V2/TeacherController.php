@@ -240,13 +240,13 @@ class TeacherController extends BaseController
         $users = User::whereHas('groups', function ($query) use ($group, $subject) {
             $query->where('id', $group->id)
                 ->whereHas('subjects', function ($query) use ($subject) {
-                    $query->where('id', $subject);
+                    $query->where('id', $subject->id);
                 });
         })->with([
             'groups' => function ($query) use ($group, $subject) {
                 $query->where('id', $group->id)
                     ->whereHas('subjects', function ($query) use ($subject) {
-                        $query->where('id', $subject);
+                        $query->where('id', $subject->id);
                     })->with('activities.form.questions.answers');
             },
         ])->get();
