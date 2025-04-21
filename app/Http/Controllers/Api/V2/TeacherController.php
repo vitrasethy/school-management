@@ -257,7 +257,7 @@ class TeacherController extends BaseController
             foreach ($user->groups->first()->activities as $activity) {
                 $sum = 0;
                 foreach ($activity->form->questions as $question) {
-                    $sum += $question->answers->where('user_id', $user->id)->first()->score;
+                    $sum += $question->answers->where('user_id', $user->id)->first()->score ?? 0;
                 }
 
                 $activities[] = [
