@@ -7,6 +7,7 @@ use App\Models\Activity;
 use App\Models\Answer;
 use App\Models\Group;
 use App\Models\SchoolYear;
+use App\Models\StudentDetail;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -131,6 +132,7 @@ class TeacherController extends BaseController
         foreach ($activities as $activity) {
             $data[] = [
                 'id' => $activity->id,
+                'weight' => $activity->weight,
                 'title' => $activity->form->title,
                 'due_at' => $activity->due_at,
                 'duration' => $activity->duration,
@@ -183,6 +185,7 @@ class TeacherController extends BaseController
 
         return [
             'id' => $activity->id,
+            'weight' => $activity->weight,
             'duration' => $activity->duration,
             'due_at' => $activity->due_at,
             'groups' => $groups,
@@ -224,6 +227,7 @@ class TeacherController extends BaseController
 
         return [
             'id' => $activity->id,
+            'weight' => $activity->weight,
             'title' => $activity->form->title,
             'description' => $activity->form->description,
             'subject' => $activity->subject,
@@ -278,4 +282,76 @@ class TeacherController extends BaseController
 
         return $this->successResponse($data);
     }
+
+    //public function promoteStudents(Request $request)
+    //{
+    //    $request->validate([
+    //        'subject_id' => ['required', 'integer', 'exists:subjects,id'],
+    //        'group_id' => ['required', 'integer', 'exists:groups,id'],
+    //        'score_pass' => ['required', 'integer', 'max:100'],
+    //    ]);
+    //
+    //    $users = User::whereHas('groups', function ($query) use ($request) {
+    //        $query->where('id', $request->input('group_id'))
+    //            ->whereHas('subjects', function ($query) use ($request) {
+    //                $query->where('id', $request->input('subject_id'));
+    //            });
+    //    })->with([
+    //        'groups' => function ($query) use ($request) {
+    //            $query->where('id', $request->input('group_id'))
+    //                ->whereHas('subjects', function ($query) use ($request) {
+    //                    $query->where('id', $request->input('subject_id'));
+    //                })->with('activities.form.questions.answers');
+    //        },
+    //    ])->get();
+    //
+    //    $data = [];
+    //    foreach ($users as $user) {
+    //        $activities = [];
+    //        foreach ($user->groups->first()->activities as $activity) {
+    //            $sum = 0;
+    //            $fullScore = 0;
+    //            foreach ($activity->form->questions as $question) {
+    //                $fullScore += $question->points;
+    //                $sum += $question->answers->where('user_id', $user->id)->first()->score ?? 0;
+    //            }
+    //
+    //            $activities[] = [
+    //                'id' => $activity->id,
+    //                'name' => $activity->form->title,
+    //                'scores' => $sum / $fullScore * $activity->weight,
+    //            ];
+    //        }
+    //
+    //        $data[] = [
+    //            'id' => $user->id,
+    //            'name' => $user->name,
+    //            'activities' => $activities,
+    //        ];
+    //    }
+    //
+    //    foreach ($data as $item) {
+    //        $totalScore = 0;
+    //        foreach ($item['activities'] as $activity) {
+    //            $totalScore += $activity['scores'];
+    //        }
+    //        if ($totalScore >= $request->input('score_pass')) {
+    //            StudentDetail::create([
+    //                'is_passed' => true,
+    //                'user_id' => $item['id'],
+    //                'subject_id' => $request->input('subject_id'),
+    //                'group_id' => $request->input('group_id'),
+    //            ]);
+    //        } else {
+    //            StudentDetail::create([
+    //                'is_passed' => false,
+    //                'user_id' => $item['id'],
+    //                'subject_id' => $request->input('subject_id'),
+    //                'group_id' => $request->input('group_id'),
+    //            ]);
+    //        }
+    //    }
+    //
+    //    $subjectCount = Group::find($request->input('subject_id'))->subjects->count();
+    //}
 }
