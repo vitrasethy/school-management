@@ -56,7 +56,7 @@ class AddSubjectModal extends Component
         }
 
         $this->group->subjects()->attach($this->subject_id, ['teacher_id' => $this->teacher_id]);
-        $this->group->users()->attach($this->teacher_id);
+        // $this->group->users()->attach($this->teacher_id);
 
         $this->reset(['teacher_id', 'subject_id']);
         $this->dispatch('refresh-group-subjects');
