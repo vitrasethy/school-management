@@ -25,6 +25,8 @@ use App\Http\Controllers\Api\V2\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->prefix('v2')->group(function () {
+    Route::get('teacher/promotion', [TeacherController::class, 'promoteStudents']);
+
     Route::get('teacher/dashboard', [TeacherController::class, 'dashboard']);
 
     Route::get('teacher/groups', [TeacherController::class, 'getGroups']);

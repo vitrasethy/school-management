@@ -283,75 +283,115 @@ class TeacherController extends BaseController
         return $this->successResponse($data);
     }
 
-    //public function promoteStudents(Request $request)
-    //{
-    //    $request->validate([
-    //        'subject_id' => ['required', 'integer', 'exists:subjects,id'],
-    //        'group_id' => ['required', 'integer', 'exists:groups,id'],
-    //        'score_pass' => ['required', 'integer', 'max:100'],
-    //    ]);
-    //
-    //    $users = User::whereHas('groups', function ($query) use ($request) {
-    //        $query->where('id', $request->input('group_id'))
-    //            ->whereHas('subjects', function ($query) use ($request) {
-    //                $query->where('id', $request->input('subject_id'));
-    //            });
-    //    })->with([
-    //        'groups' => function ($query) use ($request) {
-    //            $query->where('id', $request->input('group_id'))
-    //                ->whereHas('subjects', function ($query) use ($request) {
-    //                    $query->where('id', $request->input('subject_id'));
-    //                })->with('activities.form.questions.answers');
-    //        },
-    //    ])->get();
-    //
-    //    $data = [];
-    //    foreach ($users as $user) {
-    //        $activities = [];
-    //        foreach ($user->groups->first()->activities as $activity) {
-    //            $sum = 0;
-    //            $fullScore = 0;
-    //            foreach ($activity->form->questions as $question) {
-    //                $fullScore += $question->points;
-    //                $sum += $question->answers->where('user_id', $user->id)->first()->score ?? 0;
-    //            }
-    //
-    //            $activities[] = [
-    //                'id' => $activity->id,
-    //                'name' => $activity->form->title,
-    //                'scores' => $sum / $fullScore * $activity->weight,
-    //            ];
-    //        }
-    //
-    //        $data[] = [
-    //            'id' => $user->id,
-    //            'name' => $user->name,
-    //            'activities' => $activities,
-    //        ];
-    //    }
-    //
-    //    foreach ($data as $item) {
-    //        $totalScore = 0;
-    //        foreach ($item['activities'] as $activity) {
-    //            $totalScore += $activity['scores'];
-    //        }
-    //        if ($totalScore >= $request->input('score_pass')) {
-    //            StudentDetail::create([
-    //                'is_passed' => true,
-    //                'user_id' => $item['id'],
-    //                'subject_id' => $request->input('subject_id'),
-    //                'group_id' => $request->input('group_id'),
-    //            ]);
-    //        } else {
-    //            StudentDetail::create([
-    //                'is_passed' => false,
-    //                'user_id' => $item['id'],
-    //                'subject_id' => $request->input('subject_id'),
-    //                'group_id' => $request->input('group_id'),
-    //            ]);
-    //        }
-    //    }
-    //
-    //    $subjectCount = Group::find($request->input('subject_id'))->subjects->count();
-    //}
+    public function promoteStudents(Request $request)
+    {
+        $request->validate([
+            'subject_id' => ['required', 'integer', 'exists:subjects,id'],
+            'group_id' => ['required', 'integer', 'exists:groups,id'],
+            'score_pass' => ['required', 'integer', 'max:100'],
+        ]);
+
+        $users = User::whereHas('groups', function ($query) use ($request) {
+            $query->where('id', $request->input('group_id'))
+                ->whereHas('subjects', function ($query) use ($request) {
+                    $query->where('id', $request->input('subject_id'));
+                });
+        })->with([
+            'groups' => function ($query) use ($request) {
+                $query->where('id', $request->input('group_id'))
+                    ->whereHas('subjects', function ($query) use ($request) {
+                        $query->where('id', $request->input('subject_id'));
+                    })->with('activities.form.questions.answers');
+            },
+        ])->get();
+
+        $data = [];
+        foreach ($users as $user) {
+            $activities = [];
+            foreach ($user->groups->first()->activities as $activity) {
+                $sum = 0;
+                $fullScore = 0;
+                foreach ($activity->form->questions as $question) {
+                    $fullScore += $question->points;
+                    $sum += $question->answers->where('user_id', $user->id)->first()->score ?? 0;
+                }
+
+                $activities[] = [
+                    'id' => $activity->id,
+                    'name' => $activity->form->title,
+                    'scores' => $sum / $fullScore * $activity->weight,
+                ];
+            }
+
+            $data[] = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'activities' => $activities,
+            ];
+        }
+
+        foreach ($data as $item) {
+            $totalScore = 0;
+            foreach ($item['activities'] as $activity) {
+                $totalScore += $activity['scores'];
+            }
+            if ($totalScore >= $request->input('score_pass')) {
+                StudentDetail::create([
+                    'is_passed' => true,
+                    'user_id' => $item['id'],
+                    'subject_id' => $request->input('subject_id'),
+                    'group_id' => $request->input('group_id'),
+                ]);
+            } else {
+                StudentDetail::create([
+                    'is_passed' => false,
+                    'user_id' => $item['id'],
+                    'subject_id' => $request->input('subject_id'),
+                    'group_id' => $request->input('group_id'),
+                ]);
+            }
+        }
+
+        $subjectCount = Group::find($request->input('subject_id'))->subjects->count();
+        foreach ($data as $item) {
+            $count = StudentDetail::where('user_id', $item['id'])
+                ->where('subject_id', $request->input('subject_id'))
+                ->where('group_id', $request->input('group_id'))
+                ->where('is_passed', true)
+                ->count();
+
+            if ($subjectCount >= 0.75 * $count) {
+                $inputGroup = Group::find($request->input('group_id'));
+                $dataToCreate = [];
+                if ($inputGroup->semester->name === 'Semester 1') {
+                    $dataToCreate['semester_id'] = 2;
+                    $dataToCreate['year_id'] = $inputGroup->year_id;
+                    $dataToCreate['school_year_id'] = $inputGroup->school_year_id;
+                    $dataToCreate['name'] = $inputGroup->name;
+                    $dataToCreate['department_id'] = $inputGroup->department_id;
+                } elseif ($inputGroup->semester->name === 'Semester 2') {
+                    if (preg_match('/(\d{4})-(\d{4})/', $inputGroup->schoolYear->name, $matches)) {
+                        $start = (int) $matches[1] + 1;
+                        $end = (int) $matches[2] + 1;
+                        $updated = "{$start}-{$end}";
+                    } else {
+                        echo 'Invalid format!';
+                    }
+
+                    $sYear = SchoolYear::where('name', $updated)->firstOrFail();
+
+                    $dataToCreate['semester_id'] = 1;
+                    $dataToCreate['year_id'] = $inputGroup->year_id + 1;
+                    $dataToCreate['school_year_id'] = $sYear->id;
+                    $dataToCreate['name'] = $inputGroup->name;
+                    $dataToCreate['department_id'] = $inputGroup->department_id;
+                }
+
+                $g = Group::firstOrCreate($dataToCreate);
+                User::find($data['id'])->groups()->syncWithoutDetaching($g);
+            }
+        }
+
+        return $this->successResponse([]);
+    }
 }
