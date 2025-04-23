@@ -269,7 +269,7 @@ class TeacherController extends BaseController
                 $activities[] = [
                     'id' => $activity->id,
                     'name' => $activity->form->title,
-                    'scores' => $sum / $fullScore * $activity->weight,
+                    'scores' => $sum,
                 ];
             }
 
