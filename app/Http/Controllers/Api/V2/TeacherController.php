@@ -36,7 +36,7 @@ class TeacherController extends BaseController
                     ->whereDate('finished_at', '>=', today('Asia/Phnom_Penh'));
             })
             ->whereHas('subjects', function (Builder $query) {
-                $query->wherePivot('teacher_id', Auth::id());
+                $query->where('pivot.teacher_id', Auth::id());
             })
             ->latest()
             ->get();
