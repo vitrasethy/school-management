@@ -229,7 +229,7 @@ class TeacherController extends BaseController
                 'name' => $student->name,
                 'status' => $answers->isNotEmpty() ? 'submitted' : 'not submitted',
                 'score' => $score,
-                'submit_date' => $answers?->first()->created_at,
+                'submit_date' => $answers?->first()?->created_at ?? null,
                 'group' => $student->groups()->whereIn('id', $teacherGroupIds)->first()->name,
             ];
         }
