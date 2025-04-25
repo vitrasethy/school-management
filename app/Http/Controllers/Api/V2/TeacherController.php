@@ -217,13 +217,19 @@ class TeacherController extends BaseController
         })->get();
         $studentsArr = [];
         foreach ($students as $student) {
-            $answer = Answer::where('user_id', $student->id)->first();
+            $answers = Answer::where('user_id', $student->id)->whereHas('question.form', function (Builder $query) use ($activity) {
+                $query->where('id', $activity->form->id);
+            })->get();
+            $score = 0;
+            foreach ($answers as $answer) {
+                $score += $answer->score;
+            }
             $studentsArr[] = [
                 'id' => $student->id,
                 'name' => $student->name,
-                'status' => $answer ? 'submitted' : 'not submitted',
-                'score' => $answer?->score,
-                'submit_date' => $answer?->created_at,
+                'status' => $answers->isNotEmpty() ? 'submitted' : 'not submitted',
+                'score' => $score,
+                'submit_date' => $answers[0]?->created_at,
                 'group' => $student->groups()->whereIn('id', $teacherGroupIds)->first()->name,
             ];
         }
