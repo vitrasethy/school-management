@@ -361,7 +361,7 @@ class TeacherController extends BaseController
             }
         }
 
-        $subjectCount = Group::find($request->input('subject_id'))->subjects->count();
+        $subjectCount = Group::find($request->input('group_id'))->subjects->count();
         foreach ($data as $item) {
             $count = StudentDetail::where('user_id', $item['id'])
                 ->where('subject_id', $request->input('subject_id'))
