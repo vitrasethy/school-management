@@ -267,7 +267,7 @@ class TeacherController extends BaseController
         $data = [];
         foreach ($users as $user) {
             $activities = [];
-            foreach ($user->groups->first()->activities as $activity) {
+            foreach ($user->groups->first()->activities()->where('teacher_id', Auth::id())->get() as $activity) {
                 $sum = 0;
                 $fullScore = 0;
                 foreach ($activity->form->questions as $question) {
