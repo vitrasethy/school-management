@@ -397,7 +397,7 @@ class TeacherController extends BaseController
                 }
 
                 $g = Group::firstOrCreate($dataToCreate);
-                User::find($data['id'])->groups()->syncWithoutDetaching($g);
+                User::find($item['id'])->groups()->syncWithoutDetaching($g);
             }
         }
 

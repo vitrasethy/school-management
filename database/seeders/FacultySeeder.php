@@ -13,70 +13,56 @@ class FacultySeeder extends Seeder
             'name' => 'Information Technology and Computer Science',
             'abbr' => 'ITC',
             'image_url' => 'https://example.com/images/itc.jpg',
-
         ]);
-
         Faculty::create([
-            'name' => 'Electrical and Electronic Engineering',
-            'abbr' => 'EEE',
-            'image_url' => 'https://example.com/images/eee.jpg',
-
+            'name' => 'Computer Engineering',
+            'abbr' => 'CE',
+            'image_url' => 'https://example.com/images/ce.jpg',
         ]);
-
         Faculty::create([
-            'name' => 'Mechanical Engineering Technology',
-            'abbr' => 'MET',
-            'image_url' => 'https://example.com/images/met.jpg',
-
+            'name' => 'Software Engineering',
+            'abbr' => 'SE',
+            'image_url' => 'https://example.com/images/se.jpg',
         ]);
-
         Faculty::create([
-            'name' => 'Artificial Intelligence and Data Science',
-            'abbr' => 'AIDS',
-            'image_url' => 'https://example.com/images/aids.jpg',
-
+            'name' => 'Data Science',
+            'abbr' => 'DS',
+            'image_url' => 'https://example.com/images/ds.jpg',
         ]);
-
         Faculty::create([
-            'name' => 'Telecommunications and Networking',
-            'abbr' => 'TEL',
-            'image_url' => 'https://example.com/images/tel.jpg',
-
+            'name' => 'Cyber Security',
+            'abbr' => 'CSY',
+            'image_url' => 'https://example.com/images/csy.jpg',
         ]);
-
         Faculty::create([
-            'name' => 'Industrial and Manufacturing Technology',
-            'abbr' => 'IMT',
-            'image_url' => 'https://example.com/images/imt.jpg',
-
+            'name' => 'Artificial Intelligence',
+            'abbr' => 'AI',
+            'image_url' => 'https://example.com/images/ai.jpg',
         ]);
-
         Faculty::create([
-            'name' => 'Robotics and Automation Technology',
-            'abbr' => 'RAT',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-
+            'name' => 'Information Systems',
+            'abbr' => 'IS',
+            'image_url' => 'https://example.com/images/is.jpg',
         ]);
-
         Faculty::create([
-            'name' => 'Digital Media and Design Technology',
-            'abbr' => 'DMD',
-            'image_url' => 'https://example.com/images/dmd.jpg',
-
+            'name' => 'Network Engineering',
+            'abbr' => 'NE',
+            'image_url' => 'https://example.com/images/ne.jpg',
         ]);
-
         Faculty::create([
-            'name' => 'Cybersecurity and Information Assurance',
-            'abbr' => 'CIA',
-            'image_url' => 'https://example.com/images/cia.jpg',
-
+            'name' => 'Multimedia Technology',
+            'abbr' => 'MMT',
+            'image_url' => 'https://example.com/images/mmt.jpg',
         ]);
-
         Faculty::create([
-            'name' => 'Software Engineering Technology',
-            'abbr' => 'SET',
-            'image_url' => 'https://example.com/images/set.jpg',
-
+            'name' => 'Game Development',
+            'abbr' => 'GD',
+            'image_url' => 'https://example.com/images/gd.jpg',
+        ]);
+        Faculty::create([
+            'name' => 'Robotics and Automation',
+            'abbr' => 'RA',
+            'image_url' => 'https://example.com/images/ra.jpg',
         ]);
     }
 }

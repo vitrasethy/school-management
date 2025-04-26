@@ -9,204 +9,147 @@ class DepartmentSeeder extends Seeder
 {
     public function run(): void
     {
-        // Departments for Faculty 1: Information Technology and Computer Science
         Department::create([
-            'faculty_id' => 1,
             'name' => 'Software Development',
-            'abbr' => 'SWD',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
+            'abbr' => 'SD',
             'faculty_id' => 1,
-            'name' => 'Network Administration',
-            'abbr' => 'NET',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
+            'image_url' => 'https://example.com/images/sd.jpg',
         ]);
         Department::create([
+            'name' => 'Network and Infrastructure',
+            'abbr' => 'NI',
             'faculty_id' => 1,
-            'name' => 'Database Management',
-            'abbr' => 'DBM',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
+            'image_url' => 'https://example.com/images/ni.jpg',
         ]);
 
-        // Departments for Faculty 2: Electrical and Electronic Engineering
         Department::create([
+            'name' => 'Embedded Systems',
+            'abbr' => 'ES',
             'faculty_id' => 2,
-            'name' => 'Power Systems',
-            'abbr' => 'PWS',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
+            'image_url' => 'https://example.com/images/es.jpg',
         ]);
         Department::create([
+            'name' => 'Computer Architecture',
+            'abbr' => 'CA',
             'faculty_id' => 2,
-            'name' => 'Electronic Circuits',
-            'abbr' => 'ELC',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
-            'faculty_id' => 2,
-            'name' => 'Control Systems',
-            'abbr' => 'CNS',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
+            'image_url' => 'https://example.com/images/ca.jpg',
         ]);
 
-        // Departments for Faculty 3: Mechanical Engineering Technology
         Department::create([
+            'name' => 'Enterprise Software',
+            'abbr' => 'ESW',
             'faculty_id' => 3,
-            'name' => 'Automotive Engineering',
-            'abbr' => 'AUT',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
+            'image_url' => 'https://example.com/images/esw.jpg',
         ]);
         Department::create([
+            'name' => 'Mobile Application Development',
+            'abbr' => 'MAD',
             'faculty_id' => 3,
-            'name' => 'Thermodynamics',
-            'abbr' => 'THD',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
-            'faculty_id' => 3,
-            'name' => 'Manufacturing Processes',
-            'abbr' => 'MFP',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
+            'image_url' => 'https://example.com/images/mad.jpg',
         ]);
 
-        // Departments for Faculty 4: Artificial Intelligence and Data Science
         Department::create([
-            'faculty_id' => 4,
-            'name' => 'Machine Learning',
-            'abbr' => 'MLN',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
-            'faculty_id' => 4,
             'name' => 'Big Data Analytics',
             'abbr' => 'BDA',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
             'faculty_id' => 4,
-            'name' => 'Computer Vision',
-            'abbr' => 'CVN',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
+            'image_url' => 'https://example.com/images/bda.jpg',
+        ]);
+        Department::create([
+            'name' => 'Data Engineering',
+            'abbr' => 'DE',
+            'faculty_id' => 4,
+            'image_url' => 'https://example.com/images/de.jpg',
         ]);
 
-        // Departments for Faculty 5: Telecommunications and Networking
         Department::create([
-            'faculty_id' => 5,
-            'name' => 'Wireless Communications',
-            'abbr' => 'WCM',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
-            'faculty_id' => 5,
-            'name' => 'Network Security',
-            'abbr' => 'NSC',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
-            'faculty_id' => 5,
-            'name' => 'Digital Communications',
-            'abbr' => 'DCM',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-
-        // Departments for Faculty 6: Industrial and Manufacturing Technology
-        Department::create([
-            'faculty_id' => 6,
-            'name' => 'Industrial Automation',
-            'abbr' => 'IAT',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
-            'faculty_id' => 6,
-            'name' => 'Quality Control',
-            'abbr' => 'QCT',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
-            'faculty_id' => 6,
-            'name' => 'Production Management',
-            'abbr' => 'PMT',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-
-        // Departments for Faculty 7: Robotics and Automation Technology
-        Department::create([
-            'faculty_id' => 7,
-            'name' => 'Robotic Systems',
-            'abbr' => 'RBS',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
-            'faculty_id' => 7,
-            'name' => 'Mechatronics',
-            'abbr' => 'MCT',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
-            'faculty_id' => 7,
-            'name' => 'Autonomous Systems',
-            'abbr' => 'ATS',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-
-        // Departments for Faculty 8: Digital Media and Design Technology
-        Department::create([
-            'faculty_id' => 8,
-            'name' => 'Digital Animation',
-            'abbr' => 'DAN',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
-            'faculty_id' => 8,
-            'name' => 'Interactive Media',
-            'abbr' => 'IMD',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
-            'faculty_id' => 8,
-            'name' => 'Game Development',
-            'abbr' => 'GMD',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-
-        // Departments for Faculty 9: Cybersecurity and Information Assurance
-        Department::create([
-            'faculty_id' => 9,
-            'name' => 'Network Security',
-            'abbr' => 'NSE',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
-            'faculty_id' => 9,
-            'name' => 'Digital Forensics',
-            'abbr' => 'DFR',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
-        ]);
-        Department::create([
-            'faculty_id' => 9,
             'name' => 'Information Security',
-            'abbr' => 'ISC',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
+            'abbr' => 'ISY',
+            'faculty_id' => 5,
+            'image_url' => 'https://example.com/images/isy.jpg',
+        ]);
+        Department::create([
+            'name' => 'Digital Forensics',
+            'abbr' => 'DF',
+            'faculty_id' => 5,
+            'image_url' => 'https://example.com/images/df.jpg',
         ]);
 
-        // Departments for Faculty 10: Software Engineering Technology
         Department::create([
-            'faculty_id' => 10,
-            'name' => 'Web Development',
-            'abbr' => 'WEB',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
+            'name' => 'Machine Learning',
+            'abbr' => 'ML',
+            'faculty_id' => 6,
+            'image_url' => 'https://example.com/images/ml.jpg',
         ]);
         Department::create([
-            'faculty_id' => 10,
-            'name' => 'Mobile Applications',
-            'abbr' => 'MAP',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
+            'name' => 'Natural Language Processing',
+            'abbr' => 'NLP',
+            'faculty_id' => 6,
+            'image_url' => 'https://example.com/images/nlp.jpg',
+        ]);
+
+        Department::create([
+            'name' => 'Business Information Systems',
+            'abbr' => 'BIS',
+            'faculty_id' => 7,
+            'image_url' => 'https://example.com/images/bis.jpg',
         ]);
         Department::create([
-            'faculty_id' => 10,
+            'name' => 'Health Informatics',
+            'abbr' => 'HI',
+            'faculty_id' => 7,
+            'image_url' => 'https://example.com/images/hi.jpg',
+        ]);
+
+        Department::create([
+            'name' => 'Wireless Networks',
+            'abbr' => 'WN',
+            'faculty_id' => 8,
+            'image_url' => 'https://example.com/images/wn.jpg',
+        ]);
+        Department::create([
             'name' => 'Cloud Computing',
-            'abbr' => 'CLC',
-            'image_url' => 'https://i.pinimg.com/736x/99/79/47/99794745d5b0d82459e1fcf810685bc7.jpg',
+            'abbr' => 'CC',
+            'faculty_id' => 8,
+            'image_url' => 'https://example.com/images/cc.jpg',
+        ]);
+
+        Department::create([
+            'name' => 'Digital Media',
+            'abbr' => 'DM',
+            'faculty_id' => 9,
+            'image_url' => 'https://example.com/images/dm.jpg',
+        ]);
+        Department::create([
+            'name' => 'Animation Technology',
+            'abbr' => 'AT',
+            'faculty_id' => 9,
+            'image_url' => 'https://example.com/images/at.jpg',
+        ]);
+
+        Department::create([
+            'name' => 'Game Programming',
+            'abbr' => 'GP',
+            'faculty_id' => 10,
+            'image_url' => 'https://example.com/images/gp.jpg',
+        ]);
+        Department::create([
+            'name' => 'Game Design',
+            'abbr' => 'GD',
+            'faculty_id' => 10,
+            'image_url' => 'https://example.com/images/gdd.jpg',
+        ]);
+
+        Department::create([
+            'name' => 'Robotics Engineering',
+            'abbr' => 'RE',
+            'faculty_id' => 11,
+            'image_url' => 'https://example.com/images/re.jpg',
+        ]);
+        Department::create([
+            'name' => 'Automation Systems',
+            'abbr' => 'AS',
+            'faculty_id' => 11,
+            'image_url' => 'https://example.com/images/as.jpg',
         ]);
     }
 }

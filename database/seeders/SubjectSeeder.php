@@ -10,150 +10,146 @@ class SubjectSeeder extends Seeder
     public function run(): void
     {
         Subject::create([
+            'name' => 'Introduction to Programming',
+            'abbr' => 'ITP',
             'department_id' => 1,
-            'name' => 'Object Oriented Programming',
-            'abbr' => 'OOP',
+            'image_url' => 'https://example.com/images/itp.jpg',
         ]);
         Subject::create([
+            'name' => 'Computer Networks',
+            'abbr' => 'CN',
             'department_id' => 1,
-            'name' => 'Software Design Patterns',
-            'abbr' => 'SDP',
+            'image_url' => 'https://example.com/images/cn.jpg',
         ]);
 
-        // Subjects for Department 2: Network Administration (NET)
         Subject::create([
+            'name' => 'Embedded C Programming',
+            'abbr' => 'ECP',
             'department_id' => 2,
-            'name' => 'Network Protocol Design',
-            'abbr' => 'NPD',
+            'image_url' => 'https://example.com/images/ecp.jpg',
         ]);
         Subject::create([
+            'name' => 'Digital Logic Design',
+            'abbr' => 'DLD',
             'department_id' => 2,
-            'name' => 'System Administration',
-            'abbr' => 'SAD',
+            'image_url' => 'https://example.com/images/dld.jpg',
         ]);
 
-        // Subjects for Department 3: Database Management (DBM)
         Subject::create([
+            'name' => 'Advanced Java Programming',
+            'abbr' => 'AJP',
             'department_id' => 3,
-            'name' => 'Database Design',
-            'abbr' => 'DBD',
+            'image_url' => 'https://example.com/images/ajp.jpg',
         ]);
         Subject::create([
+            'name' => 'Agile Software Development',
+            'abbr' => 'ASD',
             'department_id' => 3,
-            'name' => 'SQL Programming',
-            'abbr' => 'SQL',
+            'image_url' => 'https://example.com/images/asd.jpg',
         ]);
 
-        // Subjects for Department 4: Power Systems (PWS)
         Subject::create([
-            'department_id' => 4,
-            'name' => 'Power Distribution',
-            'abbr' => 'PDT',
-        ]);
-        Subject::create([
-            'department_id' => 4,
-            'name' => 'Electrical Systems',
-            'abbr' => 'ELS',
-        ]);
-
-        // Subjects for Department 5: Electronic Circuits (ELC)
-        Subject::create([
-            'department_id' => 5,
-            'name' => 'Digital Electronics',
-            'abbr' => 'DGE',
-        ]);
-        Subject::create([
-            'department_id' => 5,
-            'name' => 'Circuit Analysis',
-            'abbr' => 'CTA',
-        ]);
-
-        // Subjects for Department 6: Control Systems (CNS)
-        Subject::create([
-            'department_id' => 6,
-            'name' => 'Feedback Systems',
-            'abbr' => 'FBS',
-        ]);
-        Subject::create([
-            'department_id' => 6,
-            'name' => 'Control Theory',
-            'abbr' => 'CTT',
-        ]);
-
-        // Subjects for Department 7: Automotive Engineering (AUT)
-        Subject::create([
-            'department_id' => 7,
-            'name' => 'Vehicle Dynamics',
-            'abbr' => 'VDY',
-        ]);
-        Subject::create([
-            'department_id' => 7,
-            'name' => 'Engine Systems',
-            'abbr' => 'ENG',
-        ]);
-
-        // Subjects for Department 8: Thermodynamics (THD)
-        Subject::create([
-            'department_id' => 8,
-            'name' => 'Heat Transfer',
-            'abbr' => 'HTR',
-        ]);
-        Subject::create([
-            'department_id' => 8,
-            'name' => 'Thermal Systems',
-            'abbr' => 'THS',
-        ]);
-
-        // Subjects for Department 9: Manufacturing Processes (MFP)
-        Subject::create([
-            'department_id' => 9,
-            'name' => 'Production Planning',
-            'abbr' => 'PPL',
-        ]);
-        Subject::create([
-            'department_id' => 9,
-            'name' => 'Manufacturing Systems',
-            'abbr' => 'MFS',
-        ]);
-
-        // Subjects for Department 10: Machine Learning (MLN)
-        Subject::create([
-            'department_id' => 10,
-            'name' => 'Deep Learning',
-            'abbr' => 'DPL',
-        ]);
-        Subject::create([
-            'department_id' => 10,
-            'name' => 'Neural Networks',
-            'abbr' => 'NNT',
-        ]);
-
-        // Continue for all remaining departments...
-        // Subjects for Department 11: Big Data Analytics (BDA)
-        Subject::create([
-            'department_id' => 11,
             'name' => 'Data Mining',
-            'abbr' => 'DMN',
+            'abbr' => 'DM',
+            'department_id' => 4,
+            'image_url' => 'https://example.com/images/dm.jpg',
         ]);
         Subject::create([
-            'department_id' => 11,
             'name' => 'Statistical Analysis',
-            'abbr' => 'STA',
+            'abbr' => 'SA',
+            'department_id' => 4,
+            'image_url' => 'https://example.com/images/sa.jpg',
         ]);
 
-        // Adding subjects for all remaining departments following the same pattern...
-        // For brevity, I'll continue with just a few more examples:
-
-        // Subjects for Department 12: Computer Vision (CVN)
         Subject::create([
-            'department_id' => 12,
-            'name' => 'Image Processing',
-            'abbr' => 'IMP',
+            'name' => 'Cryptography',
+            'abbr' => 'CRY',
+            'department_id' => 5,
+            'image_url' => 'https://example.com/images/cry.jpg',
         ]);
         Subject::create([
-            'department_id' => 12,
-            'name' => 'Pattern Recognition',
-            'abbr' => 'PTR',
+            'name' => 'Ethical Hacking',
+            'abbr' => 'EH',
+            'department_id' => 5,
+            'image_url' => 'https://example.com/images/eh.jpg',
+        ]);
+
+        Subject::create([
+            'name' => 'Neural Networks',
+            'abbr' => 'NN',
+            'department_id' => 6,
+            'image_url' => 'https://example.com/images/nn.jpg',
+        ]);
+        Subject::create([
+            'name' => 'Deep Learning',
+            'abbr' => 'DL',
+            'department_id' => 6,
+            'image_url' => 'https://example.com/images/dl.jpg',
+        ]);
+
+        Subject::create([
+            'name' => 'Business Process Modeling',
+            'abbr' => 'BPM',
+            'department_id' => 7,
+            'image_url' => 'https://example.com/images/bpm.jpg',
+        ]);
+        Subject::create([
+            'name' => 'Health Data Management',
+            'abbr' => 'HDM',
+            'department_id' => 7,
+            'image_url' => 'https://example.com/images/hdm.jpg',
+        ]);
+
+        Subject::create([
+            'name' => 'Wireless Communications',
+            'abbr' => 'WC',
+            'department_id' => 8,
+            'image_url' => 'https://example.com/images/wc.jpg',
+        ]);
+        Subject::create([
+            'name' => 'Distributed Systems',
+            'abbr' => 'DSY',
+            'department_id' => 8,
+            'image_url' => 'https://example.com/images/dsy.jpg',
+        ]);
+
+        Subject::create([
+            'name' => 'Digital Photography',
+            'abbr' => 'DP',
+            'department_id' => 9,
+            'image_url' => 'https://example.com/images/dp.jpg',
+        ]);
+        Subject::create([
+            'name' => '3D Animation',
+            'abbr' => '3DA',
+            'department_id' => 9,
+            'image_url' => 'https://example.com/images/3da.jpg',
+        ]);
+
+        Subject::create([
+            'name' => 'Game Engine Programming',
+            'abbr' => 'GEP',
+            'department_id' => 10,
+            'image_url' => 'https://example.com/images/gep.jpg',
+        ]);
+        Subject::create([
+            'name' => 'Interactive Game Design',
+            'abbr' => 'IGD',
+            'department_id' => 10,
+            'image_url' => 'https://example.com/images/igd.jpg',
+        ]);
+
+        Subject::create([
+            'name' => 'Industrial Automation',
+            'abbr' => 'IA',
+            'department_id' => 11,
+            'image_url' => 'https://example.com/images/ia.jpg',
+        ]);
+        Subject::create([
+            'name' => 'Robotics Programming',
+            'abbr' => 'RP',
+            'department_id' => 11,
+            'image_url' => 'https://example.com/images/rp.jpg',
         ]);
     }
 }
