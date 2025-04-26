@@ -88,7 +88,7 @@ class ActivityController extends BaseController
         ]);
 
         // update groups
-        $activity->groups()->attach($request->input('group_ids'));
+        $activity->groups()->sync($request->input('group_ids'));
 
         // update question
         foreach ($request->input('questions') as $question) {
