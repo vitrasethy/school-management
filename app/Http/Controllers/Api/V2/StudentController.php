@@ -113,5 +113,23 @@ class StudentController extends BaseController
         return $this->successResponse($actScores);
     }
 
-    public function getProfile() {}
+    public function getProfile()
+    {
+        $user = Auth::user();
+        $group = $user->groups()->whereHas('schoolYear', function (Builder $query) {
+            $query->whereDate('started_at', '<=', now('Asia/Phnom_Penh'))
+                ->whereDate('finished_at', '>=', now('Asia/Phnom_Penh'));
+        })->first();
+
+        return $this->successResponse([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'image' => $user->image_url,
+            'group' => $group->name,
+            'year' => $group->year->name,
+            'schoolYear' => $group->schoolYear->name,
+            'semester' => $group->semester->name,
+        ]);
+    }
 }
