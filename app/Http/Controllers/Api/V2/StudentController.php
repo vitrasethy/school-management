@@ -106,10 +106,12 @@ class StudentController extends BaseController
         foreach ($activities as $activity) {
             $actScores[] = [
                 'name' => $activity->form->title,
-                'scores' => $activity->form->questions()->withSum('answers', 'score')->get()->answers_score_sum,
+                'scores' => $activity->form->questions()->withSum('answers', 'score')->get()->sum('answers_score_sum'),
             ];
         }
 
         return $this->successResponse($actScores);
     }
+
+    public function getProfile() {}
 }
