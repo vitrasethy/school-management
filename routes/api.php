@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->prefix('v2')->group(function () {
     Route::post('teacher/promotion', [TeacherController::class, 'promoteStudents']);
 
+    Route::post('teacher/profile', [TeacherController::class, 'getProfile']);
+
     Route::get('teacher/dashboard', [TeacherController::class, 'dashboard']);
 
     Route::get('teacher/groups', [TeacherController::class, 'getGroups']);

@@ -29,7 +29,7 @@ class StudentController extends BaseController
                 ->first(),
             'future_activities' => Activity::whereHas('groups.users', function ($query) {
                 $query->where('id', Auth::id());
-            })->where('due_at', '>', now('Asia/Phnom_Penh'))->get(),
+            })->where('due_at', '>', now('Asia/Phnom_Penh'))->with('form')->get(),
         ]);
     }
 
@@ -130,6 +130,8 @@ class StudentController extends BaseController
             'year' => $group->year->name,
             'schoolYear' => $group->schoolYear->name,
             'semester' => $group->semester->name,
+            'faculty' => $user->userAffiliations->first()->faculty->name,
+            'department' => $user->userAffiliations->first()->department->name,
         ]);
     }
 }

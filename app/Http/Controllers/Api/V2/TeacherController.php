@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
+use function now;
 use function today;
 
 class TeacherController extends BaseController
@@ -402,5 +403,23 @@ class TeacherController extends BaseController
         }
 
         return $this->successResponse([]);
+    }
+
+    public function getProfile()
+    {
+        $user = Auth::user();
+        $group = $user->groups()->whereHas('schoolYear', function (Builder $query) {
+            $query->whereDate('started_at', '<=', now('Asia/Phnom_Penh'))
+                ->whereDate('finished_at', '>=', now('Asia/Phnom_Penh'));
+        })->first();
+
+        return $this->successResponse([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'image' => $user->image_url,
+            'faculty' => $user->userAffiliations->first()->faculty->name,
+            'department' => $user->userAffiliations->first()?->department?->name,
+        ]);
     }
 }
