@@ -56,6 +56,8 @@ Route::middleware('auth:sanctum')->prefix('v2')->group(function () {
     Route::get('student/activities/{activity}', [StudentController::class, 'showActivity']);
 
     Route::get('student/groups/{group}/subjects', [StudentController::class, 'getSubjectsByGroup']);
+
+    Route::get('student/subjects/{subject}/groups/{group}/scores', [StudentController::class, 'getScores']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {

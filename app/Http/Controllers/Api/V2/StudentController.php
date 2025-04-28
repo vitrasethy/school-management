@@ -7,6 +7,7 @@ use App\Http\Resources\GroupResource;
 use App\Models\Activity;
 use App\Models\Group;
 use App\Models\SchoolYear;
+use App\Models\Subject;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -93,5 +94,22 @@ class StudentController extends BaseController
     public function getSubjectsByGroup(Group $group)
     {
         return $this->successResponse($group->subjects);
+    }
+
+    public function getScores(Subject $subject, Group $group)
+    {
+        $activities = Activity::where('subject_id', $subject->id)
+            ->whereRelation('groups', 'id', '=', $group->id)
+            ->get();
+
+        $actScores = [];
+        foreach ($activities as $activity) {
+            $actScores[] = [
+                'name' => $activity->form->title,
+                'scores' => $activity->form->questions()->withSum('answers', 'score')->get()->answers_score_sum,
+            ];
+        }
+
+        return $this->successResponse($actScores);
     }
 }
