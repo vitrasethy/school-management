@@ -29,7 +29,7 @@ class StudentController extends BaseController
                 ->first(),
             'future_activities' => Activity::whereHas('groups.users', function ($query) {
                 $query->where('id', Auth::id());
-            })->where('due_at', '>', now('Asia/Phnom_Penh'))->with('form')->get(),
+            })->where('due_at', '>', now('Asia/Phnom_Penh'))->with(['form', 'activityType'])->get(),
         ]);
     }
 
