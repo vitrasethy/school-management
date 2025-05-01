@@ -51,10 +51,10 @@ class StudentController extends BaseController
 
     public function getActivities(Request $request)
     {
-        //$departmentId = $request->query('department');
-        //$schoolYearId = $request->query('schoolYear');
-        //$yearId = $request->query('year');
-        //$groupName = $request->query('groupName');
+        // $departmentId = $request->query('department');
+        // $schoolYearId = $request->query('schoolYear');
+        // $yearId = $request->query('year');
+        // $groupName = $request->query('groupName');
 
         $activities = Activity::with(['form', 'subject', 'groups' => ['year', 'schoolYear', 'semester']])
             ->latest('due_at')
@@ -106,7 +106,13 @@ class StudentController extends BaseController
         foreach ($activities as $activity) {
             $actScores[] = [
                 'name' => $activity->form->title,
-                'scores' => $activity->form->questions()->withSum('answers', 'score')->get()->sum('answers_score_sum'),
+                'scores' => $activity
+                    ->form
+                    ->questions()
+                    ->whereRelation('answers', 'user_id', '=', Auth::id())
+                    ->withSum('answers', 'score')
+                    ->get()
+                    ->sum('answers_score_sum'),
             ];
         }
 
