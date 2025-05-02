@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
+use function dd;
 use function now;
 use function today;
 
@@ -104,6 +105,12 @@ class StudentController extends BaseController
 
         $actScores = [];
         foreach ($activities as $activity) {
+            dd($activity
+                ->form
+                ->questions()
+                ->whereRelation('answers', 'user_id', '=', Auth::id())
+                ->withSum('answers', 'score')
+                ->get());
             $actScores[] = [
                 'name' => $activity->form->title,
                 'scores' => $activity
