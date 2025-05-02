@@ -105,21 +105,14 @@ class StudentController extends BaseController
 
         $actScores = [];
         foreach ($activities as $activity) {
-            dd($activity
-                ->form
-                ->questions()
-                ->whereRelation('answers', 'user_id', '=', Auth::id())
-                ->withSum('answers', 'score')
-                ->get());
+            $questions = $activity->form->questions;
+            $sumScore = 0;
+            foreach ($questions as $question) {
+                $sumScore += $question->answers()->where('user_id', Auth::id())->first()->score;
+            }
             $actScores[] = [
                 'name' => $activity->form->title,
-                'scores' => $activity
-                    ->form
-                    ->questions()
-                    ->whereRelation('answers', 'user_id', '=', Auth::id())
-                    ->withSum('answers', 'score')
-                    ->get()
-                    ->sum('answers_score_sum'),
+                'scores' => $sumScore,
             ];
         }
 
