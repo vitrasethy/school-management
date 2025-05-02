@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-use function dd;
 use function now;
 use function today;
 
@@ -108,7 +107,7 @@ class StudentController extends BaseController
             $questions = $activity->form->questions;
             $sumScore = 0;
             foreach ($questions as $question) {
-                $sumScore += $question->answers()->where('user_id', Auth::id())->first()->score;
+                $sumScore += $question->answers()->where('user_id', Auth::id())->first()->score ?? 0;
             }
             $actScores[] = [
                 'name' => $activity->form->title,
