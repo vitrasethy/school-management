@@ -9,6 +9,8 @@ use App\Models\Answer;
 use App\Models\Question;
 use Illuminate\Support\Facades\Auth;
 
+use function count;
+
 class AnswerController extends BaseController
 {
     public function index()
@@ -61,7 +63,13 @@ class AnswerController extends BaseController
                     ->where('is_correct', true)
                     ->count();
 
-                $score = ($answerCorrectCount * $question->points) / $optionCorrectCount;
+                $incorrectCount = count($answer['option_ids']) - $answerCorrectCount;
+
+                $score = (($answerCorrectCount - $incorrectCount) * $question->points) / $optionCorrectCount;
+
+                if ($score < 0) {
+                    $score = 0;
+                }
             } else {
                 $score = null;
             }
