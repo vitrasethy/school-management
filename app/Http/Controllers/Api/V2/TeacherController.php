@@ -31,11 +31,11 @@ class TeacherController extends BaseController
             'semester',
             'subjects',
         ])
-            // ->whereHas('schoolYear', function (Builder $query) {
-            //    $query
-            //        ->whereDate('started_at', '<=', today('Asia/Phnom_Penh'))
-            //        ->whereDate('finished_at', '>=', today('Asia/Phnom_Penh'));
-            // })
+            ->whereHas('schoolYear', function (Builder $query) {
+                $query
+                    ->whereDate('started_at', '<=', today('Asia/Phnom_Penh'))
+                    ->whereDate('finished_at', '>=', today('Asia/Phnom_Penh'));
+            })
             ->whereHas('subjects', function (Builder $query) {
                 $query->where('teacher_id', Auth::id());
             })
@@ -48,11 +48,11 @@ class TeacherController extends BaseController
 
         $totalStudents = User::whereHas('groups', function (Builder $query) use ($teacherGroupIds) {
             $query
-                ->whereKey($teacherGroupIds);
-            // ->whereHas('schoolYear', function (Builder $subQuery) {
-            //    $subQuery->whereDate('started_at', '<=', today('Asia/Phnom_Penh'))
-            //        ->whereDate('finished_at', '>=', today('Asia/Phnom_Penh'));
-            // });
+                ->whereKey($teacherGroupIds)
+                ->whereHas('schoolYear', function (Builder $subQuery) {
+                    $subQuery->whereDate('started_at', '<=', today('Asia/Phnom_Penh'))
+                        ->whereDate('finished_at', '>=', today('Asia/Phnom_Penh'));
+                });
         })->count();
 
         $currentSemester = SchoolYear::whereDate('started_at', '<=', today('Asia/Phnom_Penh'))
